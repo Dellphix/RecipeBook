@@ -1,0 +1,13 @@
+{% extends "recipies/base_page.html" %}
+
+{% block content %}
+    {% if recipe_list %}
+        <ul>
+            {% for recipe in recipe_list %}
+                <li><a href="{% url 'recipies:detail' recipe.id %}">{{  recipe.name }}</a></li>
+            {%  endfor %}
+        </ul>
+    {%  else %}
+        <p>No recipies found.</p>
+    {% endif %}
+{%  endblock %}

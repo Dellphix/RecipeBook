@@ -1,0 +1,6 @@
+{% extends "recipies/base_page.html" %}
+
+{% block content %}
+    {{ recipe.name }}
+    <a href="{% url 'recipies:index' %}">back</a>
+{% endblock %}
