@@ -4,15 +4,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title %}Recipies{% endblock %}</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'recipies/style.css' %}">
 </head>
 <body>
-<h1>A Handy Recipies App</h1>
-{% block content %}
 
-{%  endblock %}
-<p>footer here</p>
+<div class="container">
+    <div class="page-header chipped-box">
+        <h1>Recipe Book</h1>
+    </div>
+</div>
+<div class="container">
+    {% block content %}{%  endblock %}
+</div>
 </body>
 </html>

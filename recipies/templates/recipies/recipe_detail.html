@@ -1,6 +1,11 @@
 {% extends "recipies/base_page.html" %}
 
+{% block title %} {{ recipe.name }} {% endblock %}
+
 {% block content %}
-    {{ recipe.name }}
+    <div>
+        <h3>{{ recipe.name }}</h3>
+        {%  if recipe.image %}<img src="{{ recipe.image.url }}" />{% endif %}
+    </div>
     <a href="{% url 'recipies:index' %}">back</a>
 {% endblock %}

@@ -2,12 +2,17 @@
 
 {% block content %}
     {% if recipe_list %}
-        <ul>
+        <ul class="recipies">
             {% for recipe in recipe_list %}
-                <li><a href="{% url 'recipies:detail' recipe.id %}">{{  recipe.name }}</a></li>
+                <li class="chipped-box-border"><a href="{% url 'recipies:detail' recipe.id %}">
+                    {% if recipe.image %}
+                        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
+                    {% endif %}
+                    <div class="description">{{  recipe.name }}</div>
+                </a></li>
             {%  endfor %}
         </ul>
-    {%  else %}
+    {% else %}
         <p>No recipies found.</p>
     {% endif %}
 {%  endblock %}
