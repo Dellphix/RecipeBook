@@ -3,9 +3,35 @@
 {% block title %} {{ recipe.name }} {% endblock %}
 
 {% block content %}
-    <div>
-        <h3>{{ recipe.name }}</h3>
-        {%  if recipe.image %}<img src="{{ recipe.image.url }}" />{% endif %}
+    <div class="recipe-content chipped-box">
+        <div class="recipe-title">
+            <h3>{{ recipe.name }}</h3>
+            <a href="{% url 'recipies:index' %}">back ></a>
+        </div>
+        {%  if recipe.image %}
+            <div class="recipe-image">
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
+            </div>
+        {% endif %}
+    {% if recipe.tags %}
+        <div class="tags">
+            {% for tag in recipe.tags.all %}
+                <span class="">{{ tag.name }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="recipe-details">
+        {% if recipe.prep_time %}
+            <span><strong>Prep time:</strong> {{ recipe.prep_time }}</span>
+        {% endif %}
+        {% if recipe.cook_time %}
+            <span><strong>Cook time:</strong> {{ recipe.cook_time }}</span>
+        {% endif %}
+        {% if recipe.serves %}
+            <p><strong>Serves: </strong>{{ recipe.serves }}</p>
+        {% endif %}
     </div>
-    <a href="{% url 'recipies:index' %}">back</a>
+    <p>{{ recipe.description|linebreaks }}</p>
+    </div>
+
 {% endblock %}

@@ -5,6 +5,7 @@
     --secondary-colour: #B68F61;
     --background-light: #e5cbaa;
     --background-dark: #d3af8b;
+    --off-white: #f6ede2;
 }
 
 .unifrakturmaguntia-regular {
@@ -53,6 +54,14 @@ h1 {
 img {
     display: block;
     max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-colour);
+}
+a:hover {
+    color: var(--primary-colour-light);
 }
 
 .page-header {
@@ -104,6 +113,8 @@ img {
     margin: auto;
 }
 
+/** Recipies list */
+
 .recipies {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -121,13 +132,52 @@ img {
     height: 100%;
     color: inherit;
     text-decoration: none;
-    background: var(--background-light);
+    background: var(--off-white);
 }
 .recipies li a:hover {
-    background: var(--background-dark);
+    background: var(--background-light);
 }
 
 .recipies li .description {
     padding: 20px;
     padding-top: 15px;
+}
+
+/** Recipe detail page */
+
+.recipe-content {
+    background: var(--off-white);
+    padding: 20px;
+}
+
+.recipe-title {
+    display: flex;
+    justify-content: space-between;
+    margin: 18px 0;
+}
+.recipe-title h3 {
+    margin: 0;
+}
+
+.recipe-image {
+    height: 400px;
+    overflow: hidden;
+}
+.recipe-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    float: left;
+}
+
+.tags {
+    display: flex;
+    margin: 10px 0;
+}
+.tags span{
+    background: var(--secondary-colour);
+    font-size: 11px;
+    padding: 4px 6px;
+    margin-right: 3px;
+    clip-path: polygon(0 6px,6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0 calc(100% - 6px));
 }
