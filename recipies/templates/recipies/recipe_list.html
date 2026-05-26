@@ -1,6 +1,25 @@
 {% extends "recipies/base_page.html" %}
 
 {% block content %}
+    {% if tags %}
+        <div class="tag-filter recipe-content chipped-box">
+            <div class="gold-border"></div>
+            <form action="{% url 'recipies:index' %}" method="get">
+                <div class="tags">
+                    {% for tag in tags %}
+                        <label>
+                            <input type="checkbox" name="tag" value="{{ tag.name }}" {% if tag.name in selected_tags %}checked="checked"{% endif %} />
+                            <span class="tag {% if tag.name in selected_tags %}selected{% endif %}">{{ tag.name }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+                <div class="actions">
+                    <a href="{% url 'recipies:index' %}" class="left-arrow">Reset</a>
+                    <span class="right-arrow"><input type="submit"value="Filter"></span>
+                </div>
+            </form>
+        </div>
+    {% endif %}
     {% if recipe_list %}
         <ul class="recipies">
             {% for recipe in recipe_list %}

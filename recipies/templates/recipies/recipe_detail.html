@@ -7,7 +7,7 @@
         <div class="gold-border"></div>
         <div class="recipe-title">
             <h3>{{ recipe.name }}</h3>
-            <a class="back-arrow" href="{% url 'recipies:index' %}">Back</a>
+            <a class="right-arrow" href="{% url 'recipies:index' %}">Back</a>
         </div>
         {%  if recipe.image %}
             <div class="recipe-image">
@@ -17,7 +17,7 @@
     {% if recipe.tags %}
         <div class="tags">
             {% for tag in recipe.tags.all %}
-                <span class="">{{ tag.name }}</span>
+                <span class="tag">{{ tag.name }}</span>
             {% endfor %}
         </div>
     {% endif %}

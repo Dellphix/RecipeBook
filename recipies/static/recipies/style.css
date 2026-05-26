@@ -3,8 +3,8 @@
     --primary-colour: #3A5A40;
     --primary-colour-dark: #1F3A3D;
     --secondary-colour: #B68F61;
+    --secondary-colour-light: #d3af8b;
     --background-light: #e5cbaa;
-    --background-dark: #d3af8b;
     --off-white: #f6ede2;
     --gold: #bf8c20;
 }
@@ -65,6 +65,42 @@ a:hover {
     color: var(--primary-colour-light);
 }
 
+.right-arrow,
+.left-arrow {
+    display: inline-block;
+    position: relative;
+}
+.right-arrow {
+    padding-right: 40px;
+}
+.left-arrow {
+    padding-left: 40px;
+}
+.right-arrow::after,
+.left-arrow::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -3px;
+    width: 26px;
+    height: 28px;
+    background: url("images/arrow.png");
+    background-size: cover;
+    z-index: -1;
+}
+.right-arrow::after {
+    right: 0;
+    transform: rotate(90deg);
+}
+.left-arrow::after {
+    left: 0;
+    transform: rotate(-90deg);
+}
+.right-arrow:hover::after,
+.left-arrow:hover::after {
+    opacity: 0.75;
+}
+
 .chipped-box {
     clip-path: polygon(0 14px,14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px));
 }
@@ -86,6 +122,7 @@ a:hover {
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: -1;
 }
 .gold-border:before {
   content: "";
@@ -133,8 +170,6 @@ a:hover {
     top: 0;
     width: 70px;
     height: 96px;
-    /*background: url("images/flourish.png");*/
-    /*background-size: cover;*/
     background: var(--gold);
     mask-image: url("images/flourish.png");
     mask-size: cover;
@@ -154,7 +189,63 @@ a:hover {
     margin: auto;
 }
 
+.tags {
+    display: flex;
+    margin: 10px 0;
+}
+.tag {
+    background: var(--secondary-colour);
+    font-size: 11px;
+    padding: 4px 6px;
+    margin-right: 3px;
+    clip-path: polygon(0 6px,6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0 calc(100% - 6px));
+}
+
 /** Recipies list */
+
+.tag-filter {
+    margin-bottom: 25px;
+}
+.tag-filter form {
+    /*display: flex;*/
+}
+.tag-filter .tag:hover {
+    cursor: pointer;
+    background: var(--secondary-colour-light)
+}
+.tag-filter .tags input {
+    opacity: 0;
+    position:absolute;
+}
+.tag-filter .tags input:checked + .tag {
+    background: var(--primary-colour);
+    color: var(--secondary-colour);
+}
+.tag-filter .tags input:checked + .tag:hover {
+    background: var(--primary-colour-dark);
+}
+
+.tag-filter .actions {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.tag-filter input[type=submit] {
+    background: transparent;
+    border: none;
+    padding: 0;
+    padding-right: 40px;
+    font-size: inherit;
+    color: var(--primary-colour);
+    cursor: pointer;
+}
+.tag-filter input[type=submit] {
+    opacity: 0.75;
+}
+.tag-filter .actions .right-arrow {
+    padding: 0;
+    margin-left: 20px;
+}
 
 .recipies {
     display: grid;
@@ -200,28 +291,6 @@ a:hover {
     margin: 0;
 }
 
-.back-arrow {
-    display: block;
-    position: relative;
-    padding-right: 40px;
-}
-.back-arrow::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: -3px;
-    right: 0;
-    width: 26px;
-    height: 28px;
-    background: url("images/arrow.png");
-    background-size: cover;
-    z-index: 10;
-    transform: rotate(90deg);
-}
-.back-arrow:hover::after {
-    opacity: 0.75;
-}
-
 .recipe-image {
     height: 400px;
     overflow: hidden;
@@ -231,16 +300,4 @@ a:hover {
     width: 100%;
     object-fit: cover;
     float: left;
-}
-
-.tags {
-    display: flex;
-    margin: 10px 0;
-}
-.tags span{
-    background: var(--secondary-colour);
-    font-size: 11px;
-    padding: 4px 6px;
-    margin-right: 3px;
-    clip-path: polygon(0 6px,6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0 calc(100% - 6px));
 }
