@@ -1,3 +1,4 @@
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 
 from recipies.models import Recipe, Tag
@@ -19,3 +20,11 @@ class IndexView(generic.ListView):
 
 class DetailView(generic.DetailView):
     model = Recipe
+
+class UpdateView(generic.UpdateView):
+    model = Recipe
+    fields = ["name", "prep_time", "cook_time", "description", "tags"]
+    template_name_suffix = "_update_form"
+
+    def get_success_url(self, **kwargs):
+        return reverse("recipies:detail", kwargs={'pk': self.kwargs['pk']})

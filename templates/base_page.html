@@ -21,7 +21,18 @@
     </div>
 </div>
 <div class="container">
+    {% block user_controls %}
+        <div class="user-controls">
+            {% if request.user.is_authenticated %}
+                <span>Hi {{ request.user.username | title }}</span>
+                <a href="{% url 'logout' %}" class="right-arrow">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="right-arrow">Login</a>
+            {% endif %}
+        </div>
+    {% endblock %}
     {% block content %}{%  endblock %}
 </div>
+<div class="footer container"></div>
 </body>
 </html>

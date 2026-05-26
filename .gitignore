@@ -3,3 +3,5 @@ db.sqlite3
 mysite/__pycache__
 recipies/__pycache__
 recipies/migrations/__pycache__
+users/__pycache__
+users/migrations/__pycache__

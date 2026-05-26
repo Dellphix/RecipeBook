@@ -7,6 +7,7 @@
     --background-light: #e5cbaa;
     --off-white: #f6ede2;
     --gold: #bf8c20;
+    --error: #C92525;
 }
 
 .unifrakturmaguntia-regular {
@@ -33,7 +34,6 @@ body {
 body::before{
     content: "";
     position: fixed;
-    background: #900;
     left: 0;
     right: 0;
     top: 0;
@@ -50,6 +50,27 @@ div {
 
 h1 {
     font-family: "UnifrakturMaguntia", cursive;
+}
+
+h2 {
+    position: relative;
+    padding-bottom: 25px;
+    padding-left: 30px;
+    font-family: "UnifrakturMaguntia", cursive;
+    color: var(--secondary-colour);
+    font-size: 30px;
+}
+h2:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 320px;
+    height: 20px;
+    left: 0;
+    bottom: 5px;
+    background: var(--gold);
+    mask-image: url("images/fancy_line.png");
+    mask-size: cover;
 }
 
 img {
@@ -183,10 +204,41 @@ a:hover {
     transform: rotate(-90deg) scaleX(-1);
 }
 
+.user-controls {
+    text-align: right;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+.user-controls .right-arrow::after {
+    right: 8px;
+    top: -1px;
+    width: 22px;
+    height: 24px;
+}
+
 .container {
     max-width: 1200px;
     width: 100%;
     margin: auto;
+}
+
+.footer {
+    position: relative;
+    height: 66px;
+    margin-top: 5px;
+}
+.footer:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 66px;
+    width: 500px;
+    background: var(--gold);
+    mask-image: url("images/footer-flourish.png");
+    mask-size: cover;
 }
 
 .tags {
@@ -199,6 +251,49 @@ a:hover {
     padding: 4px 6px;
     margin-right: 3px;
     clip-path: polygon(0 6px,6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0 calc(100% - 6px));
+}
+
+/** Form styles */
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+    padding: 5px;
+    background: var(--background-light);
+    border: none;
+    border-bottom: 1px solid var(--secondary-colour);
+}
+
+input[type=submit] {
+    background: transparent;
+    border: none;
+    padding: 0;
+    padding-right: 40px;
+    font-size: inherit;
+    color: var(--primary-colour);
+    cursor: pointer;
+}
+input[type=submit]:hover {
+    opacity: 0.75;
+}
+form .right-arrow {
+    padding: 0;
+}
+
+.alert-error {
+    color: var(--error);
+}
+
+.errorlist {
+    padding-left: 12px;
+    margin-bottom: -12px;
+    color: var(--error);
+    font-size: 12px;
+}
+.errorlist li {
+    list-style-type: none;
 }
 
 /** Recipies list */
@@ -229,21 +324,7 @@ a:hover {
     margin-top: 15px;
     font-size: 14px;
 }
-
-.tag-filter input[type=submit] {
-    background: transparent;
-    border: none;
-    padding: 0;
-    padding-right: 40px;
-    font-size: inherit;
-    color: var(--primary-colour);
-    cursor: pointer;
-}
-.tag-filter input[type=submit] {
-    opacity: 0.75;
-}
 .tag-filter .actions .right-arrow {
-    padding: 0;
     margin-left: 20px;
 }
 
@@ -287,8 +368,27 @@ a:hover {
     justify-content: space-between;
     margin: 18px 0;
 }
+.recipe-title > div {
+    display: flex;
+    align-items: center;
+}
+
 .recipe-title h3 {
     margin: 0;
+}
+
+.edit-recipe {
+    display: block;
+    width: 23px;
+    height: 25px;
+    margin-left: 15px;
+    mask: url("images/quill.png") no-repeat;
+    mask-size: contain;
+    background: var(--gold);
+    text-indent: -10000px;
+}
+.edit-recipe:hover {
+    opacity: 0.75;
 }
 
 .recipe-image {
@@ -300,4 +400,30 @@ a:hover {
     width: 100%;
     object-fit: cover;
     float: left;
+}
+
+/** login page */
+
+.login-page {
+    text-align: center;
+}
+.login-page h2 {
+    padding-left: 0;
+}
+.login-page h2:after {
+    right: 0;
+    margin: auto;
+}
+
+.login-form label {
+    display: inline-block;
+    width: 100px;
+}
+
+.login-form .right-arrow {
+    margin-left: 17px;
+}
+
+.login-form .errorlist li {
+    padding-left: 37px;
 }

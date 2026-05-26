@@ -1,19 +1,14 @@
-{% extends "recipies/base_page.html" %}
+{% extends "recipies/recipe_base_page.html" %}
 
-{% block title %} {{ recipe.name }} {% endblock %}
+{% block recipe_title %}
+    <div>
+        <h3>{{ recipe.name }}</h3>
+        <a href="{% url 'recipies:update' recipe.id %}" class="edit-recipe">edit</a>
+    </div>
+    <a class="right-arrow" href="{% url 'recipies:index' %}">Back</a>
+{% endblock %}
 
-{% block content %}
-    <div class="recipe-content chipped-box">
-        <div class="gold-border"></div>
-        <div class="recipe-title">
-            <h3>{{ recipe.name }}</h3>
-            <a class="right-arrow" href="{% url 'recipies:index' %}">Back</a>
-        </div>
-        {%  if recipe.image %}
-            <div class="recipe-image">
-                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
-            </div>
-        {% endif %}
+{% block recipe_content %}
     {% if recipe.tags %}
         <div class="tags">
             {% for tag in recipe.tags.all %}
@@ -33,6 +28,4 @@
         {% endif %}
     </div>
     <p>{{ recipe.description|linebreaks }}</p>
-    </div>
-
 {% endblock %}

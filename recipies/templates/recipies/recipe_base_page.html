@@ -1,0 +1,18 @@
+{% extends "base_page.html" %}
+
+{% block title %} {{ recipe.name }} {% endblock %}
+
+{% block content %}
+    <div class="recipe-content chipped-box">
+        <div class="gold-border"></div>
+        <div class="recipe-title">
+            {% block recipe_title %}{% endblock %}
+        </div>
+        {%  if recipe.image %}
+            <div class="recipe-image">
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
+            </div>
+        {% endif %}
+        {% block recipe_content %}{% endblock %}
+    </div>
+{% endblock %}
