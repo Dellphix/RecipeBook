@@ -1,4 +1,5 @@
 from django import urls
+from django.http import Http404
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
@@ -11,20 +12,47 @@ class IndexView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         context['selected_tags'] = self.request.GET.getlist('tag', '')
+        context['is_public_page'] = False
         return context
 
     def get_queryset(self):
         tags = self.request.GET.getlist('tag', '')
         if tags:
             return Recipe.objects.filter(tags__name__in=tags)
-        return Recipe.objects.all()
+        print('user', self.request.user.id)
+        return Recipe.objects.filter(user_id=self.request.user.id)
+
+class PublicIndexView(generic.ListView):
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        context['selected_tags'] = self.request.GET.getlist('tag', '')
+        context['is_public_page'] = True
+        return context
+
+    def get_queryset(self):
+        tags = self.request.GET.getlist('tag', '')
+        if tags:
+            return Recipe.objects.filter(tags__name__in=tags)
+        return Recipe.objects.filter(is_public=True)
 
 class DetailView(generic.DetailView):
     model = Recipe
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        recipe = Recipe.objects.get(pk=self.kwargs['pk'])
+
+        if not recipe.is_viewable_by(self.request.user):
+            raise Http404
+
+        # continue with the rest of the method populating the context
+        return context
+
 class UpdateView(generic.UpdateView):
     model = Recipe
-    fields = ["name", "prep_time", "cook_time", "description", "tags"]
+    fields = ["name", "prep_time", "cook_time", "description", "tags", "is_public"]
     template_name_suffix = "_update_form"
 
     def get_success_url(self, **kwargs):
@@ -36,5 +64,5 @@ class DeleteView(generic.DeleteView):
 
 class CreateView(generic.CreateView):
     model = Recipe
-    fields = ["name", "prep_time", "cook_time", "description", "tags"]
-    success_url = '/recipes'
+    fields = ["name", "prep_time", "cook_time", "description", "tags", "user"]
+    success_url = '/recipes/my-recipes'
