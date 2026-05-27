@@ -9,6 +9,7 @@
     --off-white: #f6ede2;
     --gold: #bf8c20;
     --error: #C92525;
+    --font-colour: #301f0f;
 }
 
 .unifrakturmaguntia-regular {
@@ -30,7 +31,7 @@ body {
     position: relative;
     background: var(--background-light);
     font-family: "Open Sans", sans-serif;
-    color: #301f0f;
+    color: var(--font-colour);
 }
 body::before{
     content: "";
@@ -157,8 +158,8 @@ a:hover {
     height: 100%;
     background: url("images/header-background.jpg") no-repeat;
     background-size: cover;
-    -webkit-mask-image: linear-gradient(to right, transparent 20%, black 55%);
-    mask-image: linear-gradient(to right, transparent 20%, black 75%);
+    -webkit-mask-image: linear-gradient(to right, transparent 00%, black 55%);
+    mask-image: linear-gradient(to right, transparent 00%, black 75%);
     opacity: 0.2;
     z-index: -1;
 }
@@ -315,6 +316,23 @@ form .right-arrow {
     margin-bottom: 25px;
     background: var(--primary-colour-light);
 }
+.tag-filter::before {
+    background: var(--primary-colour-dark);
+}
+.tag-filter::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("images/header-background.jpg") no-repeat;
+    background-size: auto;
+    background-size: cover;
+    opacity: 0.07;
+    z-index: -1;
+}
 .tag-filter h4 {
   margin: 0;
   margin-right: 20px;
@@ -329,20 +347,37 @@ form .right-arrow {
     opacity: 0;
     position:absolute;
 }
+.tag-filter .tag {
+    background: var(--primary-colour-dark);
+    color: var(--primary-colour-light);
+}
+.tag-filter .tags .tag:hover {
+    color: var(--font-colour);
+}
 .tag-filter .tags input:checked + .tag {
-    background: var(--primary-colour);
-    color: var(--secondary-colour);
+    background: var(--secondary-colour);
+    color: var(--font-colour);
 }
 .tag-filter .tags input:checked + .tag:hover {
-    background: var(--primary-colour-dark);
+    background: var(--primary-colour);
+    color: var(--primary-colour-light);
 }
 
 .tag-filter .actions {
     margin-top: 15px;
     font-size: 14px;
 }
+.tag-filter .actions .left-arrow:hover {
+    color: var(--primary-colour);
+}
 .tag-filter .actions .right-arrow {
     margin-left: 20px;
+}
+.tag-filter .actions .left-arrow::after,
+.tag-filter .actions .right-arrow::after {
+    background: var(--primary-colour-dark);
+    mask: url("images/arrow.png") no-repeat;
+    mask-size: contain;
 }
 
 .recipes {
