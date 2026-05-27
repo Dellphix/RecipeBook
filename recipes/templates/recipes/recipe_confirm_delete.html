@@ -1,0 +1,15 @@
+{% extends "recipes/recipe_base_page.html" %}
+
+{% block title %} {{ recipe.name }} | Delete {% endblock %}
+
+{% block recipe_content %}
+    <form method="post" class="delete-form">{% csrf_token %}
+        {{ form.as_p }}
+        <h2>Delete {{ recipe.name }}</h2>
+        <p>Are you sure you want to delete <strong>{{ recipe.name }}</strong>?</p>
+        <a class="left-arrow" href="{% url 'recipes:detail' recipe.id %}">Cancel</a>
+        <span class="right-arrow">
+            <input type="submit" value="Delete">
+        </span>
+    </form>
+{% endblock %}

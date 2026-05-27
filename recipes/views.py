@@ -1,3 +1,4 @@
+from django import urls
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
@@ -28,3 +29,12 @@ class UpdateView(generic.UpdateView):
 
     def get_success_url(self, **kwargs):
         return reverse("recipes:detail", kwargs={'pk': self.kwargs['pk']})
+
+class DeleteView(generic.DeleteView):
+    model = Recipe
+    success_url = '/recipes'
+
+class CreateView(generic.CreateView):
+    model = Recipe
+    fields = ["name", "prep_time", "cook_time", "description", "tags"]
+    success_url = '/recipes'

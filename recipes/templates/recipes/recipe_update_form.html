@@ -3,12 +3,14 @@
 {% block title %} {{ recipe.name }} | Edit {% endblock %}
 
 {% block recipe_title %}
-    <h3>{{ recipe.name }}</h3>
-    <a class="right-arrow" href="{% url 'recipes:detail' recipe.id %}">Back</a>
+    <div>
+        <h3>{{ recipe.name }}</h3>
+        <a class="right-arrow" href="{% url 'recipes:detail' recipe.id %}">Back</a>
+    </div>
 {% endblock %}
 
 {% block recipe_content %}
-    <form method="post">{% csrf_token %}
+    <form method="post" class="update-form">{% csrf_token %}
         {{ form.as_p }}
         <span class="right-arrow">
             <input type="submit" value="Update">

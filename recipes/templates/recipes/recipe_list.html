@@ -1,37 +1,43 @@
 {% extends "base_page.html" %}
 
 {% block content %}
-    {% if tags %}
-        <div class="tag-filter recipe-content chipped-box">
-            <div class="gold-border"></div>
-            <form action="{% url 'recipes:index' %}" method="get">
-                <div class="tags">
-                    {% for tag in tags %}
-                        <label>
-                            <input type="checkbox" name="tag" value="{{ tag.name }}" {% if tag.name in selected_tags %}checked="checked"{% endif %} />
-                            <span class="tag {% if tag.name in selected_tags %}selected{% endif %}">{{ tag.name }}</span>
-                        </label>
-                    {% endfor %}
-                </div>
-                <div class="actions">
-                    <a href="{% url 'recipes:index' %}" class="left-arrow">Reset</a>
-                    <span class="right-arrow"><input type="submit"value="Filter"></span>
-                </div>
-            </form>
-        </div>
-    {% endif %}
-    {% if recipe_list %}
-        <ul class="recipes">
-            {% for recipe in recipe_list %}
-                <li class="chipped-box-border"><a href="{% url 'recipes:detail' recipe.id %}">
-                    {% if recipe.image %}
-                        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
-                    {% endif %}
-                    <div class="description">{{  recipe.name }}</div>
-                </a></li>
-            {%  endfor %}
-        </ul>
-    {% else %}
-        <p>No recipes found.</p>
-    {% endif %}
+    <div class="content chipped-box">
+        <h2>My Recipes</h2>
+        {% if tags %}
+            <div class="tag-filter content chipped-box">
+                <h4>Filter By:</h4>
+                <form action="{% url 'recipes:index' %}" method="get">
+                    <div class="tags">
+                        {% for tag in tags %}
+                            <label>
+                                <input type="checkbox" name="tag" value="{{ tag.name }}" {% if tag.name in selected_tags %}checked="checked"{% endif %} />
+                                <span class="tag {% if tag.name in selected_tags %}selected{% endif %}">{{ tag.name }}</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                    <div class="actions">
+                        <a href="{% url 'recipes:index' %}" class="left-arrow">Reset</a>
+                        <span class="right-arrow"><input type="submit"value="Filter"></span>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+            <p><a href="{% url 'recipes:create' %}" class="add-recipe">Add Recipe</a></p>
+        {% endif %}
+        {% if recipe_list %}
+            <ul class="recipes">
+                {% for recipe in recipe_list %}
+                    <li class="chipped-box-border"><a href="{% url 'recipes:detail' recipe.id %}">
+                        {% if recipe.image %}
+                            <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
+                        {% endif %}
+                        <div class="description">{{  recipe.name }}</div>
+                    </a></li>
+                {%  endfor %}
+            </ul>
+        {% else %}
+            <p>No recipes found.</p>
+        {% endif %}
+    </div>
 {%  endblock %}

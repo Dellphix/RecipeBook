@@ -1,0 +1,17 @@
+{% extends "recipes/recipe_base_page.html" %}
+
+{% block title %} {{ recipe.name }} | Create {% endblock %}
+
+{% block recipe_title %}
+    <h3>{{ recipe.name }}</h3>
+    <a class="right-arrow" href="{% url 'recipes:index' %}">Back</a>
+{% endblock %}
+
+{% block recipe_content %}
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <span class="right-arrow">
+            <input type="submit" value="Create">
+        </span>
+    </form>
+{% endblock %}
