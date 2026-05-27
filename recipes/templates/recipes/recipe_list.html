@@ -4,7 +4,7 @@
     {% if tags %}
         <div class="tag-filter recipe-content chipped-box">
             <div class="gold-border"></div>
-            <form action="{% url 'recipies:index' %}" method="get">
+            <form action="{% url 'recipes:index' %}" method="get">
                 <div class="tags">
                     {% for tag in tags %}
                         <label>
@@ -14,16 +14,16 @@
                     {% endfor %}
                 </div>
                 <div class="actions">
-                    <a href="{% url 'recipies:index' %}" class="left-arrow">Reset</a>
+                    <a href="{% url 'recipes:index' %}" class="left-arrow">Reset</a>
                     <span class="right-arrow"><input type="submit"value="Filter"></span>
                 </div>
             </form>
         </div>
     {% endif %}
     {% if recipe_list %}
-        <ul class="recipies">
+        <ul class="recipes">
             {% for recipe in recipe_list %}
-                <li class="chipped-box-border"><a href="{% url 'recipies:detail' recipe.id %}">
+                <li class="chipped-box-border"><a href="{% url 'recipes:detail' recipe.id %}">
                     {% if recipe.image %}
                         <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
                     {% endif %}
@@ -32,6 +32,6 @@
             {%  endfor %}
         </ul>
     {% else %}
-        <p>No recipies found.</p>
+        <p>No recipes found.</p>
     {% endif %}
 {%  endblock %}

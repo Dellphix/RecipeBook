@@ -296,7 +296,7 @@ form .right-arrow {
     list-style-type: none;
 }
 
-/** Recipies list */
+/** Recipes list */
 
 .tag-filter {
     margin-bottom: 25px;
@@ -328,7 +328,7 @@ form .right-arrow {
     margin-left: 20px;
 }
 
-.recipies {
+.recipes {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
@@ -336,22 +336,22 @@ form .right-arrow {
     padding: 0;
 }
 
-.recipies li {
+.recipes li {
     list-style-type: none;
 }
 
-.recipies li a {
+.recipes li a {
     display: block;
     height: 100%;
     color: inherit;
     text-decoration: none;
     background: var(--off-white);
 }
-.recipies li a:hover {
+.recipes li a:hover {
     background: var(--background-light);
 }
 
-.recipies li .description {
+.recipes li .description {
     padding: 20px;
     padding-top: 15px;
 }

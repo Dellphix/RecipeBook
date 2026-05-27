@@ -3,9 +3,9 @@ from django.urls import path
 from . import views
 
 
-app_name = "recipies"
+app_name = "recipes"
 urlpatterns = [
-    # ex: /recipies/
+    # ex: /recipes/
     path("", views.IndexView.as_view(), name="index"),
     path("<int:pk>/", views.DetailView.as_view(), name="detail"),
     path("<int:pk>/edit", views.UpdateView.as_view(), name="update"),

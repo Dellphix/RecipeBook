@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('recipies', '0004_recipe_tags'),
+        ('recipes', '0004_recipe_tags'),
     ]
 
     operations = [

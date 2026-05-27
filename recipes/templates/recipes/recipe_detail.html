@@ -1,11 +1,11 @@
-{% extends "recipies/recipe_base_page.html" %}
+{% extends "recipes/recipe_base_page.html" %}
 
 {% block recipe_title %}
     <div>
         <h3>{{ recipe.name }}</h3>
-        <a href="{% url 'recipies:update' recipe.id %}" class="edit-recipe">edit</a>
+        <a href="{% url 'recipes:update' recipe.id %}" class="edit-recipe">edit</a>
     </div>
-    <a class="right-arrow" href="{% url 'recipies:index' %}">Back</a>
+    <a class="right-arrow" href="{% url 'recipes:index' %}">Back</a>
 {% endblock %}
 
 {% block recipe_content %}
