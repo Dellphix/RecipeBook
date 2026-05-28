@@ -1,12 +1,15 @@
 from django import urls
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.urls import reverse_lazy, reverse
 from django.views import generic
+from django.contrib.auth.decorators import login_required
 
 from recipes.models import Recipe, Tag
 
 
-class IndexView(generic.ListView):
+class IndexView(LoginRequiredMixin, generic.ListView):
+    redirect_field_name = 'redirect_to'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -19,7 +22,6 @@ class IndexView(generic.ListView):
         tags = self.request.GET.getlist('tag', '')
         if tags:
             return Recipe.objects.filter(tags__name__in=tags)
-        print('user', self.request.user.id)
         return Recipe.objects.filter(user_id=self.request.user.id)
 
 class PublicIndexView(generic.ListView):
@@ -37,8 +39,9 @@ class PublicIndexView(generic.ListView):
             return Recipe.objects.filter(tags__name__in=tags)
         return Recipe.objects.filter(is_public=True)
 
-class DetailView(generic.DetailView):
+class DetailView(LoginRequiredMixin, generic.DetailView):
     model = Recipe
+    redirect_field_name = 'redirect_to'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

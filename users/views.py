@@ -6,11 +6,7 @@ from .forms import LoginForm
 
 
 def sign_in(request):
-    if request.method == 'GET':
-        form = LoginForm()
-        return render(request, 'users/login.html', {'form': form})
-
-    elif request.method == 'POST':
+    if request.method == 'POST':
         form = LoginForm(request.POST)
 
         if form.is_valid():
@@ -20,11 +16,16 @@ def sign_in(request):
             if user:
                 login(request, user)
                 # messages.success(request, f'Hi {username.title()}, welcome back!')
-                return redirect('recipes:index')
+                if request.GET and request.GET['redirect_to']:
+                    return redirect(request.GET['redirect_to'])
+                return redirect('recipes:my_recipes')
 
         # form is not valid or user is not authenticated
         messages.error(request, f'Invalid username or password')
         return render(request, 'users/login.html', {'form': form})
+    # else a GET request
+    form = LoginForm()
+    return render(request, 'users/login.html', {'form': form})
 
 def sign_out(request):
     logout(request)

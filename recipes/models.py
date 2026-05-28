@@ -22,4 +22,4 @@ class Recipe(models.Model):
         return self.name
 
     def is_viewable_by(self, user):
-        return self.user_id == user.id
+        return self.user_id == user.id or self.is_public
