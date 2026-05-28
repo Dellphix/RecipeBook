@@ -9,8 +9,8 @@ class Tag(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=200)
-    description = models.TextField()
-    image = models.ImageField(upload_to='images/', null=True, default=None)
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to='images/', null=True, default=None, blank=True)
     prep_time = models.IntegerField(default=0)
     cook_time = models.IntegerField(default=0)
     serves = models.IntegerField(default=0)
