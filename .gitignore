@@ -5,3 +5,4 @@ recipes/__pycache__
 recipes/migrations/__pycache__
 users/__pycache__
 users/migrations/__pycache__
+config/__pycache__

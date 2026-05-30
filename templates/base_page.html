@@ -1,3 +1,4 @@
+{% load django_simple_nav %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -31,6 +32,8 @@
             {% endif %}
         </div>
     {% endblock %}
+
+    {% django_simple_nav "config.nav.MainNav" %}
     {% block content %}{%  endblock %}
 </div>
 <div class="footer container"></div>
