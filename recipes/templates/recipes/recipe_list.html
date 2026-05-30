@@ -28,7 +28,7 @@
         {% if recipe_list %}
             <ul class="recipes">
                 {% for recipe in recipe_list %}
-                    <li class="chipped-box-border"><a href="{% url 'recipes:detail' recipe.id %}">
+                    <li class="chipped-box-border"><a href="{% url 'recipes:detail' recipe.uuid %}">
                         {% if recipe.image %}
                             <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
                         {% endif %}

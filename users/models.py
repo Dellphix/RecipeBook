@@ -25,4 +25,4 @@ class Invitation(models.Model):
 
     def link(self):
         current_site = Site.objects.get_current()
-        return current_site.domain + reverse("invitation", kwargs={'code': self.code.hex})
+        return current_site.domain + reverse("invitation", kwargs={'code': self.code})

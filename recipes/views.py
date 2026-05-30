@@ -43,15 +43,12 @@ class DetailView(LoginRequiredMixin, generic.DetailView):
     model = Recipe
     redirect_field_name = 'redirect_to'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        recipe = Recipe.objects.get(pk=self.kwargs['pk'])
-
+    def get_object(self, queryset=None):
+        recipe = Recipe.objects.get(uuid=self.kwargs['uuid'])
         if not recipe.is_viewable_by(self.request.user):
             raise Http404
+        return recipe
 
-        # continue with the rest of the method populating the context
-        return context
 
 class UpdateView(generic.UpdateView):
     model = Recipe

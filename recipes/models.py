@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -17,6 +19,9 @@ class Recipe(models.Model):
     tags = models.ManyToManyField(Tag)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_public = models.BooleanField(default=False)
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=True)
 
     def __str__(self):
         return self.name
