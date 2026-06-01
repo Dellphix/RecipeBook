@@ -126,6 +126,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    "/var/www/static/",
+]
+
 LOGIN_URL = '/login/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

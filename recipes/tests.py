@@ -21,6 +21,7 @@ class RecipePublicIndexViewTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="testuser", password="password2026")
 
+    # todo test logged out public
     def test_see_public_recipes(self):
         self.client.login(username="testuser", password="password2026")
         response = self.client.get(reverse("recipes:index"))

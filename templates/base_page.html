@@ -7,20 +7,24 @@
     <meta charset="UTF-8">
     <title>{% block title %}Recipe Book{% endblock %}</title>
 
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'recipes/style.css' %}">
+    <script src="{% static 'scripts.js' %}"></script>
 </head>
 <body>
 
-<div class="container">
-    <div class="flourishes"></div>
-    <div class="page-header chipped-box">
-        <div class="gold-border"></div>
-        <h1>Recipe Book</h1>
+<header>
+    <div class="container">
+        <div class="flourishes"></div>
+        <div class="page-header chipped-box">
+            <div class="gold-border"></div>
+            <h1>Recipe Book</h1>
+        </div>
     </div>
-</div>
+</header>
 <div class="container">
     {% block user_controls %}
         <div class="user-controls">

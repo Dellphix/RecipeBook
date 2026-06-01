@@ -39,9 +39,8 @@ class PublicIndexView(generic.ListView):
             return Recipe.objects.filter(tags__name__in=tags)
         return Recipe.objects.filter(is_public=True)
 
-class DetailView(LoginRequiredMixin, generic.DetailView):
+class DetailView(generic.DetailView):
     model = Recipe
-    redirect_field_name = 'redirect_to'
 
     def get_object(self, queryset=None):
         recipe = Recipe.objects.get(uuid=self.kwargs['uuid'])
@@ -50,19 +49,28 @@ class DetailView(LoginRequiredMixin, generic.DetailView):
         return recipe
 
 
-class UpdateView(generic.UpdateView):
+class UpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Recipe
     fields = ["name", "prep_time", "cook_time", "description", "tags", "is_public"]
     template_name_suffix = "_update_form"
+    redirect_field_name = 'redirect_to'
 
     def get_success_url(self, **kwargs):
-        return reverse("recipes:detail", kwargs={'pk': self.kwargs['pk']})
+        return reverse("recipes:detail", kwargs={'uuid': self.kwargs['uuid']})
 
-class DeleteView(generic.DeleteView):
+    def get_object(self, queryset=None):
+        recipe = Recipe.objects.get(uuid=self.kwargs['uuid'])
+        if recipe.user.id != self.request.user.id:
+            raise Http404
+        return recipe
+
+class DeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Recipe
     success_url = '/recipes'
+    redirect_field_name = 'redirect_to'
 
-class CreateView(generic.CreateView):
+class CreateView(LoginRequiredMixin, generic.CreateView):
     model = Recipe
     fields = ["name", "prep_time", "cook_time", "description", "tags", "user"]
     success_url = '/recipes/my-recipes'
+    redirect_field_name = 'redirect_to'

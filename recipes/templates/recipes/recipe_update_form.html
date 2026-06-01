@@ -5,7 +5,7 @@
 {% block recipe_title %}
     <div>
         <h3>{{ recipe.name }}</h3>
-        <a class="right-arrow" href="{% url 'recipes:detail' recipe.id %}">Back</a>
+        <a class="right-arrow" href="{% url 'recipes:detail' recipe.uuid %}">Back</a>
     </div>
 {% endblock %}
 

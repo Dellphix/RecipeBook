@@ -1,12 +1,18 @@
 <!-- main_nav.html -->
 <nav>
-  <ul class="navigation">
-    {% for item in items %}
-      <li {% if item.active %} class="selected"{% endif %}>
-        <a href="{{ item.url }}">
-          {{ item.title }}
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
+    <div id="open-nav">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+    <ul class="navigation">
+        <div id="close-nav">Close</div>
+        {% for item in items %}
+            <li {% if item.active %} class="selected"{% endif %}>
+                <a href="{{ item.url }}">
+                    {{ item.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
 </nav>

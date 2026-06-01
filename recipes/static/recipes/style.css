@@ -29,6 +29,8 @@
 
 body {
     position: relative;
+    padding: 0;
+    margin: 0;
     background: var(--background-light);
     font-family: "Open Sans", sans-serif;
     color: var(--font-colour);
@@ -143,12 +145,21 @@ a {
     }
 }
 
+header {
+    overflow: hidden;
+}
+
 .page-header {
     position: relative;
     background: var(--primary-colour);
     color: var(--secondary-colour);
     padding: 30px;
     margin: 20px 0;
+
+    @media screen and (max-width: 1200px) {
+        padding: 20px 30px;
+        margin-top: 1px;
+    }
 
     &::before {
         content: '';
@@ -169,30 +180,87 @@ a {
     h1 {
         margin: 0;
         font-size: 44px;
+
+        @media screen and (max-width: 600px) {
+            font-size: 38px;
+        }
     }
 }
 
-.flourishes {
+.flourishes,
+.footer {
     position: relative;
-    &::before,
-    &::after {
+    height: 66px;
+    margin: 5px auto;
+    overflow: hidden;
+
+    @media screen and (max-width: 500px) {
+        height: auto;
+        padding-top: 13%;
+    }
+
+    &:after {
         content: '';
         display: block;
         position: absolute;
-        top: 0;
-        width: 70px;
-        height: 96px;
+        left: -1000px;
+        right: -1000px;
+        margin: auto;
+        height: 66px;
+        width: 500px;
         background: var(--gold);
-        mask-image: url("images/flourish.png");
+        mask-image: url("images/footer-flourish.png");
         mask-size: cover;
+
+        @media screen and (max-width: 500px) {
+            width: 100%;
+            height: 100%;
+            mask-position: center top;
+            mask-size: 100%;
+            top: 0;
+        }
     }
-    &::before {
-        left: -83px;
-        transform: rotate(90deg);
+}
+.footer {
+    z-index: 0;
+}
+
+.flourishes {
+    @media screen and (max-width: 1200px) {
+        margin-bottom: 0;
+        &:after {
+            rotate: 180deg;
+        }
     }
-    &::after {
-        right: -83px;
-        transform: rotate(-90deg) scaleX(-1);
+
+    @media screen and (min-width: 1200px) {
+        height: auto;
+        margin: 0;
+        overflow: visible;
+
+        &::before,
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: auto;
+            right: auto;
+            margin: 0;
+            width: 70px;
+            height: 96px;
+            background: var(--gold);
+            mask-image: url("images/flourish.png");
+            mask-size: cover;
+        }
+        &::before {
+            left: -83px;
+            transform: rotate(90deg);
+        }
+        &::after {
+            right: -83px;
+            transform: rotate(-90deg) scaleX(-1);
+        }
     }
 }
 
@@ -210,83 +278,187 @@ a {
     }
 }
 
-.navigation {
+nav #open-nav {
+    position: absolute;
+    top: 65px;
+    right: 40px;
+    width: 25px;
+    height: 20px;
+
+    @media screen and (min-width: 800px) {
+        display: none;
+    }
+
+
+    @media screen and (max-width: 600px) {
+        top: -55px;
+    }
+
+    .bar {
+        background: var(--gold);
+        position: absolute;
+        margin: auto;
+        width: 100%;
+        height: 3px;
+
+        &:nth-child(1) {
+            top: 0;
+        }
+        &:nth-child(2) {
+            top: 0;
+            bottom: 0;
+        }
+        &:nth-child(3) {
+            bottom: 0;
+        }
+    }
+}
+.navigation #close-nav {
     position: relative;
-    display: flex;
-    align-items: flex-end;
-    margin: 0 15px;
+    padding: 10px;
+    padding-left: 35px;
+    color: var(--gold);
+    border-bottom: 1px solid var(--primary-colour-dark);
+
+    @media screen and (min-width: 800px) {
+        display: none;
+    }
+
+    &:before,
+    &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 5px;
+        top: 20px;
+        width: 25px;
+        height: 3px;
+        background: var(--gold);
+    }
+    &:before {
+        rotate: 45deg;
+    }
+    &:after {
+        rotate: -45deg;
+    }
+}
+
+.navigation {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10;
     padding: 0;
-    border-bottom: 5px solid var(--primary-colour);
-    anchor-name: --anchor;
+    margin: 0;
 
     li {
         position: relative;
         list-style-type: none;
         padding: 0;
         margin: 0;
-        &:nth-child(1) {
-            z-index: 10;
-        }
-        &:nth-child(2) {
-            z-index: 9;
-        }
-        &:nth-child(3) {
-            z-index: 8;
-        }
-        &.selected {
-            z-index: 20;
 
-            a {
-                background: var(--primary-colour-light);
-                color: #1F3A3D;
-            }
-
-            &:before {
-                background: var(--primary-colour-light);
-                bottom: 0;
-                content: "";
-                display: block;
-                height: 5px;
-                position: fixed;
-                position-anchor: --anchor;
-                position-area: center;
-                width: anchor-size(100%);
-            }
+        &.selected a {
+            background: var(--primary-colour-light);
+            color: #1F3A3D;
         }
-        /** chipped box shadow */
-        &::after {
-            content: '';
-            display: block;
-            position: absolute;
-            top: 2px;
-            right: -3px;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: -1;
-            clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%, 0 8px);
-            -webkit-filter: blur(9px);
-                    filter: blur(9px);
-        }
-        /* make sure the shadow moves with the link on hover */
-        &:has(a:hover) {
-            margin-top: -5px;
-        }
-        transition: margin-top 0.1s ease-in-out;
 
         a {
             display: block;
             padding: 10px;
             color: var(--primary-colour-light);
-            background: var(--primary-colour);
-            clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%, 0 8px);
-            transition: padding-bottom 0.1s ease-in-out;
+        }
+    }
 
-            &:hover {
-                padding-bottom: 15px;
+    @media screen and (max-width: 799px) {
+        /*display: none;*/
+        background: var(--primary-colour);
+        color: var(--primary-colour-light);
+        height: 100vh;
+        width: 0;
+        transition: width 1s ease-in-out;
+        white-space: nowrap;
+
+        &.open {
+            /*display: block;*/
+            width: calc(100vw - 40px);
+        }
+
+        a {
+            margin-left: -7px;
+            background: var(--primary-colour);
+            border-bottom: 1px solid var(--primary-colour-dark);
+            clip-path: polygon(5px 0, 100% 0, 100% 100%, 8px 100%, 0 calc(100% - 5px), 0 5px);
+        }
+    }
+
+    @media screen and (min-width: 800px) {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        margin: 0 15px;
+        border-bottom: 5px solid var(--primary-colour);
+        anchor-name: --anchor;
+
+        li {
+            &:nth-child(1) {
+                z-index: 10;
+            }
+            &:nth-child(2) {
+                z-index: 9;
+            }
+            &:nth-child(3) {
+                z-index: 8;
+            }
+            &.selected {
+                z-index: 20;
+
+                &:before {
+                    background: var(--primary-colour-light);
+                    bottom: 0;
+                    content: "";
+                    display: block;
+                    height: 5px;
+                    position: fixed;
+                    position-anchor: --anchor;
+                    position-area: center;
+                    width: anchor-size(100%);
+                }
+            }
+            /** chipped box shadow */
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 2px;
+                right: -3px;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: -1;
+                clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%, 0 8px);
+                -webkit-filter: blur(9px);
+                        filter: blur(9px);
+            }
+            /* make sure the shadow moves with the link on hover */
+            &:has(a:hover) {
+                margin-top: -5px;
+            }
+            transition: margin-top 0.1s ease-in-out;
+
+            a {
+                display: block;
+                padding: 10px;
+                background: var(--primary-colour);
+                clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%, 0 8px);
+                transition: padding-bottom 0.1s ease-in-out;
+
+                &:hover {
+                    padding-bottom: 15px;
+                }
             }
         }
     }
+
 }
 
 .container {
@@ -315,25 +487,6 @@ a {
   inset: 0;
   background: var(--gold);
   clip-path: polygon(0 14px,14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px,3px  calc(14px + 1.24px),3px calc(100% - 14px - 1.24px),calc(14px + 1.24px) calc(100% - 3px),calc(100% - 14px - 1.24px) calc(100% - 3px),calc(100% - 3px) calc(100% - 14px - 1.24px),calc(100% - 3px) calc(14px + 1.24px),calc(100% - 14px - 1.24px) 3px,calc(14px + 1.24px) 3px,3px calc(14px + 1.24px));
-}
-
-.footer {
-    position: relative;
-    height: 66px;
-    margin-top: 5px;
-    &:after {
-        content: '';
-        display: block;
-        position: absolute;
-        left: 0;
-        right: 0;
-        margin: auto;
-        height: 66px;
-        width: 500px;
-        background: var(--gold);
-        mask-image: url("images/footer-flourish.png");
-        mask-size: cover;
-    }
 }
 
 .tags {
@@ -491,6 +644,14 @@ form .right-arrow {
     margin: 0;
     padding-left: 0;
     padding-bottom: 30px;
+    
+    @media screen and (max-width: 800px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: 600px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
 
     li {
         list-style-type: none;
@@ -614,45 +775,45 @@ form .right-arrow {
 
 /** Update page */
 .update-form {
-    text-align: center;
+    text-align: left;
+
+    label {
+        margin-right: 10px;
+    }
+
+    textarea {
+        width: calc(100% - 125px);
+    }
 }
 
-.update-form p {
-    display: flex;
-    justify-content: center;
-}
-
-.update-form label {
-    margin-right: 10px;
-}
 /** invitation page */
 
 .invitation-page {
     text-align: center;
-}
 
-.invitation-page .field-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
-}
-.invitation-page .field {
-    min-width: 400px;
-}
+    .field-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+    .field {
+        min-width: 400px;
+    }
 
-.invitation-page input {
-    width: 100%;
-}
+    input {
+        width: 100%;
+    }
 
-.invitation-page .right-arrow {
-    margin-left: 17px;
-}
+    .right-arrow {
+        margin-left: 17px;
+    }
 
-.invitation-page .errorlist {
-    margin-top: 3px;
-    margin-bottom: 0;
-    padding: 0;
-    text-align: left;
+    .errorlist {
+        margin-top: 3px;
+        margin-bottom: 0;
+        padding: 0;
+        text-align: left;
+    }
 }
 
 .invitation-form .errorlist li {

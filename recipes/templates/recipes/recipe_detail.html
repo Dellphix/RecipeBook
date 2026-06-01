@@ -6,7 +6,7 @@
         <a class="right-arrow" href="{% url 'recipes:index' %}">Back</a>
     </div>
     {% if request.user.is_authenticated and user.id == recipe.user_id %}
-        <a href="{% url 'recipes:update' recipe.id %}" class="edit-recipe">Edit</a>
+        <a href="{% url 'recipes:update' recipe.uuid %}" class="edit-recipe">Edit</a>
         <a href="{% url 'recipes:delete' recipe.id %}" class="delete-recipe">Delete</a>
     {% endif %}
 {% endblock %}
