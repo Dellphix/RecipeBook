@@ -3,7 +3,7 @@
 {% block recipe_title %}
     <div>
         <h3>{{ recipe.name }}</h3>
-        <a class="right-arrow" href="{% url 'recipes:index' %}">Back</a>
+        <a class="right-arrow" href="{{request.META.HTTP_REFERER}}">Back</a>
     </div>
     {% if request.user.is_authenticated and user.id == recipe.user_id %}
         <a href="{% url 'recipes:update' recipe.uuid %}" class="edit-recipe">Edit</a>
