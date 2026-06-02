@@ -9,6 +9,6 @@ urlpatterns = [
     path("", views.IndexView.as_view(), name="my_recipes"),
     path("<uuid:uuid>/", views.DetailView.as_view(), name="detail"),
     path("<uuid:uuid>/edit", views.UpdateView.as_view(), name="update"),
-    path("<int:pk>/delete", views.DeleteView.as_view(), name="delete"),
+    path("<uuid:uuid>/delete", views.DeleteView.as_view(), name="delete"),
     path("create", views.CreateView.as_view(), name="create"),
 ]

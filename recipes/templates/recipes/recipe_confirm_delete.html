@@ -7,7 +7,7 @@
         {{ form.as_p }}
         <h2>Delete {{ recipe.name }}</h2>
         <p>Are you sure you want to delete <strong>{{ recipe.name }}</strong>?</p>
-        <a class="left-arrow" href="{% url 'recipes:detail' recipe.id %}">Cancel</a>
+        <a class="left-arrow" href="{% url 'recipes:detail' recipe.uuid %}">Cancel</a>
         <span class="right-arrow">
             <input type="submit" value="Delete">
         </span>

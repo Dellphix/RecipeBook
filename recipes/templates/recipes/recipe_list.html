@@ -6,7 +6,7 @@
         {% if tags %}
             <div class="tag-filter content chipped-box">
                 <h4>Filter By:</h4>
-                <form action="{% url 'recipes:index' %}" method="get">
+                <form action="{% url 'recipes:index' %}" method="get" class="tag-filter-form">
                     <div class="tags">
                         {% for tag in tags %}
                             <label>

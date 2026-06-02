@@ -489,6 +489,111 @@ nav #open-nav {
   clip-path: polygon(0 14px,14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px,3px  calc(14px + 1.24px),3px calc(100% - 14px - 1.24px),calc(14px + 1.24px) calc(100% - 3px),calc(100% - 14px - 1.24px) calc(100% - 3px),calc(100% - 3px) calc(100% - 14px - 1.24px),calc(100% - 3px) calc(14px + 1.24px),calc(100% - 14px - 1.24px) 3px,calc(14px + 1.24px) 3px,3px calc(14px + 1.24px));
 }
 
+form:not(.tag-filter-form) {
+    text-align: left;
+    margin-top: 20px;
+
+    .field-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+
+    .errorlist {
+        margin-top: 3px;
+        margin-bottom: 0;
+        padding: 0;
+        text-align: left;
+    }
+
+    .field {
+        width: 100%;
+    }
+
+    label {
+        margin-right: 10px;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    .uploaded-image {
+        padding-top: 38.4%;
+        border: 2px solid var(--gold);
+        margin-bottom: 10px;
+
+        img {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    input[type="file"]::file-selector-button {
+        background-color: var(--secondary-colour);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    input[type="file"]:hover::file-selector-button {
+        background-color: var(--secondary-colour-light);
+    }
+
+    label:has(input[type="checkbox"]),
+    .field:has(input[type="checkbox"].boolean-checkbox),
+    .custom-checkbox {
+        position: relative;
+        padding-left: 23px;
+        margin-bottom: 5px;
+        cursor: pointer;
+
+        &:before,
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;
+        }
+
+        &:before {
+            width: 20px;
+            height: 20px;
+            background: var(--background-lighter);
+            border: 1px solid var(--secondary-colour);
+        }
+
+        input {
+            opacity: 0;
+            position: relative;
+            margin-left: -22px;
+            margin-top: 1px;
+            z-index: 10;
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    label:has(input[type="checkbox"]:checked),
+    .field:has(input[type="checkbox"].boolean-checkbox:checked),
+    .custom-checkbox:has(input[type="checkbox"]:checked) {
+        &:after {
+            top: 2px;
+            left: 2px;
+            width: 17px;
+            height: 17px;
+            background: var(--gold);
+            mask-image: url("images/tick_icon.png");
+            mask-size: cover;
+        }
+    }
+}
+
+
 .tags {
     display: flex;
     margin: 10px 0;
@@ -766,127 +871,12 @@ form .right-arrow {
     margin-left: 17px;
 }
 
-.login-form .errorlist li {
-    padding-left: 37px;
-}
-
 /** Delete page */
-.delete-form {
+form.delete-form {
     text-align: center;
 }
 .delete-form .left-arrow {
     margin-right: 30px;
-}
-
-
-
-.recipe-form,
-.invitation-form {
-
-    .field-wrapper {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 15px;
-    }
-
-    .errorlist {
-        margin-top: 3px;
-        margin-bottom: 0;
-        padding: 0;
-        text-align: left;
-    }
-}
-
-/** Update page */
-.recipe-form {
-    text-align: left;
-    margin-top: 20px;
-
-    .field {
-        width: 100%;
-    }
-
-    label {
-        margin-right: 10px;
-    }
-
-    textarea {
-        width: 100%;
-    }
-
-    .uploaded-image {
-        padding-top: 38.4%;
-        border: 2px solid var(--gold);
-        margin-bottom: 10px;
-
-        img {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    }
-
-    input[type="file"]::file-selector-button {
-        background-color: var(--secondary-colour);
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    input[type="file"]:hover::file-selector-button {
-        background-color: var(--secondary-colour-light);
-    }
-
-    label:has(input[type="checkbox"]),
-    .field:has(input[type="checkbox"].boolean-checkbox),
-    .custom-checkbox {
-        position: relative;
-        padding-left: 23px;
-        margin-bottom: 5px;
-        cursor: pointer;
-
-        &:before,
-        &:after {
-            content: '';
-            display: block;
-            position: absolute;
-            left: 0;
-        }
-
-        &:before {
-            width: 20px;
-            height: 20px;
-            background: var(--background-lighter);
-            border: 1px solid var(--secondary-colour);
-        }
-
-        input {
-            opacity: 0;
-            position: relative;
-            margin-left: -22px;
-            margin-top: 1px;
-            z-index: 10;
-            width: 20px;
-            height: 20px;
-        }
-    }
-
-    label:has(input[type="checkbox"]:checked),
-    .field:has(input[type="checkbox"].boolean-checkbox:checked),
-    .custom-checkbox:has(input[type="checkbox"]:checked) {
-        &:after {
-            top: 2px;
-            left: 2px;
-            width: 17px;
-            height: 17px;
-            background: var(--gold);
-            mask-image: url("images/tick_icon.png");
-            mask-size: cover;
-        }
-    }
 }
 
 /** invitation page */
@@ -907,6 +897,13 @@ form .right-arrow {
     }
 }
 
-.invitation-form .errorlist li {
-    padding-left: 0px;
+form.invitation-form,
+form.login-form {
+    text-align: center;
+}
+form.invitation-form .field {
+    max-width: 400px;
+}
+form.login-form .field {
+    max-width: 170px;
 }

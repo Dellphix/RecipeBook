@@ -12,7 +12,7 @@ class Tag(models.Model):
 class Recipe(models.Model):
     name = models.CharField(max_length=200)
     image = models.ImageField(upload_to='images/', null=True, default=None, blank=True)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
     prep_time = models.IntegerField(default=0)
     cook_time = models.IntegerField(default=0)
     serves = models.IntegerField(default=0)
