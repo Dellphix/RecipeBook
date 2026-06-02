@@ -11,14 +11,15 @@ class Tag(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=200)
-    description = models.TextField(blank=True)
     image = models.ImageField(upload_to='images/', null=True, default=None, blank=True)
+    tags = models.ManyToManyField(Tag)
     prep_time = models.IntegerField(default=0)
     cook_time = models.IntegerField(default=0)
     serves = models.IntegerField(default=0)
-    tags = models.ManyToManyField(Tag)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.TextField(blank=True)
     is_public = models.BooleanField(default=False)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     uuid = models.UUIDField(
         default=uuid.uuid4,
         editable=True)

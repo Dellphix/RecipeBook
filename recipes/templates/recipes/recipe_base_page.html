@@ -7,11 +7,13 @@
         <div class="recipe-title">
             {% block recipe_title %}{% endblock %}
         </div>
-        {%  if recipe.image %}
-            <div class="recipe-image">
-                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
-            </div>
-        {% endif %}
+        {% block image %}
+            {%  if recipe.image %}
+                <div class="recipe-image">
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
+                </div>
+            {% endif %}
+        {% endblock %}
         {% block recipe_content %}{% endblock %}
     </div>
 {% endblock %}

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.forms',
     'debug_toolbar',
     'django_simple_nav',
     'recipes.apps.RecipesConfig',
@@ -75,6 +76,7 @@ TEMPLATES = [
         },
     },
 ]
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 

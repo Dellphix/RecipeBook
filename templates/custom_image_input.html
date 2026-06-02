@@ -1,0 +1,18 @@
+{% if widget.value.url %}
+    <div class="uploaded-image" >
+        <img src="{{ widget.value.url }}" alt="Currently uploaded image"/>
+    </div>
+{% endif %}
+{% if widget.is_initial %}
+    {% if not widget.required %}
+        <label class="custom-checkbox" for="{{ widget.checkbox_id }}">
+            <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}"
+                    {% if widget.attrs.disabled %} disabled{% endif %}
+                    {% if widget.attrs.checked %} checked{% endif %}>
+            {{ widget.clear_checkbox_label }}
+        </label>
+    {% endif %}<br>
+{% endif %}
+<div class="file-input">
+    <input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+</div>

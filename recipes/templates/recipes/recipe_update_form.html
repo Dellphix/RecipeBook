@@ -10,10 +10,6 @@
 {% endblock %}
 
 {% block recipe_content %}
-    <form method="post" class="update-form">{% csrf_token %}
-        {{ form.as_p }}
-        <span class="right-arrow">
-            <input type="submit" value="Update">
-        </span>
-    </form>
+    {% block image %} {# leave blank, image will be in the form #} {% endblock %}
+    {% include 'recipes/base_recipe_form.html' %}
 {% endblock %}

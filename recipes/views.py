@@ -5,6 +5,7 @@ from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 
+from recipes.forms import RecipeForm
 from recipes.models import Recipe, Tag
 
 
@@ -51,7 +52,7 @@ class DetailView(generic.DetailView):
 
 class UpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Recipe
-    fields = ["name", "prep_time", "cook_time", "description", "tags", "is_public"]
+    form_class = RecipeForm
     template_name_suffix = "_update_form"
     redirect_field_name = 'redirect_to'
 
@@ -66,11 +67,15 @@ class UpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class DeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Recipe
-    success_url = '/recipes'
+    success_url = ''
     redirect_field_name = 'redirect_to'
 
 class CreateView(LoginRequiredMixin, generic.CreateView):
     model = Recipe
-    fields = ["name", "prep_time", "cook_time", "description", "tags", "user"]
-    success_url = '/recipes/my-recipes'
+    form_class = RecipeForm
+    success_url = ''
     redirect_field_name = 'redirect_to'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
