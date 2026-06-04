@@ -12,12 +12,6 @@
     --font-colour: #301f0f;
 }
 
-.unifrakturmaguntia-regular {
-  font-family: "UnifrakturMaguntia", cursive;
-  font-weight: 400;
-  font-style: normal;
-}
-
 .open-sans-400 {
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
@@ -25,6 +19,16 @@
   font-style: normal;
   font-variation-settings:
     "wdth" 100;
+}
+
+@font-face {
+    font-family: 'Lucien Schoenschriftv CAT';
+    src: url('fonts/Lucian-Schoenschrift-CAT.eot');
+    src: url('fonts/Lucian-Schoenschrift-CAT.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Lucian-Schoenschrift-CAT.woff2') format('woff2'),
+         url('fonts/Lucian-Schoenschrift-CAT.woff') format('woff'),
+         url('fonts/Lucian-Schoenschrift-CAT.ttf')  format('truetype'),
+         url('fonts/Lucian-Schoenschrift-CAT.svg#Lucien Schoenschriftv CAT') format('svg');
 }
 
 body {
@@ -54,15 +58,15 @@ div {
 }
 
 h1 {
-    font-family: "UnifrakturMaguntia", cursive;
+    font-family: 'Lucien Schoenschriftv CAT', cursive;
 }
 
 h2 {
     position: relative;
     padding-bottom: 25px;
-    font-family: "UnifrakturMaguntia", cursive;
+    font-family: 'Lucien Schoenschriftv CAT', cursive;
     color: var(--secondary-colour);
-    font-size: 30px;
+    font-size: 40px;
     text-align: center;
 
     &::after {
@@ -179,7 +183,8 @@ header {
 
     h1 {
         margin: 0;
-        font-size: 44px;
+        font-size: 53px;
+        letter-spacing: 1.5px;
 
         @media screen and (max-width: 600px) {
             font-size: 38px;
