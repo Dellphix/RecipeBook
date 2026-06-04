@@ -1,8 +1,9 @@
 .idea/
 db.sqlite3
 mysite/__pycache__
+mysite/.env
 recipes/__pycache__
 recipes/migrations/__pycache__
 users/__pycache__
 users/migrations/__pycache__
-config/__pycache__
+simplenav/__pycache__
