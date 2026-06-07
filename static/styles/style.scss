@@ -1,43 +1,13 @@
-:root {
-    --primary-colour-light: #7D9A6D;
-    --primary-colour: #3A5A40;
-    --primary-colour-dark: #1F3A3D;
-    --secondary-colour: #B68F61;
-    --secondary-colour-light: #d3af8b;
-    --background-light: #e5cbaa;
-    --background-lighter: #f0dcc3;
-    --off-white: #f6ede2;
-    --gold: #bf8c20;
-    --error: #C92525;
-    --font-colour: #301f0f;
-}
-
-.open-sans-400 {
-  font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
-}
-
-@font-face {
-    font-family: 'Lucien Schoenschriftv CAT';
-    src: url('fonts/Lucian-Schoenschrift-CAT.eot');
-    src: url('fonts/Lucian-Schoenschrift-CAT.eot?#iefix') format('embedded-opentype'),
-         url('fonts/Lucian-Schoenschrift-CAT.woff2') format('woff2'),
-         url('fonts/Lucian-Schoenschrift-CAT.woff') format('woff'),
-         url('fonts/Lucian-Schoenschrift-CAT.ttf')  format('truetype'),
-         url('fonts/Lucian-Schoenschrift-CAT.svg#Lucien Schoenschriftv CAT') format('svg');
-}
+@import 'variables';
+@import 'fonts';
 
 body {
     position: relative;
     padding: 0;
     margin: 0;
-    background: var(--background-light);
+    background: $background-light;
     font-family: "Open Sans", sans-serif;
-    color: var(--font-colour);
+    color: $font-colour;
 
     &::before{
         content: "";
@@ -46,7 +16,7 @@ body {
         right: 0;
         top: 0;
         bottom: 0;
-        background: url("images/background.jpg") no-repeat;
+        background: url("../images/background.jpg") no-repeat;
         background-size: cover;
         opacity: 0.5;
     }
@@ -66,7 +36,7 @@ h2 {
     position: relative;
     padding-bottom: 25px;
     font-family: 'Lucien Schoenschriftv CAT', cursive;
-    color: var(--secondary-colour);
+    color: $secondary-colour;
     font-size: 40px;
     text-align: center;
     font-weight: normal;
@@ -81,8 +51,8 @@ h2 {
         bottom: 5px;
         right: 0;
         margin: auto;
-        background: var(--gold);
-        mask-image: url("images/fancy_line.png");
+        background: $gold;
+        mask-image: url("../images/fancy_line.png");
         mask-size: cover;
     }
 }
@@ -94,10 +64,10 @@ img {
 
 a {
     text-decoration: none;
-    color: var(--primary-colour);
+    color: $primary-colour;
 
     &:hover {
-        color: var(--primary-colour-light);
+        color: $primary-colour-light;
     }
 }
 
@@ -113,7 +83,7 @@ a {
         top: -3px;
         width: 26px;
         height: 28px;
-        background: url("images/arrow.png");
+        background: url("../images/arrow.png");
         background-size: cover;
         z-index: -1;
     }
@@ -146,7 +116,7 @@ a {
         content: "";
         position: absolute;
         inset: 0;
-        background:  var(--gold);
+        background:  $gold;
         clip-path: polygon(0 16px,16px 0,calc(100% - 16px) 0,100% 16px,100% calc(100% - 16px),calc(100% - 16px) 100%,16px 100%,0 calc(100% - 16px),0 16px,3px  calc(16px + 1.24px),3px calc(100% - 16px - 1.24px),calc(16px + 1.24px) calc(100% - 3px),calc(100% - 16px - 1.24px) calc(100% - 3px),calc(100% - 3px) calc(100% - 16px - 1.24px),calc(100% - 3px) calc(16px + 1.24px),calc(100% - 16px - 1.24px) 3px,calc(16px + 1.24px) 3px,3px calc(16px + 1.24px));
     }
 }
@@ -157,12 +127,12 @@ header {
 
 .page-header {
     position: relative;
-    background: var(--primary-colour);
-    color: var(--secondary-colour);
+    background: $primary-colour;
+    color: $secondary-colour;
     padding: 30px;
     margin: 20px 0;
 
-    @media screen and (max-width: 1200px) {
+    @media screen and (max-width: $breakpoint-laptop) {
         padding: 20px 30px;
         margin-top: 1px;
     }
@@ -175,7 +145,7 @@ header {
         left: 0;
         width: 100%;
         height: 100%;
-        background: url("images/header-background.jpg") no-repeat;
+        background: url("../images/header-background.jpg") no-repeat;
         background-size: cover;
         -webkit-mask-image: linear-gradient(to right, transparent 00%, black 55%);
         mask-image: linear-gradient(to right, transparent 00%, black 75%);
@@ -188,7 +158,7 @@ header {
         font-size: 53px;
         letter-spacing: 1.5px;
 
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: $breakpoint-mobile) {
             font-size: 38px;
         }
     }
@@ -215,8 +185,8 @@ header {
         margin: auto;
         height: 66px;
         width: 500px;
-        background: var(--gold);
-        mask-image: url("images/footer-flourish.png");
+        background: $gold;
+        mask-image: url("../images/footer-flourish.png");
         mask-size: cover;
 
         @media screen and (max-width: 500px) {
@@ -233,14 +203,14 @@ header {
 }
 
 .flourishes {
-    @media screen and (max-width: 1200px) {
+    @media screen and (max-width: $breakpoint-laptop) {
         margin-bottom: 0;
         &:after {
             rotate: 180deg;
         }
     }
 
-    @media screen and (min-width: 1200px) {
+    @media screen and (min-width: $breakpoint-laptop) {
         height: auto;
         margin: 0;
         overflow: visible;
@@ -256,8 +226,8 @@ header {
             margin: 0;
             width: 70px;
             height: 96px;
-            background: var(--gold);
-            mask-image: url("images/flourish.png");
+            background: $gold;
+            mask-image: url("../images/flourish.png");
             mask-size: cover;
         }
         &::before {
@@ -287,22 +257,22 @@ header {
 
 nav #open-nav {
     position: absolute;
-    top: 65px;
+    top: -65px;
     right: 40px;
     width: 25px;
     height: 20px;
 
-    @media screen and (min-width: 800px) {
+    @media screen and (min-width: $breakpoint-tablet) {
         display: none;
     }
 
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: $breakpoint-mobile) {
         top: -55px;
     }
 
     .bar {
-        background: var(--gold);
+        background: $gold;
         position: absolute;
         margin: auto;
         width: 100%;
@@ -324,10 +294,10 @@ nav #open-nav {
     position: relative;
     padding: 10px;
     padding-left: 35px;
-    color: var(--gold);
-    border-bottom: 1px solid var(--primary-colour-dark);
+    color: $gold;
+    border-bottom: 1px solid $primary-colour-dark;
 
-    @media screen and (min-width: 800px) {
+    @media screen and (min-width: $breakpoint-tablet) {
         display: none;
     }
 
@@ -340,7 +310,7 @@ nav #open-nav {
         top: 20px;
         width: 25px;
         height: 3px;
-        background: var(--gold);
+        background: $gold;
     }
     &:before {
         rotate: 45deg;
@@ -365,40 +335,38 @@ nav #open-nav {
         margin: 0;
 
         &.selected a {
-            background: var(--primary-colour-light);
+            background: $primary-colour-light;
             color: #1F3A3D;
         }
 
         a {
             display: block;
             padding: 10px;
-            color: var(--primary-colour-light);
+            color: $primary-colour-light;
         }
     }
 
     @media screen and (max-width: 799px) {
-        /*display: none;*/
-        background: var(--primary-colour);
-        color: var(--primary-colour-light);
+        background: $primary-colour;
+        color: $primary-colour-light;
         height: 100vh;
         width: 0;
         transition: width 1s ease-in-out;
         white-space: nowrap;
 
         &.open {
-            /*display: block;*/
             width: calc(100vw - 40px);
         }
 
         a {
             margin-left: -7px;
-            background: var(--primary-colour);
-            border-bottom: 1px solid var(--primary-colour-dark);
+            background: $primary-colour;
+            border-bottom: 1px solid $primary-colour-dark;
             clip-path: polygon(5px 0, 100% 0, 100% 100%, 8px 100%, 0 calc(100% - 5px), 0 5px);
         }
     }
 
-    @media screen and (min-width: 800px) {
+    @media screen and (min-width: $breakpoint-tablet) {
         position: relative;
         display: flex;
         align-items: flex-end;
@@ -417,7 +385,7 @@ nav #open-nav {
                 z-index: 8;
             }
             &:before {
-                background: var(--primary-colour-light);
+                background: $primary-colour-light;
                 bottom: 0;
                 content: "";
                 display: block;
@@ -431,7 +399,7 @@ nav #open-nav {
                 z-index: 20;
 
                 &:before {
-                    background: var(--primary-colour-light);
+                    background: $primary-colour-light;
                 }
             }
             /** chipped box shadow */
@@ -458,7 +426,7 @@ nav #open-nav {
             a {
                 display: block;
                 padding: 10px;
-                background: var(--primary-colour);
+                background: $primary-colour;
                 clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%, 0 8px);
                 transition: padding-bottom 0.1s ease-in-out;
 
@@ -478,7 +446,7 @@ nav #open-nav {
 }
 
 .content {
-    background: var(--off-white);
+    background: $off-white;
     padding: 20px 30px;
 }
 .content:after,
@@ -495,7 +463,7 @@ nav #open-nav {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--gold);
+  background: $gold;
   clip-path: polygon(0 14px,14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px,3px  calc(14px + 1.24px),3px calc(100% - 14px - 1.24px),calc(14px + 1.24px) calc(100% - 3px),calc(100% - 14px - 1.24px) calc(100% - 3px),calc(100% - 3px) calc(100% - 14px - 1.24px),calc(100% - 3px) calc(14px + 1.24px),calc(100% - 14px - 1.24px) 3px,calc(14px + 1.24px) 3px,3px calc(14px + 1.24px));
 }
 
@@ -534,7 +502,7 @@ form:not(.tag-filter-form) {
 
     .uploaded-image {
         padding-top: 38.4%;
-        border: 2px solid var(--gold);
+        border: 2px solid $gold;
         margin-bottom: 10px;
 
         img {
@@ -547,7 +515,7 @@ form:not(.tag-filter-form) {
     }
 
     input[type="file"]::file-selector-button {
-        background-color: var(--secondary-colour);
+        background-color: $secondary-colour;
         color: white;
         padding: 10px 20px;
         border: none;
@@ -555,7 +523,7 @@ form:not(.tag-filter-form) {
         cursor: pointer;
     }
     input[type="file"]:hover::file-selector-button {
-        background-color: var(--secondary-colour-light);
+        background-color: $secondary-colour-light;
     }
 
     label:has(input[type="checkbox"]),
@@ -577,8 +545,8 @@ form:not(.tag-filter-form) {
         &:before {
             width: 20px;
             height: 20px;
-            background: var(--background-lighter);
-            border: 1px solid var(--secondary-colour);
+            background: $background-lighter;
+            border: 1px solid $secondary-colour;
         }
 
         input {
@@ -600,8 +568,8 @@ form:not(.tag-filter-form) {
             left: 2px;
             width: 17px;
             height: 17px;
-            background: var(--gold);
-            mask-image: url("images/tick_icon.png");
+            background: $gold;
+            mask-image: url("../images/tick_icon.png");
             mask-size: cover;
         }
     }
@@ -613,7 +581,7 @@ form:not(.tag-filter-form) {
     margin: 10px 0;
 }
 .tag {
-    background: var(--secondary-colour);
+    background: $secondary-colour;
     font-size: 11px;
     padding: 4px 6px;
     margin-right: 3px;
@@ -629,9 +597,9 @@ input[type="email"],
 textarea,
 select {
     padding: 5px;
-    background: var(--background-lighter);
+    background: $background-lighter;
     border: none;
-    border-bottom: 1px solid var(--secondary-colour);
+    border-bottom: 1px solid $secondary-colour;
     vertical-align: top;
 }
 
@@ -641,7 +609,7 @@ input[type=submit] {
     padding: 0;
     padding-right: 40px;
     font-size: inherit;
-    color: var(--primary-colour);
+    color: $primary-colour;
     cursor: pointer;
 }
 input[type=submit]:hover {
@@ -662,13 +630,13 @@ form .right-arrow {
 }
 
 .alert-error {
-    color: var(--error);
+    color: $error;
 }
 
 .errorlist {
     padding-left: 12px;
     margin-bottom: -12px;
-    color: var(--error);
+    color: $error;
     font-size: 12px;
 
     li {
@@ -684,9 +652,9 @@ form .right-arrow {
     padding-left: 20px;
     padding-bottom: 25px;
     margin-bottom: 25px;
-    background: var(--primary-colour-light);
+    background: $primary-colour-light;
     &::before {
-        background: var(--primary-colour-dark);
+        background: $primary-colour-dark;
     }
     &::after {
         content: '';
@@ -696,7 +664,7 @@ form .right-arrow {
         left: 0;
         width: 100%;
         height: 100%;
-        background: url("images/header-background.jpg") no-repeat;
+        background: url("../images/header-background.jpg") no-repeat;
         background-size: auto;
         background-size: cover;
         opacity: 0.07;
@@ -706,7 +674,7 @@ form .right-arrow {
       margin: 0;
       margin-right: 20px;
       margin-top: 10px;
-      color: var(--primary-colour-dark);
+      color: $primary-colour-dark;
     }
 
     .tags {
@@ -718,22 +686,22 @@ form .right-arrow {
             position:absolute;
 
             &:checked + .tag {
-                background: var(--secondary-colour);
-                color: var(--font-colour);
+                background: $secondary-colour;
+                color: $font-colour;
                 &:hover {
-                    background: var(--primary-colour);
-                    color: var(--primary-colour-light);
+                    background: $primary-colour;
+                    color: $primary-colour-light;
                 }
             }
         }
     }
     .tag {
-        background: var(--primary-colour-dark);
-        color: var(--primary-colour-light);
+        background: $primary-colour-dark;
+        color: $primary-colour-light;
         &:hover {
             cursor: pointer;
-            background: var(--secondary-colour-light);
-            color: var(--font-colour);
+            background: $secondary-colour-light;
+            color: $font-colour;
         }
     }
 
@@ -742,15 +710,15 @@ form .right-arrow {
         font-size: 14px;
 
         .left-arrow:hover {
-            color: var(--primary-colour);
+            color: $primary-colour;
         }
         .right-arrow {
             margin-left: 20px;
         }
         .left-arrow::after,
         .right-arrow::after {
-            background: var(--primary-colour-dark);
-            mask: url("images/arrow.png") no-repeat;
+            background: $primary-colour-dark;
+            mask: url("../images/arrow.png") no-repeat;
             mask-size: contain;
         }
     }
@@ -763,12 +731,12 @@ form .right-arrow {
     margin: 0;
     padding-left: 0;
     padding-bottom: 30px;
-    
-    @media screen and (max-width: 800px) {
+
+    @media screen and (max-width: $breakpoint-tablet) {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: $breakpoint-mobile) {
         grid-template-columns: repeat(1, 1fr);
     }
 
@@ -780,7 +748,7 @@ form .right-arrow {
             height: 100%;
             color: inherit;
             text-decoration: none;
-            background: var(--background-light);
+            background: $background-light;
             &:hover {
                 opacity: 0.75;
             }
@@ -835,19 +803,19 @@ form .right-arrow {
     margin-right: 15px;
 }
 .edit-recipe::before {
-    mask: url("images/quill.png") no-repeat;
+    mask: url("../images/quill.png") no-repeat;
     mask-size: contain;
-    background: var(--gold);
+    background: $gold;
 }
 .delete-recipe::before {
-    mask: url("images/cross_icon.png") no-repeat;
+    mask: url("../images/cross_icon.png") no-repeat;
     mask-size: contain;
-    background: var(--error);
+    background: $error;
 }
 .add-recipe::before {
-    mask: url("images/plus_icon.png") no-repeat;
+    mask: url("../images/plus_icon.png") no-repeat;
     mask-size: contain;
-    background: var(--gold);
+    background: $gold;
     transform: rotate(49deg);
     width: 15px;
     top: 0;
@@ -857,7 +825,7 @@ form .right-arrow {
     padding-top: 38.4%;
     overflow: hidden;
 
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: $breakpoint-mobile){
         padding-top: 67%;
     }
 

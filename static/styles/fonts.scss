@@ -1,0 +1,18 @@
+.open-sans-400 {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+@font-face {
+    font-family: 'Lucien Schoenschriftv CAT';
+    src: url('../fonts/Lucian-Schoenschrift-CAT.eot');
+    src: url('../fonts/Lucian-Schoenschrift-CAT.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Lucian-Schoenschrift-CAT.woff2') format('woff2'),
+         url('../fonts/Lucian-Schoenschrift-CAT.woff') format('woff'),
+         url('../fonts/Lucian-Schoenschrift-CAT.ttf')  format('truetype'),
+         url('../fonts/Lucian-Schoenschrift-CAT.svg#Lucien Schoenschriftv CAT') format('svg');
+}

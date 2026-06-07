@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.forms',
     'debug_toolbar',
     'django_simple_nav',
+    'sass_processor',
     'recipes.apps.RecipesConfig',
     'users.apps.UsersConfig',
 ]
@@ -140,6 +141,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
+]
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder',
 ]
 
 LOGIN_URL = '/login/'
