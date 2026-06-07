@@ -325,7 +325,7 @@ nav #open-nav {
         .navigation li:nth-child(3) {
           z-index: 8; }
         .navigation li:before {
-          background: #7D9A6D;
+          background: #3A5A40;
           bottom: 0;
           content: "";
           display: block;
