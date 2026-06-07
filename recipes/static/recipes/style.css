@@ -59,6 +59,7 @@ div {
 
 h1 {
     font-family: 'Lucien Schoenschriftv CAT', cursive;
+    font-weight: normal;
 }
 
 h2 {
@@ -68,6 +69,7 @@ h2 {
     color: var(--secondary-colour);
     font-size: 40px;
     text-align: center;
+    font-weight: normal;
 
     &::after {
         content: '';
@@ -401,8 +403,8 @@ nav #open-nav {
         display: flex;
         align-items: flex-end;
         margin: 0 15px;
-        border-bottom: 5px solid var(--primary-colour);
-        anchor-name: --anchor;
+        padding-top: 5px;
+        overflow: hidden;
 
         li {
             &:nth-child(1) {
@@ -414,19 +416,22 @@ nav #open-nav {
             &:nth-child(3) {
                 z-index: 8;
             }
+            &:before {
+                background: var(--primary-colour-light);
+                bottom: 0;
+                content: "";
+                display: block;
+                position: absolute;
+                left: -1000px;
+                right: -1000px;
+                width: 3000px;
+                height: 5px;
+            }
             &.selected {
                 z-index: 20;
 
                 &:before {
                     background: var(--primary-colour-light);
-                    bottom: 0;
-                    content: "";
-                    display: block;
-                    height: 5px;
-                    position: fixed;
-                    position-anchor: --anchor;
-                    position-area: center;
-                    width: anchor-size(100%);
                 }
             }
             /** chipped box shadow */
@@ -492,6 +497,10 @@ nav #open-nav {
   inset: 0;
   background: var(--gold);
   clip-path: polygon(0 14px,14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px,3px  calc(14px + 1.24px),3px calc(100% - 14px - 1.24px),calc(14px + 1.24px) calc(100% - 3px),calc(100% - 14px - 1.24px) calc(100% - 3px),calc(100% - 3px) calc(100% - 14px - 1.24px),calc(100% - 3px) calc(14px + 1.24px),calc(100% - 14px - 1.24px) 3px,calc(14px + 1.24px) 3px,3px calc(14px + 1.24px));
+}
+
+.alert-error {
+    margin-bottom: 10px;
 }
 
 form:not(.tag-filter-form) {

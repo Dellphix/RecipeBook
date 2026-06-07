@@ -1,5 +1,10 @@
 <form method="post" enctype="multipart/form-data" class="{{ form_class }}">{% csrf_token %}
     {% csrf_token %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+            {{ message }}
+        </div>
+    {% endfor %}
     {% for field in form %}
         <div class="field-wrapper">
             {{ field.label_tag }}

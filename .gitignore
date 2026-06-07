@@ -7,3 +7,4 @@ recipes/migrations/__pycache__
 users/__pycache__
 users/migrations/__pycache__
 simplenav/__pycache__
+static_root/
