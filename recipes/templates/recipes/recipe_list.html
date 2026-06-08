@@ -6,7 +6,7 @@
         {% if tags %}
             <div class="tag-filter content chipped-box">
                 <h4>Filter By:</h4>
-                <form action="{% url 'recipes:index' %}" method="get" class="tag-filter-form">
+                <form action="{{ request.path }}" method="get" class="tag-filter-form">
                     <div class="tags">
                         {% for tag in tags %}
                             <label>
@@ -16,7 +16,7 @@
                         {% endfor %}
                     </div>
                     <div class="actions">
-                        <a href="{% url 'recipes:index' %}" class="left-arrow">Reset</a>
+                        <a href="{{ request.path }}" class="left-arrow">Reset</a>
                         <span class="right-arrow"><input type="submit"value="Filter"></span>
                     </div>
                 </form>

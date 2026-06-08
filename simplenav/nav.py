@@ -5,5 +5,5 @@ class MainNav(Nav):
     template_name = "main_nav.html"
     items = [
         NavItem(title="Community Recipes", url='recipes:index', append_slash=False),
-        NavItem(title="My Recipes", url='recipes:my_recipes', permissions=["is_authenticated"]),
+        NavItem(title="My Recipes", url='recipes:my_recipes', append_slash=False, permissions=["is_authenticated"]),
     ]

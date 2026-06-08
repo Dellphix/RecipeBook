@@ -22,7 +22,7 @@ class IndexView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         tags = self.request.GET.getlist('tag', '')
         if tags:
-            return Recipe.objects.filter(tags__name__in=tags)
+            return Recipe.objects.filter(tags__name__in=tags, user_id=self.request.user.id).distinct('id')
         return Recipe.objects.filter(user_id=self.request.user.id)
 
 class PublicIndexView(generic.ListView):
@@ -37,7 +37,7 @@ class PublicIndexView(generic.ListView):
     def get_queryset(self):
         tags = self.request.GET.getlist('tag', '')
         if tags:
-            return Recipe.objects.filter(tags__name__in=tags)
+            return Recipe.objects.filter(tags__name__in=tags, is_public=True).distinct('id')
         return Recipe.objects.filter(is_public=True)
 
 class DetailView(generic.DetailView):
