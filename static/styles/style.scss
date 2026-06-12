@@ -106,6 +106,21 @@ a {
         transform: rotate(-90deg);
     }
 }
+button.right-arrow,
+.account-page button {
+    display: block;
+    background: none;
+    border: none;
+    color: $primary-colour;
+    cursor: pointer;
+    font-size: 16px;
+    padding-left: 0;
+    margin-bottom: 15px;
+
+    &:hover {
+        color: $primary-colour-light;
+    }
+}
 
 .chipped-box {
     clip-path: polygon(0 14px,14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px));
@@ -634,9 +649,6 @@ form label {
     font-size: 12px;
     text-align: left;
 }
-form .right-arrow {
-    padding: 0;
-}
 
 .alert-error {
     color: $error;
@@ -767,6 +779,18 @@ form .right-arrow {
             background: $background-light;
             &:hover {
                 opacity: 0.75;
+            }
+
+            .thumbnail {
+                height: 200px;
+                overflow: hidden;
+                display: block;
+
+                img {
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                }
             }
         }
 
@@ -905,13 +929,6 @@ form.delete-form {
     }
 
     button {
-        display: block;
-        background: none;
-        border: none;
-        color: $primary-colour;
-        cursor: pointer;
-        font-size: 16px;
-        padding-left: 0;
         margin: auto;
         margin-bottom: 15px;
     }

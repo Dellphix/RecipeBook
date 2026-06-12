@@ -29,7 +29,9 @@
             {% for recipe in recipe_list %}
                 <li class="chipped-box-border"><a href="{% url 'recipes:detail' recipe.uuid %}">
                     {% if recipe.image %}
-                        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
+                        <span class="thumbnail">
+                            <img src="{{ recipe.image.url }}" width="{{ recipe.image.width }}" height="{{ recipe.image.height }}" alt="{{ recipe.name }}"/>
+                        </span>
                     {% endif %}
                     <div class="description">{{  recipe.name }}</div>
                 </a></li>

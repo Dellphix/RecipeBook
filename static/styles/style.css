@@ -103,6 +103,20 @@ a {
     left: 0;
     transform: rotate(-90deg); }
 
+button.right-arrow,
+.account-page button {
+  display: block;
+  background: none;
+  border: none;
+  color: #3A5A40;
+  cursor: pointer;
+  font-size: 16px;
+  padding-left: 0;
+  margin-bottom: 15px; }
+  button.right-arrow:hover,
+  .account-page button:hover {
+    color: #7D9A6D; }
+
 .chipped-box {
   clip-path: polygon(0 14px, 14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px)); }
 
@@ -526,9 +540,6 @@ form label {
   font-size: 12px;
   text-align: left; }
 
-form .right-arrow {
-  padding: 0; }
-
 .alert-error {
   color: #C92525; }
 
@@ -626,6 +637,14 @@ form .right-arrow {
       background: #e5cbaa; }
       .recipes li a:hover {
         opacity: 0.75; }
+      .recipes li a .thumbnail {
+        height: 200px;
+        overflow: hidden;
+        display: block; }
+        .recipes li a .thumbnail img {
+          height: 100%;
+          object-fit: cover;
+          object-position: center; }
     .recipes li .description {
       padding: 20px;
       padding-top: 15px; }
@@ -732,13 +751,6 @@ form.delete-form {
   .account-page .right-arrow {
     margin-left: 17px; }
   .account-page button {
-    display: block;
-    background: none;
-    border: none;
-    color: #3A5A40;
-    cursor: pointer;
-    font-size: 16px;
-    padding-left: 0;
     margin: auto;
     margin-bottom: 15px; }
 
