@@ -3,6 +3,9 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import User
 
+from mysite import settings
+
+
 class Tag(models.Model):
     name = models.CharField(max_length=50)
 
@@ -19,7 +22,7 @@ class Recipe(models.Model):
     description = models.TextField(blank=True)
     is_public = models.BooleanField(default=False)
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     uuid = models.UUIDField(
         default=uuid.uuid4,
         editable=True)
