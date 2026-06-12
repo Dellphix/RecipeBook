@@ -1,19 +1,17 @@
 {% extends "base_page.html" %}
 
-{% block title %} {{ recipe.name }} {% endblock %}
+{% block head_title %} {{ recipe.name }} {% endblock %}
 
 {% block content %}
-    <div class="content chipped-box">
-        <div class="recipe-title">
-            {% block recipe_title %}{% endblock %}
-        </div>
-        {% block image %}
-            {%  if recipe.image %}
-                <div class="recipe-image">
-                    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
-                </div>
-            {% endif %}
-        {% endblock %}
-        {% block recipe_content %}{% endblock %}
+    <div class="recipe-title">
+        {% block recipe_title %}{% endblock %}
     </div>
+    {% block image %}
+        {%  if recipe.image %}
+            <div class="recipe-image">
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
+            </div>
+        {% endif %}
+    {% endblock %}
+    {% block recipe_content %}{% endblock %}
 {% endblock %}

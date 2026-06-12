@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Recipe Book{% endblock %}</title>
+    <title>{% block head_title %}Recipe Book{% endblock %}</title>
 
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +28,7 @@
         <div class="flourishes"></div>
         <div class="page-header chipped-box">
             <div class="gold-border"></div>
-            <h1>Recipe Book</h1>
+            Recipe Book
         </div>
     </div>
 </header>
@@ -37,15 +37,18 @@
         <div class="user-controls">
             {% if request.user.is_authenticated %}
                 <span>Hi {{ request.user.username | title }}</span>
-                <a href="{% url 'logout' %}" class="right-arrow">Logout</a>
+                <a href="{% url 'account_logout' %}" class="right-arrow">Sign Out</a>
             {% else %}
-                <a href="{% url 'login' %}" class="right-arrow">Login</a>
+                <a href="{% url 'account_login' %}" class="right-arrow">Sign In</a>
             {% endif %}
         </div>
     {% endblock %}
 
     {% django_simple_nav "simplenav.nav.MainNav" %}
-    {% block content %}{%  endblock %}
+
+    <div class="content chipped-box {% block content_classes %}{%  endblock %}">
+        {% block content %}{%  endblock %}
+    </div>
 </div>
 <div class="footer container"></div>
 </body>

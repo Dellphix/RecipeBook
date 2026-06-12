@@ -1,0 +1,17 @@
+{% for field in attrs.form %}
+    <div class="field-wrapper">
+        {{ field.label_tag }}
+        <div class="field type-{{ field.field.widget.input_type }}
+                choices-{{  field.field.widget.choices | length }}">
+            {{ field }}
+            {% if field.help_text %}<div class="helptext"{% if field.auto_id %} id="{{ field.auto_id }}_helptext"{% endif %}>{{ field.help_text|safe }}</div>{% endif %}
+            {% if field.errors %}
+                <ul class="errorlist">
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}

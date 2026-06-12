@@ -1,6 +1,6 @@
 {% extends "recipes/recipe_base_page.html" %}
 
-{% block title %} {{ recipe.name }} | Delete {% endblock %}
+{% block head_title %} {{ recipe.name }} | Delete {% endblock %}
 
 {% block recipe_content %}
     <form method="post" class="delete-form">{% csrf_token %}

@@ -33,10 +33,6 @@ div {
   z-index: 1; }
 
 h1 {
-  font-family: 'Lucien Schoenschriftv CAT', cursive;
-  font-weight: normal; }
-
-h2 {
   position: relative;
   padding-bottom: 25px;
   font-family: 'Lucien Schoenschriftv CAT', cursive;
@@ -44,7 +40,7 @@ h2 {
   font-size: 40px;
   text-align: center;
   font-weight: normal; }
-  h2::after {
+  h1::after {
     content: '';
     display: block;
     position: absolute;
@@ -68,12 +64,17 @@ a {
   a:hover {
     color: #7D9A6D; }
 
+.center-text {
+  text-align: center; }
+
 .right-arrow,
-.left-arrow {
+.left-arrow,
+.account-page button {
   display: inline-block;
   position: relative; }
   .right-arrow::after,
-  .left-arrow::after {
+  .left-arrow::after,
+  .account-page button::after {
     content: '';
     display: block;
     position: absolute;
@@ -84,12 +85,15 @@ a {
     background-size: cover;
     z-index: -1; }
   .right-arrow:hover::after,
-  .left-arrow:hover::after {
+  .left-arrow:hover::after,
+  .account-page button:hover::after {
     opacity: 0.75; }
 
-.right-arrow {
+.right-arrow,
+.account-page button {
   padding-right: 40px; }
-  .right-arrow::after {
+  .right-arrow::after,
+  .account-page button::after {
     right: 0;
     transform: rotate(90deg); }
 
@@ -120,7 +124,14 @@ header {
   background: #3A5A40;
   color: #B68F61;
   padding: 30px;
-  margin: 20px 0; }
+  margin: 20px 0;
+  font-family: 'Lucien Schoenschriftv CAT', cursive;
+  font-weight: normal;
+  font-size: 53px;
+  letter-spacing: 1.5px; }
+  @media screen and (max-width: 600px) {
+    .page-header {
+      font-size: 38px; } }
   @media screen and (max-width: 1200px) {
     .page-header {
       padding: 20px 30px;
@@ -139,13 +150,7 @@ header {
     mask-image: linear-gradient(to right, transparent 0%, black 75%);
     opacity: 0.2;
     z-index: -1; }
-  .page-header h1 {
-    margin: 0;
-    font-size: 53px;
-    letter-spacing: 1.5px; }
-    @media screen and (max-width: 600px) {
-      .page-header h1 {
-        font-size: 38px; } }
+
 .flourishes,
 .footer {
   position: relative;
@@ -397,6 +402,14 @@ form:not(.tag-filter-form) {
     display: flex;
     justify-content: center;
     margin-bottom: 15px; }
+  form:not(.tag-filter-form) .helptext {
+    display: block;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: left; }
+    form:not(.tag-filter-form) .helptext ul {
+      padding-left: 13px;
+      margin-bottom: 0; }
   form:not(.tag-filter-form) .errorlist {
     margin-top: 3px;
     margin-bottom: 0;
@@ -428,15 +441,15 @@ form:not(.tag-filter-form) {
   form:not(.tag-filter-form) input[type="file"]:hover::file-selector-button {
     background-color: #d3af8b; }
   form:not(.tag-filter-form) label:has(input[type="checkbox"]),
-  form:not(.tag-filter-form) .field:has(input[type="checkbox"].boolean-checkbox),
+  form:not(.tag-filter-form) .field.type-checkbox.choices-0,
   form:not(.tag-filter-form) .custom-checkbox {
     position: relative;
     padding-left: 23px;
     margin-bottom: 5px;
     cursor: pointer; }
     form:not(.tag-filter-form) label:has(input[type="checkbox"]):before, form:not(.tag-filter-form) label:has(input[type="checkbox"]):after,
-    form:not(.tag-filter-form) .field:has(input[type="checkbox"].boolean-checkbox):before,
-    form:not(.tag-filter-form) .field:has(input[type="checkbox"].boolean-checkbox):after,
+    form:not(.tag-filter-form) .field.type-checkbox.choices-0:before,
+    form:not(.tag-filter-form) .field.type-checkbox.choices-0:after,
     form:not(.tag-filter-form) .custom-checkbox:before,
     form:not(.tag-filter-form) .custom-checkbox:after {
       content: '';
@@ -444,14 +457,14 @@ form:not(.tag-filter-form) {
       position: absolute;
       left: 0; }
     form:not(.tag-filter-form) label:has(input[type="checkbox"]):before,
-    form:not(.tag-filter-form) .field:has(input[type="checkbox"].boolean-checkbox):before,
+    form:not(.tag-filter-form) .field.type-checkbox.choices-0:before,
     form:not(.tag-filter-form) .custom-checkbox:before {
       width: 20px;
       height: 20px;
       background: #f0dcc3;
       border: 1px solid #B68F61; }
     form:not(.tag-filter-form) label:has(input[type="checkbox"]) input,
-    form:not(.tag-filter-form) .field:has(input[type="checkbox"].boolean-checkbox) input,
+    form:not(.tag-filter-form) .field.type-checkbox.choices-0 input,
     form:not(.tag-filter-form) .custom-checkbox input {
       opacity: 0;
       position: relative;
@@ -461,7 +474,7 @@ form:not(.tag-filter-form) {
       width: 20px;
       height: 20px; }
   form:not(.tag-filter-form) label:has(input[type="checkbox"]:checked):after,
-  form:not(.tag-filter-form) .field:has(input[type="checkbox"].boolean-checkbox:checked):after,
+  form:not(.tag-filter-form) .field.type-checkbox.choices-0:has(input[type="checkbox"]:checked):after,
   form:not(.tag-filter-form) .custom-checkbox:has(input[type="checkbox"]:checked):after {
     top: 2px;
     left: 2px;
@@ -506,9 +519,6 @@ input[type=submit] {
 
 input[type=submit]:hover {
   opacity: 0.75; }
-
-form {
-  text-align: center; }
 
 form label {
   display: inline-block;
@@ -579,6 +589,10 @@ form .right-arrow {
   .tag-filter .actions {
     margin-top: 15px;
     font-size: 14px; }
+    .tag-filter .actions .left-arrow {
+      color: #1F3A3D; }
+    .tag-filter .actions .right-arrow input {
+      color: #1F3A3D; }
     .tag-filter .actions .left-arrow:hover {
       color: #3A5A40; }
     .tag-filter .actions .right-arrow {
@@ -682,17 +696,6 @@ form .right-arrow {
     position: absolute;
     top: 0; }
 
-/** login page */
-.login-page {
-  text-align: center; }
-
-.login-form label {
-  display: inline-block;
-  width: 100px; }
-
-.login-form .right-arrow {
-  margin-left: 17px; }
-
 /** Delete page */
 form.delete-form {
   text-align: center; }
@@ -701,21 +704,43 @@ form.delete-form {
   margin-right: 30px; }
 
 /** invitation page */
-.invitation-page {
+.invitation-page,
+.account-page {
   text-align: center; }
-  .invitation-page .field {
-    min-width: 400px; }
-  .invitation-page input {
+  .invitation-page form,
+  .account-page form {
+    max-width: 535px;
+    width: 100%;
+    margin: auto;
+    text-align: center; }
+  .invitation-page .field,
+  .account-page .field {
+    max-width: 400px; }
+  .invitation-page input,
+  .account-page input {
     width: 100%; }
-  .invitation-page .right-arrow {
+  .invitation-page .right-arrow,
+  .account-page .right-arrow {
     margin-left: 17px; }
 
-form.invitation-form,
-form.login-form {
+.account-page {
   text-align: center; }
+  .account-page label {
+    min-width: 100px; }
+  .account-page .field.type-checkbox.choices-0 {
+    text-align: left; }
+  .account-page .right-arrow {
+    margin-left: 17px; }
+  .account-page button {
+    display: block;
+    background: none;
+    border: none;
+    color: #3A5A40;
+    cursor: pointer;
+    font-size: 16px;
+    padding-left: 0;
+    margin: auto;
+    margin-bottom: 15px; }
 
-form.invitation-form .field {
-  max-width: 400px; }
-
-form.login-form .field {
-  max-width: 170px; }
+.account-page .login-page form {
+  max-width: 285px; }

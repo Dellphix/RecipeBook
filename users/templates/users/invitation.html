@@ -2,8 +2,8 @@
 
 {% block content %}
     {% block user_controls %}{# empty #}{% endblock %}
-    <div class="content chipped-box invitation-page">
-        <h2>Invitation</h2>
+    <div class="invitation-page">
+        <h1>Invitation</h1>
         {% if request.user.is_authenticated %}
             <p>You're already registered as {{ request.user.username | title }}. <a href="{% url 'logout' %}">Logout?</a></p>
         {% else %}

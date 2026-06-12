@@ -45,14 +45,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.forms',
+    'allauth',
+    'allauth.account',
     'debug_toolbar',
     'django_simple_nav',
     'sass_processor',
     'recipes.apps.RecipesConfig',
     'users.apps.UsersConfig',
 ]
-
-SITE_ID = 1
 
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
@@ -63,7 +63,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = {'allauth.account.auth_backends.AuthenticationBackend'}
+
+SITE_ID = 1
 
 ROOT_URLCONF = 'mysite.urls'
 
@@ -150,7 +155,11 @@ STATICFILES_FINDERS = [
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/my-recipes/'
+
+ACCOUNT_ADAPTER = "users.adapters.NoSignupAccountAdapter"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -160,3 +169,8 @@ INTERNAL_IPS = [
 ]
 
 mimetypes.add_type("application/javascript", ".js", True)
+
+# Uncomment to enable for MailHog
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = '127.0.0.1'
+# EMAIL_PORT = 1025

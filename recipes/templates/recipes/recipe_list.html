@@ -1,43 +1,41 @@
 {% extends "base_page.html" %}
 
 {% block content %}
-    <div class="content chipped-box">
-        <h2>{% if is_public_page %}Community{% else %}My{% endif %} Recipes</h2>
-        {% if tags %}
-            <div class="tag-filter content chipped-box">
-                <h4>Filter By:</h4>
-                <form action="{{ request.path }}" method="get" class="tag-filter-form">
-                    <div class="tags">
-                        {% for tag in tags %}
-                            <label>
-                                <input type="checkbox" name="tag" value="{{ tag.name }}" {% if tag.name in selected_tags %}checked="checked"{% endif %} />
-                                <span class="tag {% if tag.name in selected_tags %}selected{% endif %}">{{ tag.name }}</span>
-                            </label>
-                        {% endfor %}
-                    </div>
-                    <div class="actions">
-                        <a href="{{ request.path }}" class="left-arrow">Reset</a>
-                        <span class="right-arrow"><input type="submit"value="Filter"></span>
-                    </div>
-                </form>
-            </div>
-        {% endif %}
-        {% if request.user.is_authenticated and not is_public_page %}
-            <p><a href="{% url 'recipes:create' %}" class="add-recipe">Add Recipe</a></p>
-        {% endif %}
-        {% if recipe_list %}
-            <ul class="recipes">
-                {% for recipe in recipe_list %}
-                    <li class="chipped-box-border"><a href="{% url 'recipes:detail' recipe.uuid %}">
-                        {% if recipe.image %}
-                            <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
-                        {% endif %}
-                        <div class="description">{{  recipe.name }}</div>
-                    </a></li>
-                {%  endfor %}
-            </ul>
-        {% else %}
-            <p>No recipes found.</p>
-        {% endif %}
-    </div>
+    <h1>{% if is_public_page %}Community{% else %}My{% endif %} Recipes</h1>
+    {% if tags %}
+        <div class="tag-filter content chipped-box">
+            <h4>Filter By:</h4>
+            <form action="{{ request.path }}" method="get" class="tag-filter-form">
+                <div class="tags">
+                    {% for tag in tags %}
+                        <label>
+                            <input type="checkbox" name="tag" value="{{ tag.name }}" {% if tag.name in selected_tags %}checked="checked"{% endif %} />
+                            <span class="tag {% if tag.name in selected_tags %}selected{% endif %}">{{ tag.name }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+                <div class="actions">
+                    <a href="{{ request.path }}" class="left-arrow">Reset</a>
+                    <span class="right-arrow"><input type="submit"value="Filter"></span>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+    {% if request.user.is_authenticated and not is_public_page %}
+        <p><a href="{% url 'recipes:create' %}" class="add-recipe">Add Recipe</a></p>
+    {% endif %}
+    {% if recipe_list %}
+        <ul class="recipes">
+            {% for recipe in recipe_list %}
+                <li class="chipped-box-border"><a href="{% url 'recipes:detail' recipe.uuid %}">
+                    {% if recipe.image %}
+                        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}"/>
+                    {% endif %}
+                    <div class="description">{{  recipe.name }}</div>
+                </a></li>
+            {%  endfor %}
+        </ul>
+    {% else %}
+        <p>No recipes found.</p>
+    {% endif %}
 {%  endblock %}
