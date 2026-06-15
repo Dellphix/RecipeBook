@@ -105,7 +105,7 @@ a {
 
 button.right-arrow,
 .account-page button {
-  display: block;
+  display: inline-block;
   background: none;
   border: none;
   color: #3A5A40;
@@ -526,7 +526,6 @@ input[type=submit] {
   background: transparent;
   border: none;
   padding: 0;
-  padding-right: 40px;
   font-size: inherit;
   color: #3A5A40;
   cursor: pointer; }
@@ -643,6 +642,7 @@ form label {
         display: block; }
         .recipes li a .thumbnail img {
           height: 100%;
+          width: 100%;
           object-fit: cover;
           object-position: center; }
     .recipes li .description {

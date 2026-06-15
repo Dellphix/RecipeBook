@@ -67,7 +67,7 @@ class UpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class DeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Recipe
-    success_url = '/'
+    success_url = '/my-recipes'
     redirect_field_name = 'redirect_to'
 
     def get_object(self, queryset=None):
@@ -79,7 +79,7 @@ class DeleteView(LoginRequiredMixin, generic.DeleteView):
 class CreateView(LoginRequiredMixin, generic.CreateView):
     model = Recipe
     form_class = RecipeForm
-    success_url = '/'
+    success_url = '/my-recipes'
     redirect_field_name = 'redirect_to'
 
     def form_valid(self, form):

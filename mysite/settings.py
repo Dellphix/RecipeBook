@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_simple_nav',
     'sass_processor',
+    'thumbnails',
     'recipes.apps.RecipesConfig',
     'users.apps.UsersConfig',
 ]
@@ -169,6 +170,29 @@ INTERNAL_IPS = [
 ]
 
 mimetypes.add_type("application/javascript", ".js", True)
+
+THUMBNAILS = {
+    'SIZES': {
+        'small': {
+            'PROCESSORS': [
+                {'PATH': 'thumbnails.processors.resize', 'width': 363},
+                # {'PATH': 'thumbnails.processors.crop', 'width': 363, 'height': 200}
+            ],
+            # 'POST_PROCESSORS': [
+            #     {
+            #         'PATH': 'thumbnails.post_processors.optimize',
+            #         'png_command': 'optipng -force -o7 "%(filename)s"',
+            #         'jpg_command': 'jpegoptim -f --strip-all "%(filename)s"',
+            #     },
+            # ],
+        },
+        'large': {
+            'PROCESSORS': [
+                {'PATH': 'thumbnails.processors.resize', 'width': 1140},
+            ],
+        },
+    }
+}
 
 # Uncomment to enable for MailHog
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

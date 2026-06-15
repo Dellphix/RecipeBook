@@ -30,7 +30,7 @@
                 <li class="chipped-box-border"><a href="{% url 'recipes:detail' recipe.uuid %}">
                     {% if recipe.image %}
                         <span class="thumbnail">
-                            <img src="{{ recipe.image.url }}" width="{{ recipe.image.width }}" height="{{ recipe.image.height }}" alt="{{ recipe.name }}"/>
+                            <img src="{{ recipe.image.thumbnails.small.url }}" width="{{ recipe.image.thumbnails.small.width }}" height="{{ recipe.image.thumbnails.small.height }}" alt="{{ recipe.name }}"/>
                         </span>
                     {% endif %}
                     <div class="description">{{  recipe.name }}</div>
