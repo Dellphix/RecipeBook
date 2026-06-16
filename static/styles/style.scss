@@ -122,6 +122,12 @@ button.right-arrow,
     }
 }
 
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+}
+
 .chipped-box {
     clip-path: polygon(0 14px,14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px));
 }
@@ -215,6 +221,7 @@ header {
 }
 .footer {
     z-index: 0;
+    margin-bottom: 20px;
 }
 
 .flourishes {
@@ -267,6 +274,19 @@ header {
         top: -1px;
         width: 22px;
         height: 24px;
+    }
+}
+
+
+.message {
+    background: $off-white;
+    padding: 15px 20px;
+    text-align: center;
+    color: $secondary-colour;
+    margin-bottom: 15px;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+        margin: 15px;
     }
 }
 
@@ -454,18 +474,13 @@ nav #open-nav {
 
 }
 
-.container {
-    max-width: 1200px;
-    width: 100%;
-    margin: auto;
-}
-
 .content {
     background: $off-white;
     padding: 20px 30px;
 }
 .content:after,
-.gold-border {
+.gold-border,
+.green-border {
     position: absolute;
     top: 0;
     left: 0;
@@ -474,12 +489,16 @@ nav #open-nav {
     z-index: -1;
 }
 .content:before,
-.gold-border:before {
+.gold-border:before,
+.green-border:before {
   content: "";
   position: absolute;
   inset: 0;
   background: $gold;
   clip-path: polygon(0 14px,14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px,3px  calc(14px + 1.24px),3px calc(100% - 14px - 1.24px),calc(14px + 1.24px) calc(100% - 3px),calc(100% - 14px - 1.24px) calc(100% - 3px),calc(100% - 3px) calc(100% - 14px - 1.24px),calc(100% - 3px) calc(14px + 1.24px),calc(100% - 14px - 1.24px) 3px,calc(14px + 1.24px) 3px,3px calc(14px + 1.24px));
+}
+.green-border:before{
+    background: $primary-colour;
 }
 
 .alert-error {
@@ -506,6 +525,10 @@ form:not(.tag-filter-form) {
             padding-left: 13px;
             margin-bottom: 0;
         }
+    }
+
+    .form-errors {
+        margin-bottom: 10px;
     }
 
     .errorlist {
@@ -668,12 +691,16 @@ form label {
 /** Recipes list */
 
 .tag-filter {
-    display: flex;
     padding: 5px;
     padding-left: 20px;
     padding-bottom: 25px;
     margin-bottom: 25px;
     background: $primary-colour-light;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+        display: flex;
+    }
+
     &::before {
         background: $primary-colour-dark;
     }
@@ -733,15 +760,18 @@ form label {
         .left-arrow {
             color: $primary-colour-dark;
         }
-        .right-arrow input {
+        .right-arrow {
             color: $primary-colour-dark;
+            font-size: 14px;
         }
 
-        .left-arrow:hover {
+        .left-arrow:hover,
+        .right-arrow:hover {
             color: $primary-colour;
         }
         .right-arrow {
             margin-left: 20px;
+            margin-bottom: 0;
         }
         .left-arrow::after,
         .right-arrow::after {

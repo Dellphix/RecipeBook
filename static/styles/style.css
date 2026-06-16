@@ -117,6 +117,11 @@ button.right-arrow,
   .account-page button:hover {
     color: #7D9A6D; }
 
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: auto; }
+
 .chipped-box {
   clip-path: polygon(0 14px, 14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px)); }
 
@@ -198,7 +203,8 @@ header {
         mask-size: 100%;
         top: 0; } }
 .footer {
-  z-index: 0; }
+  z-index: 0;
+  margin-bottom: 20px; }
 
 @media screen and (max-width: 1200px) {
   .flourishes {
@@ -242,6 +248,15 @@ header {
     width: 22px;
     height: 24px; }
 
+.message {
+  background: #f6ede2;
+  padding: 15px 20px;
+  text-align: center;
+  color: #B68F61;
+  margin-bottom: 15px; }
+  @media screen and (min-width: 800px) {
+    .message {
+      margin: 15px; } }
 nav #open-nav {
   position: absolute;
   top: -65px;
@@ -380,17 +395,13 @@ nav #open-nav {
           transition: padding-bottom 0.1s ease-in-out; }
           .navigation li a:hover {
             padding-bottom: 15px; } }
-.container {
-  max-width: 1200px;
-  width: 100%;
-  margin: auto; }
-
 .content {
   background: #f6ede2;
   padding: 20px 30px; }
 
 .content:after,
-.gold-border {
+.gold-border,
+.green-border {
   position: absolute;
   top: 0;
   left: 0;
@@ -399,12 +410,16 @@ nav #open-nav {
   z-index: -1; }
 
 .content:before,
-.gold-border:before {
+.gold-border:before,
+.green-border:before {
   content: "";
   position: absolute;
   inset: 0;
   background: #bf8c20;
   clip-path: polygon(0 14px, 14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px, 3px calc(14px + 1.24px), 3px calc(100% - 14px - 1.24px), calc(14px + 1.24px) calc(100% - 3px), calc(100% - 14px - 1.24px) calc(100% - 3px), calc(100% - 3px) calc(100% - 14px - 1.24px), calc(100% - 3px) calc(14px + 1.24px), calc(100% - 14px - 1.24px) 3px, calc(14px + 1.24px) 3px, 3px calc(14px + 1.24px)); }
+
+.green-border:before {
+  background: #3A5A40; }
 
 .alert-error {
   margin-bottom: 10px; }
@@ -424,6 +439,8 @@ form:not(.tag-filter-form) {
     form:not(.tag-filter-form) .helptext ul {
       padding-left: 13px;
       margin-bottom: 0; }
+  form:not(.tag-filter-form) .form-errors {
+    margin-bottom: 10px; }
   form:not(.tag-filter-form) .errorlist {
     margin-top: 3px;
     margin-bottom: 0;
@@ -552,12 +569,14 @@ form label {
 
 /** Recipes list */
 .tag-filter {
-  display: flex;
   padding: 5px;
   padding-left: 20px;
   padding-bottom: 25px;
   margin-bottom: 25px;
   background: #7D9A6D; }
+  @media screen and (min-width: 800px) {
+    .tag-filter {
+      display: flex; } }
   .tag-filter::before {
     background: #1F3A3D; }
   .tag-filter::after {
@@ -601,12 +620,15 @@ form label {
     font-size: 14px; }
     .tag-filter .actions .left-arrow {
       color: #1F3A3D; }
-    .tag-filter .actions .right-arrow input {
-      color: #1F3A3D; }
-    .tag-filter .actions .left-arrow:hover {
+    .tag-filter .actions .right-arrow {
+      color: #1F3A3D;
+      font-size: 14px; }
+    .tag-filter .actions .left-arrow:hover,
+    .tag-filter .actions .right-arrow:hover {
       color: #3A5A40; }
     .tag-filter .actions .right-arrow {
-      margin-left: 20px; }
+      margin-left: 20px;
+      margin-bottom: 0; }
     .tag-filter .actions .left-arrow::after,
     .tag-filter .actions .right-arrow::after {
       background: #1F3A3D;

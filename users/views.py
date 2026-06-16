@@ -5,11 +5,6 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import RegisterForm
 from .models import Invitation
 
-def sign_out(request):
-    logout(request)
-    messages.success(request, f'You have been logged out.')
-    return redirect('account_login')
-
 def invitation(request, code):
     try:
         invite = Invitation.objects.filter(code=code)[0]

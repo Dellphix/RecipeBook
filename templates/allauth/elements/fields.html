@@ -1,3 +1,8 @@
+{% if form.errors %}
+    <div class="form-errors">
+        {{ form.non_field_errors  }}
+    </div>
+{% endif %}
 {% for field in attrs.form %}
     <div class="field-wrapper">
         {{ field.label_tag }}

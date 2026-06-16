@@ -44,6 +44,13 @@
         </div>
     {% endblock %}
 
+    {% for message in messages %}
+        <div class="message chipped-box {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            <div class="green-border"></div>
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {% django_simple_nav "simplenav.nav.MainNav" %}
 
     <div class="content chipped-box {% block content_classes %}{%  endblock %}">
