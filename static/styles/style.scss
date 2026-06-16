@@ -782,6 +782,50 @@ form label {
     }
 }
 
+.pagination {
+    text-align: center;
+
+    .next,
+    .prev {
+        position: relative;
+        display: inline-block;
+        text-indent: -100000px;
+        overflow: hidden;
+        width: 20px;
+        height: 14px;
+
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-top: 4px solid $gold;
+            border-right: 4px solid $gold;
+        }
+
+        &:hover {
+            opacity: 0.75;
+        }
+    }
+
+    .next {
+        margin-right: 10px;
+        &:after {
+            left: 0;
+            transform: rotate(45deg);
+        }
+    }
+    .prev {
+        margin-left: 10px;
+        &:after {
+            right: 0;
+            transform: rotate(-135deg);
+        }
+    }
+}
+
 .recipes {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

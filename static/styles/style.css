@@ -635,6 +635,40 @@ form label {
       mask: url("../images/arrow.png") no-repeat;
       mask-size: contain; }
 
+.pagination {
+  text-align: center; }
+  .pagination .next,
+  .pagination .prev {
+    position: relative;
+    display: inline-block;
+    text-indent: -100000px;
+    overflow: hidden;
+    width: 20px;
+    height: 14px; }
+    .pagination .next:after,
+    .pagination .prev:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      width: 10px;
+      height: 10px;
+      border-top: 4px solid #bf8c20;
+      border-right: 4px solid #bf8c20; }
+    .pagination .next:hover,
+    .pagination .prev:hover {
+      opacity: 0.75; }
+  .pagination .next {
+    margin-right: 10px; }
+    .pagination .next:after {
+      left: 0;
+      transform: rotate(45deg); }
+  .pagination .prev {
+    margin-left: 10px; }
+    .pagination .prev:after {
+      right: 0;
+      transform: rotate(-135deg); }
+
 .recipes {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

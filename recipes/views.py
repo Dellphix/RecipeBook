@@ -1,21 +1,33 @@
-from django import urls
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
+from django.utils.http import urlencode
 from django.views import generic
-from django.contrib.auth.decorators import login_required
 
 from recipes.forms import RecipeForm
 from recipes.models import Recipe, Tag
 
+class IndexView(generic.ListView):
+    paginate_by = 9
+    model = Recipe
 
-class IndexView(LoginRequiredMixin, generic.ListView):
+    def get_context_data(self, **kwargs):
+        selected_tags = self.request.GET.getlist('tag', '')
+        selected_tags_params = []
+        for tag in selected_tags:
+            selected_tags_params.append(('tag', tag))
+
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        context['selected_tags'] = selected_tags
+        context['selected_tags_params'] = urlencode(selected_tags_params)
+        return context
+
+class UserIndexView(LoginRequiredMixin, IndexView):
     redirect_field_name = 'redirect_to'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tags'] = Tag.objects.all()
-        context['selected_tags'] = self.request.GET.getlist('tag', '')
         context['is_public_page'] = False
         return context
 
@@ -25,12 +37,10 @@ class IndexView(LoginRequiredMixin, generic.ListView):
             return Recipe.objects.filter(tags__name__in=tags, user_id=self.request.user.id).distinct('id')
         return Recipe.objects.filter(user_id=self.request.user.id)
 
-class PublicIndexView(generic.ListView):
+class PublicIndexView(IndexView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tags'] = Tag.objects.all()
-        context['selected_tags'] = self.request.GET.getlist('tag', '')
         context['is_public_page'] = True
         return context
 

@@ -6,8 +6,8 @@ from . import views
 app_name = "recipes"
 urlpatterns = [
     path("", views.PublicIndexView.as_view(), name="index"),
-    path("my-recipes", views.IndexView.as_view(), name="my_recipes"),
-    path("my-recipes/", views.IndexView.as_view(), name="my_recipes"),
+    path("my-recipes", views.UserIndexView.as_view(), name="my_recipes"),
+    path("my-recipes/", views.UserIndexView.as_view(), name="my_recipes"),
     path("<uuid:uuid>/", views.DetailView.as_view(), name="detail"),
     path("<uuid:uuid>/edit", views.UpdateView.as_view(), name="update"),
     path("<uuid:uuid>/delete", views.DeleteView.as_view(), name="delete"),
