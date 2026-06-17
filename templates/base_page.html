@@ -1,6 +1,7 @@
 {% load django_simple_nav %}
 {% load static %}
 {% load sass_tags %}
+{% load recipenav %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +52,7 @@
         </div>
     {% endfor %}
 
-    {% django_simple_nav "simplenav.nav.MainNav" %}
+    {% recipe_nav %}
 
     <div class="content chipped-box {% block content_classes %}{%  endblock %}">
         {% block content %}{%  endblock %}

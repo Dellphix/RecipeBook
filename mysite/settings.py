@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'thumbnails',
     'recipes.apps.RecipesConfig',
     'users.apps.UsersConfig',
+    'navigation.apps.NavigationConfig'
 ]
 
 MIDDLEWARE = [
@@ -157,7 +158,7 @@ STATICFILES_FINDERS = [
 
 AUTH_USER_MODEL = 'users.CustomUser'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-LOGIN_URL = '/login/'
+LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/my-recipes/'
 
 ACCOUNT_ADAPTER = "users.adapters.NoSignupAccountAdapter"

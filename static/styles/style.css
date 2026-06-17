@@ -318,7 +318,7 @@ nav #open-nav {
     list-style-type: none;
     padding: 0;
     margin: 0; }
-    .navigation li.selected a {
+    .navigation li.active a {
       background: #7D9A6D;
       color: #1F3A3D; }
     .navigation li a {
@@ -368,9 +368,9 @@ nav #open-nav {
           right: -1000px;
           width: 3000px;
           height: 5px; }
-        .navigation li.selected {
+        .navigation li.active {
           z-index: 20; }
-          .navigation li.selected:before {
+          .navigation li.active:before {
             background: #7D9A6D; }
         .navigation li::after {
           content: '';

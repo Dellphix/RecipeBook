@@ -4,6 +4,7 @@ mysite/__pycache__
 mysite/.env
 recipes/__pycache__
 recipes/migrations/__pycache__
+recipes/templatetags/__pycache__
 users/__pycache__
 users/migrations/__pycache__
 simplenav/__pycache__

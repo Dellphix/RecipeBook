@@ -369,7 +369,7 @@ nav #open-nav {
         padding: 0;
         margin: 0;
 
-        &.selected a {
+        &.active a {
             background: $primary-colour-light;
             color: #1F3A3D;
         }
@@ -430,7 +430,7 @@ nav #open-nav {
                 width: 3000px;
                 height: 5px;
             }
-            &.selected {
+            &.active {
                 z-index: 20;
 
                 &:before {

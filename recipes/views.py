@@ -24,7 +24,6 @@ class IndexView(generic.ListView):
         return context
 
 class UserIndexView(LoginRequiredMixin, IndexView):
-    redirect_field_name = 'redirect_to'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -50,7 +49,7 @@ class PublicIndexView(IndexView):
             return Recipe.objects.filter(tags__name__in=tags, is_public=True).distinct('id')
         return Recipe.objects.filter(is_public=True)
 
-class DetailView(generic.DetailView):
+class DetailView(LoginRequiredMixin, generic.DetailView):
     model = Recipe
 
     def get_object(self, queryset=None):
@@ -64,7 +63,6 @@ class UpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Recipe
     form_class = RecipeForm
     template_name_suffix = "_update_form"
-    redirect_field_name = 'redirect_to'
 
     def get_success_url(self, **kwargs):
         return reverse("recipes:detail", kwargs={'uuid': self.kwargs['uuid']})
@@ -78,7 +76,6 @@ class UpdateView(LoginRequiredMixin, generic.UpdateView):
 class DeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Recipe
     success_url = '/my-recipes'
-    redirect_field_name = 'redirect_to'
 
     def get_object(self, queryset=None):
         recipe = Recipe.objects.get(uuid=self.kwargs['uuid'])
@@ -90,7 +87,6 @@ class CreateView(LoginRequiredMixin, generic.CreateView):
     model = Recipe
     form_class = RecipeForm
     success_url = '/my-recipes'
-    redirect_field_name = 'redirect_to'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
