@@ -48,12 +48,10 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'debug_toolbar',
-    'django_simple_nav',
     'sass_processor',
     'thumbnails',
     'recipes.apps.RecipesConfig',
     'users.apps.UsersConfig',
-    'navigation.apps.NavigationConfig'
 ]
 
 MIDDLEWARE = [
