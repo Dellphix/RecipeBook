@@ -23,6 +23,18 @@ class IndexView(generic.ListView):
         context['selected_tags_params'] = urlencode(selected_tags_params)
         return context
 
+    def get_recipes(self, **kwargs):
+        tags = self.request.GET.getlist('tag', '')
+        recipes = Recipe.objects.filter(**kwargs)
+
+        if tags:
+            # Can't use distinct and then order by a different field,
+            # so use a subquery to get around that
+            sub_query = (recipes.filter(tags__name__in=tags) # add filter to existing query
+                         .distinct('id'))
+            recipes = Recipe.objects.filter(id__in=sub_query)
+        return recipes.order_by('name')
+
 class UserIndexView(LoginRequiredMixin, IndexView):
 
     def get_context_data(self, **kwargs):
@@ -31,10 +43,7 @@ class UserIndexView(LoginRequiredMixin, IndexView):
         return context
 
     def get_queryset(self):
-        tags = self.request.GET.getlist('tag', '')
-        if tags:
-            return Recipe.objects.filter(tags__name__in=tags, user_id=self.request.user.id).distinct('id')
-        return Recipe.objects.filter(user_id=self.request.user.id)
+        return self.get_recipes(user_id=self.request.user.id)
 
 class PublicIndexView(IndexView):
 
@@ -44,10 +53,7 @@ class PublicIndexView(IndexView):
         return context
 
     def get_queryset(self):
-        tags = self.request.GET.getlist('tag', '')
-        if tags:
-            return Recipe.objects.filter(tags__name__in=tags, is_public=True).distinct('id')
-        return Recipe.objects.filter(is_public=True)
+        return self.get_recipes(is_public=True)
 
 class DetailView(LoginRequiredMixin, generic.DetailView):
     model = Recipe
@@ -75,7 +81,9 @@ class UpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class DeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Recipe
-    success_url = '/my-recipes'
+
+    def get_success_url(self, **kwargs):
+        return reverse("recipes:my_recipes")
 
     def get_object(self, queryset=None):
         recipe = Recipe.objects.get(uuid=self.kwargs['uuid'])
@@ -86,7 +94,9 @@ class DeleteView(LoginRequiredMixin, generic.DeleteView):
 class CreateView(LoginRequiredMixin, generic.CreateView):
     model = Recipe
     form_class = RecipeForm
-    success_url = '/my-recipes'
+
+    def get_success_url(self, **kwargs):
+        return reverse("recipes:my_recipes")
 
     def form_valid(self, form):
         form.instance.user = self.request.user
