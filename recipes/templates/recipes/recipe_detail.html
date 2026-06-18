@@ -29,6 +29,9 @@
         {% if recipe.serves %}
             <p><strong>Serves: </strong>{{ recipe.serves }}</p>
         {% endif %}
+        {% if recipe.source %}
+            <p><strong>Source: </strong>{{ recipe.source }}</p>
+        {% endif %}
     </div>
     <p>{{ recipe.description|linebreaks }}</p>
 {% endblock %}

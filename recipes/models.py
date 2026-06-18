@@ -25,6 +25,7 @@ class Recipe(models.Model):
     prep_time = models.IntegerField(default=0)
     cook_time = models.IntegerField(default=0)
     serves = models.IntegerField(default=0)
+    source = models.CharField(max_length=200, default='', blank=True)
     description = models.TextField(blank=True)
     is_public = models.BooleanField(default=False)
 
