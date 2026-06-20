@@ -625,19 +625,6 @@ form:not(.tag-filter-form) {
     }
 }
 
-
-.tags {
-    display: flex;
-    margin: 10px 0;
-}
-.tag {
-    background: $secondary-colour;
-    font-size: 11px;
-    padding: 4px 6px;
-    margin-right: 3px;
-    clip-path: polygon(0 6px,6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0 calc(100% - 6px));
-}
-
 /** Form styles */
 
 input[type="text"],
@@ -690,11 +677,25 @@ form label {
 
 /** Recipes list */
 
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+.tag {
+    display: inline-block;
+    background: $secondary-colour;
+    font-size: 11px;
+    padding: 4px 6px;
+    margin-right: 3px;
+    margin-bottom:3px;
+    clip-path: polygon(0 6px,6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0 calc(100% - 6px));
+}
+
 .tag-filter {
-    padding: 5px;
-    padding-left: 20px;
+    padding: 5px 20px;
     padding-bottom: 25px;
-    margin-bottom: 25px;
+    margin-bottom: 5px;
     background: $primary-colour-light;
 
     @media screen and (min-width: $breakpoint-tablet) {

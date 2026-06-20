@@ -515,17 +515,6 @@ form:not(.tag-filter-form) {
     mask-image: url("../images/tick_icon.png");
     mask-size: cover; }
 
-.tags {
-  display: flex;
-  margin: 10px 0; }
-
-.tag {
-  background: #B68F61;
-  font-size: 11px;
-  padding: 4px 6px;
-  margin-right: 3px;
-  clip-path: polygon(0 6px, 6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px)); }
-
 /** Form styles */
 input[type="text"],
 input[type="password"],
@@ -568,11 +557,24 @@ form label {
     list-style-type: none; }
 
 /** Recipes list */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0; }
+
+.tag {
+  display: inline-block;
+  background: #B68F61;
+  font-size: 11px;
+  padding: 4px 6px;
+  margin-right: 3px;
+  margin-bottom: 3px;
+  clip-path: polygon(0 6px, 6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px)); }
+
 .tag-filter {
-  padding: 5px;
-  padding-left: 20px;
+  padding: 5px 20px;
   padding-bottom: 25px;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
   background: #7D9A6D; }
   @media screen and (min-width: 800px) {
     .tag-filter {
