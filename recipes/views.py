@@ -29,6 +29,7 @@ class IndexView(generic.ListView):
         context['tags'] = Tag.objects.all()
         context['selected_tags'] = selected_tags
         context['selected_tags_params'] = urlencode(selected_tags_params)
+        context['hungry_link'] = self.get_hungry_link()
         return context
 
     def get_recipes(self, **kwargs):
@@ -43,6 +44,13 @@ class IndexView(generic.ListView):
             recipes = Recipe.objects.filter(id__in=sub_query)
         return recipes.order_by('name')
 
+    def get_hungry_link(self, **kwargs):
+        recipe = self.get_recipes(**kwargs).order_by("?").first()
+        if recipe:
+            return reverse("recipes:detail", kwargs={'uuid': recipe.uuid})
+        else:
+            return ''
+
 class UserIndexView(LoginRequiredMixin, IndexView):
 
     def get_context_data(self, **kwargs):
@@ -52,6 +60,9 @@ class UserIndexView(LoginRequiredMixin, IndexView):
 
     def get_queryset(self):
         return self.get_recipes(user_id=self.request.user.id)
+
+    def get_hungry_link(self):
+        return super().get_hungry_link(user_id=self.request.user.id)
 
 class PublicIndexView(IndexView):
 
@@ -63,7 +74,10 @@ class PublicIndexView(IndexView):
     def get_queryset(self):
         return self.get_recipes(is_public=True)
 
-class DetailView(generic.DetailView):
+    def get_hungry_link(self):
+        return super().get_hungry_link(is_public=True)
+
+class DetailView(LoginRequiredMixin, generic.DetailView):
     model = Recipe
 
     def dispatch(self, request, *args, **kwargs):

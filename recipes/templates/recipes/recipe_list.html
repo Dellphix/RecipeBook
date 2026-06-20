@@ -22,6 +22,7 @@
             </form>
         </div>
     {% endif %}
+    {% if hungry_link %}<a href="{{ hungry_link }}" class="hungry-link">I'm feeling hungry!</a>{% endif %}
     {% if request.user.is_authenticated and not is_public_page %}
         <p><a href="{% url 'recipes:create' %}" class="add-item">Add Recipe</a></p>
     {% endif %}
