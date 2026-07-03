@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'debug_toolbar',
-    'sass_processor',
     'thumbnails',
     'recipes.apps.RecipesConfig',
     'users.apps.UsersConfig',
@@ -146,12 +145,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-]
-
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'sass_processor.finders.CssFinder',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'

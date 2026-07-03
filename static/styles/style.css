@@ -9,7 +9,6 @@
   font-family: 'Lucien Schoenschriftv CAT';
   src: url("../fonts/Lucian-Schoenschrift-CAT.eot");
   src: url("../fonts/Lucian-Schoenschrift-CAT.eot?#iefix") format("embedded-opentype"), url("../fonts/Lucian-Schoenschrift-CAT.woff2") format("woff2"), url("../fonts/Lucian-Schoenschrift-CAT.woff") format("woff"), url("../fonts/Lucian-Schoenschrift-CAT.ttf") format("truetype"), url("../fonts/Lucian-Schoenschrift-CAT.svg#Lucien Schoenschriftv CAT") format("svg"); }
-
 body {
   position: relative;
   padding: 0;
@@ -202,6 +201,7 @@ header {
         mask-position: center top;
         mask-size: 100%;
         top: 0; } }
+
 .footer {
   z-index: 0;
   margin-bottom: 20px; }
@@ -211,7 +211,6 @@ header {
     margin-bottom: 0; }
     .flourishes:after {
       rotate: 180deg; } }
-
 @media screen and (min-width: 1200px) {
   .flourishes {
     height: auto;
@@ -257,6 +256,7 @@ header {
   @media screen and (min-width: 800px) {
     .message {
       margin: 15px; } }
+
 nav #open-nav {
   position: absolute;
   top: -65px;
@@ -395,6 +395,7 @@ nav #open-nav {
           transition: padding-bottom 0.1s ease-in-out; }
           .navigation li a:hover {
             padding-bottom: 15px; } }
+
 .content {
   background: #f6ede2;
   padding: 20px 30px; }
@@ -814,3 +815,5 @@ form.delete-form {
 
 .account-page .login-page form {
   max-width: 285px; }
+
+/*# sourceMappingURL=style.css.map */
