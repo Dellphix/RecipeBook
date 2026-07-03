@@ -13,7 +13,7 @@ window.onload = (event) => {
         document.getElementById("keep-awake-field").style.display = "block";
 
         async function requestWakeLock() {
-          if (wakeLock !== null) return;
+          if (wakeLock !== null && !wakeLock.released) return;
 
           try {
             wakeLock = await navigator.wakeLock.request('screen');
