@@ -33,5 +33,9 @@
             <p><strong>Source: </strong>{{ recipe.source }}</p>
         {% endif %}
     </div>
+    <label class="custom-checkbox" id="keep-awake-field" for="keep-awake_id" style="display: none">
+        <input type="checkbox" name="keep-awake" id="keep-awake_id">
+        Keep Awake
+    </label>
     <p>{{ recipe.description|linebreaks }}</p>
 {% endblock %}
