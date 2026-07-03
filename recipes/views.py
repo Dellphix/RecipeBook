@@ -55,13 +55,18 @@ class PublicIndexView(IndexView):
     def get_queryset(self):
         return self.get_recipes(is_public=True)
 
-class DetailView(LoginRequiredMixin, generic.DetailView):
+class DetailView(generic.DetailView):
     model = Recipe
+
+    def dispatch(self, request, *args, **kwargs):
+        recipe = self.get_object(queryset=request.GET)
+        if not recipe.is_viewable_by(self.request.user):
+            return redirect_to_login('/3901b8d7-502f-4a29-84cb-d24a87382e50/', '/accounts/login/')
+        else:
+            return super().dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         recipe = Recipe.objects.get(uuid=self.kwargs['uuid'])
-        if not recipe.is_viewable_by(self.request.user):
-            raise Http404
         return recipe
 
 
