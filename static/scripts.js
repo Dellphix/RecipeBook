@@ -10,7 +10,7 @@ window.onload = (event) => {
 
     if ('wakeLock' in navigator) {
         let wakeLock = null;
-        document.getElementById("keep-awake-field").style.display = "block";
+        document.getElementById("keep-awake").style.display = "block";
 
         async function requestWakeLock() {
           if (wakeLock !== null && !wakeLock.released) return;

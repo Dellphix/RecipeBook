@@ -954,6 +954,60 @@ form label {
     }
 }
 
+#keep-awake {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    padding-top: 2px;
+    margin-bottom: 20px;
+
+    label {
+        display: inline-block;
+        margin-right: 7px;
+        text-indent: 24px;
+        cursor: pointer;
+
+        &:before,
+        &:after {
+            content: '';
+            display: block;
+            position: absolute
+        }
+
+        &:before {
+            top: 0;
+            width: 43px;
+            height: 25px;
+            background: $secondary-colour;
+            border-radius: 20px;
+            transition: background-color ease-in-out 0.25s;
+        }
+
+        &:after {
+            top: 4px;
+            left: 3px;
+            width: 17px;
+            height: 17px;
+            background: white;
+            border-radius: 50%;
+            transition: left ease-in-out 0.25s;
+        }
+
+        &:has(input[type="checkbox"]:checked) {
+            &:before {
+                background: $primary-colour-light;
+            }
+            &:after {
+                left: 22px;
+            }
+        }
+    }
+
+    span {
+        font-size: 14px;
+    }
+}
+
 /** Delete page */
 form.delete-form {
     text-align: center;

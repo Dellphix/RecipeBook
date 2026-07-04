@@ -33,9 +33,12 @@
             <p><strong>Source: </strong>{{ recipe.source }}</p>
         {% endif %}
     </div>
-    <label class="custom-checkbox" id="keep-awake-field" for="keep-awake_id" style="display: none">
-        <input type="checkbox" name="keep-awake" id="keep-awake_id">
-        Keep Awake
-    </label>
+    <p id="keep-awake" style="display: none">
+        <label class="custom-checkbox" id="keep-awake-field" for="keep-awake_id">
+            <input type="checkbox" name="keep-awake" id="keep-awake_id">
+            <strong>Cook Mode</strong>
+        </label>
+        <span>(Keeps the screen from dimming)</span>
+    </p>
     <p>{{ recipe.description|linebreaks }}</p>
 {% endblock %}
