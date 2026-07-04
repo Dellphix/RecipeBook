@@ -774,6 +774,43 @@ form label {
     position: absolute;
     top: 0; }
 
+#keep-awake {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  padding-top: 2px;
+  margin-bottom: 20px; }
+  #keep-awake label {
+    display: inline-block;
+    margin-right: 7px;
+    text-indent: 24px;
+    cursor: pointer; }
+    #keep-awake label:before, #keep-awake label:after {
+      content: '';
+      display: block;
+      position: absolute; }
+    #keep-awake label:before {
+      top: 0;
+      width: 43px;
+      height: 25px;
+      background: #B68F61;
+      border-radius: 20px;
+      transition: background-color ease-in-out 0.25s; }
+    #keep-awake label:after {
+      top: 4px;
+      left: 3px;
+      width: 17px;
+      height: 17px;
+      background: white;
+      border-radius: 50%;
+      transition: left ease-in-out 0.25s; }
+    #keep-awake label:has(input[type="checkbox"]:checked):before {
+      background: #7D9A6D; }
+    #keep-awake label:has(input[type="checkbox"]:checked):after {
+      left: 22px; }
+  #keep-awake span {
+    font-size: 14px; }
+
 /** Delete page */
 form.delete-form {
   text-align: center; }
