@@ -47,32 +47,3 @@ window.onload = (event) => {
         });
     }
 };
-
-
-
-// class WakeLockManager {
-//   #sentinel = null;
-//
-//   get isActive() {
-//     return this.#sentinel !== null && !this.#sentinel.released;
-//   }
-//
-//   async acquire() {
-//     if (this.isActive) return;
-//     try {
-//       this.#sentinel = await navigator.wakeLock.request('screen');
-//       this.#sentinel.addEventListener('release', () => {
-//         this.#sentinel = null;
-//       });
-//     } catch (err) {
-//       console.error('Failed to acquire wake lock:', err);
-//     }
-//   }
-//
-//   async release() {
-//     if (this.#sentinel) {
-//       await this.#sentinel.release();
-//       this.#sentinel = null;
-//     }
-//   }
-// }
