@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import redirect_to_login
 from django.http import Http404
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -61,7 +62,7 @@ class DetailView(generic.DetailView):
     def dispatch(self, request, *args, **kwargs):
         recipe = self.get_object(queryset=request.GET)
         if not recipe.is_viewable_by(self.request.user):
-            return redirect_to_login('/3901b8d7-502f-4a29-84cb-d24a87382e50/', '/accounts/login/')
+            return redirect_to_login(f'/{recipe.uuid}/', '/accounts/login/')
         else:
             return super().dispatch(request, *args, **kwargs)
 
