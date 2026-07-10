@@ -66,6 +66,9 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = {'allauth.account.auth_backends.AuthenticationBackend'}
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_SESSION_COOKIE_AGE = 31536000  # 1 year (60*60*24*365 seconds)
+ACCOUNT_LOGIN_METHODS = {"username", "email"}
 
 SITE_ID = 1
 
