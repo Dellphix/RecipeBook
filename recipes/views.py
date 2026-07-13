@@ -1,12 +1,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import redirect_to_login
 from django.http import Http404
+from django.shortcuts import render
 from django.urls import reverse
 from django.utils.http import urlencode
 from django.views import generic
 
-from recipes.forms import RecipeForm
-from recipes.models import Recipe, Tag
+from recipes.forms import RecipeForm, IngredientFormSet
+from recipes.models import Recipe, Tag, Ingredient
+
 
 class IndexView(generic.ListView):
     paginate_by = 9
@@ -89,6 +91,57 @@ class UpdateView(LoginRequiredMixin, generic.UpdateView):
             return redirect_to_login(f'/{recipe.uuid}/', '/accounts/login/')
         return recipe
 
+    def get_context_data(self, **kwargs):
+        data = super(UpdateView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['ingredients'] = IngredientFormSet(self.request.POST, instance=self.object)
+            # data['ingredients'].full_clean()
+            print('post', self.request.POST)
+            print('formset', data['ingredients'].forms)
+        else:
+            data['ingredients'] = IngredientFormSet(instance=self.object)
+            print('not post', data['ingredients'].forms)
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data(form=form)
+        formset = context['ingredients']
+        if formset.is_valid():
+            response = super().form_valid(form)
+            formset.instance = self.object
+            formset.save()
+            return response
+        else:
+            print('invalid', formset.forms)
+            return super().form_invalid(form)
+
+class CreateView(LoginRequiredMixin, generic.CreateView):
+    model = Recipe
+    form_class = RecipeForm
+
+    def get_success_url(self, **kwargs):
+        return reverse("recipes:my_recipes")
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['ingredients'] = IngredientFormSet(self.request.POST)
+        else:
+            context['ingredients'] = IngredientFormSet()
+        return context
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        context = self.get_context_data(form=form)
+        formset = context['ingredients']
+        if formset.is_valid():
+            response = super().form_valid(form)
+            formset.instance = self.object
+            formset.save()
+            return response
+        else:
+            return super().form_invalid(form)
+
 class DeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Recipe
 
@@ -103,13 +156,6 @@ class DeleteView(LoginRequiredMixin, generic.DeleteView):
             return redirect_to_login(f'/{recipe.uuid}/', '/accounts/login/')
         return recipe
 
-class CreateView(LoginRequiredMixin, generic.CreateView):
-    model = Recipe
-    form_class = RecipeForm
-
-    def get_success_url(self, **kwargs):
-        return reverse("recipes:my_recipes")
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+def ajax_ingredient(request):
+    formset = IngredientFormSet()
+    return render(request, 'recipes/ajax_ingredient.html', {'formset': formset})

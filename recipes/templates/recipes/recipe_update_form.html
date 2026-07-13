@@ -11,5 +11,5 @@
 
 {% block recipe_content %}
     {% block image %} {# leave blank, image will be in the form #} {% endblock %}
-    {% include 'base_form.html' with button_text='Save' %}
+    {% include 'recipes/_recipe_form.html' with button_text='Save' form_class="recipe-form" %}
 {% endblock %}

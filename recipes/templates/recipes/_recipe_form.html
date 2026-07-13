@@ -1,0 +1,50 @@
+{% extends "base_form.html" %}
+
+{% block fields %}
+    <div class="ingredients-section">
+        <div class="label">Ingredients:</div>
+        <div>
+            <table id="ingredients">
+                {{ ingredients.management_form }}
+                {{ ingredients.non_form_errors }}
+                {% for dict in ingredients.errors %}
+                    {% for error in dict.values %}
+                        {{ error }}
+                    {% endfor %}
+                {% endfor %}
+                {% for form in ingredients.forms %}
+                    {% if forloop.first %}
+                        <thead>
+                        <tr>
+                            {% for field in form.visible_fields %}
+                                <th>{{ field.label|capfirst }}</th>
+                            {% endfor %}
+                        </tr>
+                        </thead>
+                    {% endif %}
+                    <tr class="ingredient">
+                        {% include 'recipes/_ingredient_form.html' %}
+                    </tr>
+                {% endfor %}
+            </table>
+            <a href="#" id="add-ingredient" class="add-item">Add Ingredient</a>
+        </div>
+    </div>
+    {% for field in form %}
+        <div class="field-wrapper">
+            {{ field.label_tag }}
+            <div class="field type-{{ field.field.widget.input_type }}
+                choices-{{  field.field.widget.choices | length }}">
+                {{ field }}
+                {% if field.help_text %}<div class="helptext"{% if field.auto_id %} id="{{ field.auto_id }}_helptext"{% endif %}>{{ field.help_text|safe }}</div>{% endif %}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

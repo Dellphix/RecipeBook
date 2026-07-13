@@ -1,6 +1,7 @@
 from django import forms
+from django.forms import inlineformset_factory
 
-from recipes.models import Recipe
+from recipes.models import Recipe, Ingredient
 
 class CustomImageInput(forms.ClearableFileInput):
     template_name = 'custom_image_input.html'
@@ -26,3 +27,9 @@ class RecipeForm(forms.ModelForm):
             'prep_time': 'Prep Time (min)',
             'cook_time': 'Cook Time (min)',
         }
+
+IngredientFormSet = inlineformset_factory(Recipe, Ingredient, fields=[
+    "quantity",
+    "unit",
+    "description",
+], extra=1, max_num = None, )

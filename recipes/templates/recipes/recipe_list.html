@@ -22,7 +22,7 @@
         </div>
     {% endif %}
     {% if request.user.is_authenticated and not is_public_page %}
-        <p><a href="{% url 'recipes:create' %}" class="add-recipe">Add Recipe</a></p>
+        <p><a href="{% url 'recipes:create' %}" class="add-item">Add Recipe</a></p>
     {% endif %}
     {% if recipe_list %}
         <ul class="recipes">

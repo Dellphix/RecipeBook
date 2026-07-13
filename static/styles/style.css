@@ -515,6 +515,8 @@ form:not(.tag-filter-form) {
     background: #bf8c20;
     mask-image: url("../images/tick_icon.png");
     mask-size: cover; }
+  form:not(.tag-filter-form) .field.type-checkbox {
+    column-count: 4; }
 
 /** Form styles */
 input[type="text"],
@@ -718,15 +720,46 @@ form label {
     margin: 0;
     margin-bottom: 5px; }
 
+.recipe-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; }
+  .recipe-form > div {
+    width: 100%; }
+  .recipe-form .ingredients-section {
+    display: flex;
+    order: 1;
+    margin-bottom: 15px; }
+    .recipe-form .ingredients-section div.label {
+      width: 90px;
+      margin-right: 10px;
+      font-size: 12px; }
+    .recipe-form .ingredients-section table th {
+      font-weight: 400;
+      font-size: 14px; }
+    .recipe-form .ingredients-section table label {
+      display: none; }
+    .recipe-form .ingredients-section table .field-wrapper {
+      margin: 0; }
+    .recipe-form .ingredients-section table .field.type-checkbox {
+      margin-bottom: 0 !important;
+      margin-top: 2px; }
+  .recipe-form .field-wrapper:nth-last-child(2) {
+    order: 3; }
+  .recipe-form .field-wrapper:nth-last-child(3) {
+    order: 2; }
+  .recipe-form .right-arrow {
+    order: 4; }
+
 .edit-recipe,
 .delete-recipe,
-.add-recipe {
+.add-item {
   position: relative;
   padding-left: 25px;
   font-size: 14px; }
   .edit-recipe::before,
   .delete-recipe::before,
-  .add-recipe::before {
+  .add-item::before {
     content: '';
     display: block;
     position: absolute;
@@ -737,7 +770,7 @@ form label {
     margin-right: 15px; }
   .edit-recipe:hover,
   .delete-recipe:hover,
-  .add-recipe:hover {
+  .add-item:hover {
     opacity: 0.75; }
 
 .edit-recipe {
@@ -753,7 +786,7 @@ form label {
   mask-size: contain;
   background: #C92525; }
 
-.add-recipe::before {
+.add-item::before {
   mask: url("../images/plus_icon.png") no-repeat;
   mask-size: contain;
   background: #bf8c20;

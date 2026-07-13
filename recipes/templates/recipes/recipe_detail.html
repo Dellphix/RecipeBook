@@ -40,5 +40,10 @@
         </label>
         <span>(Keeps the screen from dimming)</span>
     </p>
+    <ul>
+        {% for ingredient in recipe.ingredients %}
+            <li>{{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.description }}</li>
+        {% endfor %}
+    </ul>
     <p>{{ recipe.description|linebreaks }}</p>
 {% endblock %}

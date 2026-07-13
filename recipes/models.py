@@ -40,6 +40,9 @@ class Recipe(models.Model):
     def is_viewable_by(self, user):
         return self.is_public or self.user_id == user.id
 
+    def ingredients(self):
+        return self.ingredient_set.all()
+
     def save(self, *args, **kwargs):
         if self.id:
             old = Recipe.objects.get(id=self.id)
@@ -52,3 +55,12 @@ class Recipe(models.Model):
         if self.image:
             self.image.delete()
         super().delete(using, keep_parents)
+
+class Ingredient(models.Model):
+    quantity = models.DecimalField(decimal_places=2, max_digits=1000)
+    unit = models.CharField(max_length=50)
+    description = models.CharField(max_length=200)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.description

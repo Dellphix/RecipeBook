@@ -623,6 +623,10 @@ form:not(.tag-filter-form) {
             mask-size: cover;
         }
     }
+
+    .field.type-checkbox {
+        column-count: 4;
+    }
 }
 
 /** Form styles */
@@ -894,9 +898,62 @@ form label {
     }
 }
 
+.recipe-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    > div {
+        width: 100%;
+    }
+
+    .ingredients-section {
+        display: flex;
+        order: 1;
+        margin-bottom: 15px;
+
+        div.label {
+            width: 90px;
+            margin-right: 10px;
+            font-size: 12px;
+        }
+
+        table {
+            th {
+                font-weight: 400;
+                font-size: 14px;
+            }
+            label {
+                display:none;
+            }
+            .field-wrapper {
+                margin: 0;
+            }
+            tr td:last-child {
+
+            }
+            .field.type-checkbox {
+                margin-bottom: 0 !important;
+                margin-top: 2px;
+            }
+        }
+    }
+
+    .field-wrapper:nth-last-child(2) {
+        order: 3;
+    }
+    .field-wrapper:nth-last-child(3) {
+        order: 2;
+    }
+
+    .right-arrow {
+        order: 4;
+    }
+}
+
 .edit-recipe,
 .delete-recipe,
-.add-recipe {
+.add-item {
     position: relative;
     padding-left: 25px;
     font-size: 14px;
@@ -928,7 +985,7 @@ form label {
     mask-size: contain;
     background: $error;
 }
-.add-recipe::before {
+.add-item::before {
     mask: url("../images/plus_icon.png") no-repeat;
     mask-size: contain;
     background: $gold;
