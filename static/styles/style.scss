@@ -898,6 +898,26 @@ form label {
     }
 }
 
+.ingredient-checklist {
+
+    ul {
+        padding: 0;
+    }
+    li {
+        list-style-type: none;
+
+        &:has(input[type="checkbox"]:checked) label {
+            text-decoration: line-through;
+            color: $secondary-colour;
+        }
+    }
+
+    label {
+        font-size: inherit;
+        width: inherit;
+    }
+}
+
 .recipe-form {
     display: flex;
     flex-direction: column;
