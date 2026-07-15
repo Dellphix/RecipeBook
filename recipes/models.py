@@ -1,8 +1,8 @@
 import uuid
 
 from django.db import models
-from django.contrib.auth.models import User
 from thumbnails.fields import ImageField
+from django.utils.translation import gettext_lazy
 
 from mysite import settings
 
@@ -56,9 +56,23 @@ class Recipe(models.Model):
             self.image.delete()
         super().delete(using, keep_parents)
 
+class Unit(models.TextChoices):
+    NONE = "none", gettext_lazy("")
+    KILOGRAM = "kg", gettext_lazy("kg")
+    GRAM = "g", gettext_lazy("g")
+    LITRE = "l", gettext_lazy("l")
+    MILLILITRE = "ml", gettext_lazy("ml")
+    CUP = "cup", gettext_lazy("cup")
+    TABLESPOON = "tbsp", gettext_lazy("tbsp")
+    TEASPOON = "tsp", gettext_lazy("tsp")
+    OUNCE = "oz", gettext_lazy("oz")
+    POUND = "lb", gettext_lazy("lb")
+
 class Ingredient(models.Model):
-    quantity = models.DecimalField(decimal_places=2, max_digits=1000)
-    unit = models.CharField(max_length=50)
+    quantity = models.DecimalField(decimal_places=2, max_digits=100)
+    unit = models.CharField(max_length=5,
+        choices=Unit,
+        default=Unit.NONE)
     description = models.CharField(max_length=200)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 

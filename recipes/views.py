@@ -1,13 +1,17 @@
+import json
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import redirect_to_login
-from django.http import Http404
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.http import urlencode
 from django.views import generic
+from django.views.decorators.csrf import csrf_exempt
+from measurement_converter import MeasurementConverter
 
 from recipes.forms import RecipeForm, IngredientFormSet
-from recipes.models import Recipe, Tag, Ingredient
+from recipes.models import Recipe, Tag, Ingredient, Unit
 
 
 class IndexView(generic.ListView):
@@ -159,3 +163,42 @@ class DeleteView(LoginRequiredMixin, generic.DeleteView):
 def ajax_ingredient(request):
     formset = IngredientFormSet()
     return render(request, 'recipes/ajax_ingredient.html', {'formset': formset})
+
+def convert_quantity(request):
+    value = float(request.GET['value'])
+    from_unit = request.GET['from_unit']
+    to_unit = request.GET['to_unit']
+    result = MeasurementConverter.convert(value, from_unit, to_unit).to_value
+    return HttpResponse("%s" % result)
+
+@csrf_exempt
+def convert_quantities(request):
+    def get_conversion_unit(unit, unit_system):
+        conversion_table = [
+            [Unit.KILOGRAM.__str__(), Unit.POUND.__str__()],
+            [Unit.GRAM.__str__(), Unit.OUNCE.__str__()]
+        ]
+        conversion = None
+        for c in conversion_table:
+            if unit in c:
+                conversion = c
+                break
+        if conversion is None:
+            return None
+        conversion_index = 0 if unit_system == 'metric' else 1
+        return conversion[conversion_index]
+
+    data = json.loads(request.body)
+    converted_ingredients = []
+    for ingredient in data["ingredients"]:
+        to_unit = get_conversion_unit(ingredient["unit"], data["convert_to"])
+        if to_unit:
+            converted_ingredients.append({
+                "id": ingredient["id"],
+                "quantity": MeasurementConverter.convert(ingredient["quantity"], ingredient["unit"], to_unit).to_value,
+                "unit": to_unit
+            })
+        else:
+            converted_ingredients.append(ingredient)
+    return JsonResponse(converted_ingredients, safe=False)
+

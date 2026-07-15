@@ -1,4 +1,5 @@
 {% extends "recipes/recipe_base_page.html" %}
+{% load custom_filters %}
 
 {% block recipe_title %}
     <div>
@@ -43,10 +44,12 @@
     <form class="ingredient-checklist">
         <ul>
             {% for ingredient in recipe.ingredients %}
-                <li>
+                <li data-id="{{ ingredient.id }}" data-quantity="{{ ingredient.quantity }}" data-unit="{{ ingredient.unit}}">
                     <label class="custom-checkbox">
                         <input type="checkbox" />
-                    {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.description }}
+                        {{ ingredient.quantity|display_quantity:ingredient.unit  }}
+                        {% if ingredient.unit != 'none' %}{{ ingredient.unit }} {% endif %}
+                        {{ ingredient.description }}
                     </label>
                 </li>
             {% endfor %}
