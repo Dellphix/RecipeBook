@@ -174,24 +174,30 @@ def convert_quantity(request):
 @csrf_exempt
 def convert_quantities(request):
     def get_conversion_unit(unit, unit_system):
-        conversion_table = [
-            [Unit.KILOGRAM.__str__(), Unit.POUND.__str__()],
-            [Unit.GRAM.__str__(), Unit.OUNCE.__str__()]
-        ]
-        conversion = None
-        for c in conversion_table:
-            if unit in c:
-                conversion = c
-                break
-        if conversion is None:
+        conversion_table = {
+            'metric': {
+                Unit.KILOGRAM.__str__(): Unit.POUND.__str__(),
+                Unit.GRAM.__str__(): Unit.OUNCE.__str__(),
+                Unit.MILLILITRE.__str__(): Unit.CUP.__str__(),
+                Unit.LITRE.__str__(): Unit.CUP.__str__()
+            },
+            'us_customary': {
+                Unit.POUND.__str__(): Unit.KILOGRAM.__str__(),
+                Unit.OUNCE.__str__(): Unit.GRAM.__str__(),
+            }
+        }
+
+        try:
+            conversion = conversion_table[unit_system][unit]
+        except KeyError:
+            # Not found, can't convert
             return None
-        conversion_index = 0 if unit_system == 'metric' else 1
-        return conversion[conversion_index]
+        return conversion
 
     data = json.loads(request.body)
     converted_ingredients = []
     for ingredient in data["ingredients"]:
-        to_unit = get_conversion_unit(ingredient["unit"], data["convert_to"])
+        to_unit = get_conversion_unit(ingredient["unit"], data["convert_from"])
         if to_unit:
             converted_ingredients.append({
                 "id": ingredient["id"],
