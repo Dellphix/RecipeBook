@@ -1,19 +1,21 @@
 "use strict";
 
-window.onload = (event) => {
 
+window.onload = (event) => {
+    
     /** Navigation */
-    document.getElementById("open-nav").addEventListener('click', () => {
-        document.querySelector('.navigation').classList.add('open');
+    $("#open-nav").on('click', () => {
+        $('.navigation').addClass('open');
     });
-    document.getElementById("close-nav").addEventListener('click', () => {
-        document.querySelector('.navigation').classList.remove('open');
+    $("#close-nav").on('click', () => {
+        $('.navigation').removeClass('open');
     });
 
     /** Keep Awake */
-    if ('wakeLock' in navigator && document.getElementById("keep-awake")) {
+    let keepAwake = $("#keep-awake");
+    if ('wakeLock' in navigator && keepAwake.length) {
         let wakeLock = null;
-        document.getElementById("keep-awake").style.display = "block";
+        keepAwake.show();
 
         async function requestWakeLock() {
           if (wakeLock !== null && !wakeLock.released) return;
@@ -22,7 +24,7 @@ window.onload = (event) => {
             wakeLock = await navigator.wakeLock.request('screen');
 
             // Listen for the 'release' event
-            wakeLock.addEventListener('release', () => {
+            wakeLock.on('release', () => {
                 console.log('Wake Lock was released');
             });
             console.log('Wake Lock active');
@@ -41,7 +43,7 @@ window.onload = (event) => {
             }
         });
 
-        document.getElementById("keep-awake-field").addEventListener('change', async event => {
+        $("#keep-awake-field").on('change', async event => {
             if (event.target.checked) {
                 await requestWakeLock();
             } else if (wakeLock !== null) {
@@ -51,8 +53,10 @@ window.onload = (event) => {
     }
 
     /** Add ingredient */
-    if (document.getElementById("add-ingredient")) {
-        document.getElementById("add-ingredient").addEventListener('click', () => {
+    let addIngredient = $("#add-ingredient");
+    if (addIngredient.length) {
+        addIngredient.on('click', (event) => {
+            event.preventDefault();
             let url = window.location.origin + "/ajax-ingredient";
             fetch(url, {method: 'GET'})
                 .then(response => {
@@ -65,9 +69,8 @@ window.onload = (event) => {
 
                     // Update field ids etc
                     const ingredient = parsedHtml.querySelector('.new-ingredient');
-                    const ingredientCount = document.querySelectorAll('.ingredient').length;
+                    const ingredientCount = $('.ingredient').length;
                     let ingredientBase = 'ingredient_set-' + ingredientCount; // They're zero indexed, so we can just add the count on
-                    console.log(parsedHtml, ingredient);
                     let ingredientQuantityInput = ingredient.querySelector('#id_ingredient_set-0-quantity');
                     ingredientQuantityInput.id = 'id_' + ingredientBase + '-quantity';
                     ingredientQuantityInput.name = ingredientBase + '-quantity';
@@ -88,14 +91,14 @@ window.onload = (event) => {
                     let ingredientRecipeHidden = ingredient.querySelector('#id_ingredient_set-0-recipe');
                     ingredientRecipeHidden.id = 'id_' + ingredientBase + '-recipe';
                     ingredientRecipeHidden.name = ingredientBase + '-recipe';
-                    ingredientRecipeHidden.value = document.getElementById('id_ingredient_set-0-recipe').value;
+                    ingredientRecipeHidden.value = $('#id_ingredient_set-0-recipe').val();
 
                     ingredient.classList.remove('new-ingredient');
                     ingredient.classList.add('ingredient');
-                    document.getElementById('ingredients').appendChild(ingredient)
+                    $('#ingredients').append(ingredient);
 
                     // Update form management
-                    document.getElementById('id_ingredient_set-TOTAL_FORMS').value = ingredientCount + 1;
+                    $('#id_ingredient_set-TOTAL_FORMS').val(ingredientCount + 1);
                   })
                 .catch(error => {console.log(error)});
 
