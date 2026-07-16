@@ -898,7 +898,23 @@ form label {
     }
 }
 
-.ingredient-checklist {
+.unit-systems {
+    font-size: 14px;
+    color: $primary-colour;
+    margin-bottom: 0px;
+
+    span {
+        margin-right: 10px;
+        cursor: pointer;
+
+        &.active {
+            font-weight: bold;
+        }
+    }
+}
+
+form.ingredient-checklist {
+    margin-top: 0;
 
     ul {
         padding: 0;

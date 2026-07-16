@@ -35,25 +35,31 @@
         {% endif %}
     </div>
     <p id="keep-awake" style="display: none">
-        <label class="custom-checkbox" id="keep-awake-field" for="keep-awake_id">
-            <input type="checkbox" name="keep-awake" id="keep-awake_id">
+        <label class="custom-checkbox" for="keep-awake-field">
+            <input type="checkbox" name="keep-awake" id="keep-awake-field">
             <strong>Cook Mode</strong>
         </label>
         <span>(Keeps the screen from dimming)</span>
     </p>
-    <form class="ingredient-checklist">
-        <ul>
-            {% for ingredient in recipe.ingredients %}
-                <li data-id="{{ ingredient.id }}" data-quantity="{{ ingredient.quantity }}" data-unit="{{ ingredient.unit}}">
-                    <label class="custom-checkbox">
-                        <input type="checkbox" />
-                        {{ ingredient.quantity|display_quantity:ingredient.unit  }}
-                        {% if ingredient.unit != 'none' %}{{ ingredient.unit }} {% endif %}
-                        {{ ingredient.description }}
-                    </label>
-                </li>
-            {% endfor %}
-        </ul>
-    </form>
+    {% if recipe.ingredients|length %}
+        <p class="unit-systems">
+            <span class="unit-system active" data-system="metric">Metric</span>
+            <span class="unit-system" data-system="us_customary">US Customary</span>
+        </p>
+        <form class="ingredient-checklist">
+            <ul>
+                {% for ingredient in recipe.ingredients %}
+                    <li id="ingredient-{{ ingredient.id }}" data-id="{{ ingredient.id }}" data-quantity="{{ ingredient.quantity }}" data-unit="{{ ingredient.unit}}">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" />
+                            <span class="quantity">{{ ingredient.quantity|display_quantity:ingredient.unit }}</span>
+                            {% if ingredient.unit != 'none' %}<span class="unit">{{ ingredient.unit }}</span>{% endif %}
+                            {{ ingredient.description }}
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+        </form>
+    {% endif %}
     <p>{{ recipe.method|linebreaks }}</p>
 {% endblock %}

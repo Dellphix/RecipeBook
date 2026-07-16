@@ -720,16 +720,28 @@ form label {
     margin: 0;
     margin-bottom: 5px; }
 
-.ingredient-checklist ul {
-  padding: 0; }
-.ingredient-checklist li {
-  list-style-type: none; }
-  .ingredient-checklist li:has(input[type="checkbox"]:checked) label {
-    text-decoration: line-through;
-    color: #B68F61; }
-.ingredient-checklist label {
-  font-size: inherit;
-  width: inherit; }
+.unit-systems {
+  font-size: 14px;
+  color: #3A5A40;
+  margin-bottom: 0px; }
+  .unit-systems span {
+    margin-right: 10px;
+    cursor: pointer; }
+    .unit-systems span.active {
+      font-weight: bold; }
+
+form.ingredient-checklist {
+  margin-top: 0; }
+  form.ingredient-checklist ul {
+    padding: 0; }
+  form.ingredient-checklist li {
+    list-style-type: none; }
+    form.ingredient-checklist li:has(input[type="checkbox"]:checked) label {
+      text-decoration: line-through;
+      color: #B68F61; }
+  form.ingredient-checklist label {
+    font-size: inherit;
+    width: inherit; }
 
 .recipe-form {
   display: flex;

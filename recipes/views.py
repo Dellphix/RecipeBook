@@ -12,6 +12,7 @@ from measurement_converter import MeasurementConverter
 
 from recipes.forms import RecipeForm, IngredientFormSet
 from recipes.models import Recipe, Tag, Ingredient, Unit
+from recipes.templatetags.custom_filters import display_quantity
 
 
 class IndexView(generic.ListView):
@@ -174,6 +175,7 @@ def convert_quantity(request):
 @csrf_exempt
 def convert_quantities(request):
     def get_conversion_unit(unit, unit_system):
+        unit_system = 'us_customary' if unit_system == 'metric' else 'metric'
         conversion_table = {
             'metric': {
                 Unit.KILOGRAM.__str__(): Unit.POUND.__str__(),
@@ -197,14 +199,17 @@ def convert_quantities(request):
     data = json.loads(request.body)
     converted_ingredients = []
     for ingredient in data["ingredients"]:
-        to_unit = get_conversion_unit(ingredient["unit"], data["convert_from"])
+        to_unit = get_conversion_unit(ingredient["unit"], data["convert_to"])
         if to_unit:
+            converted_quantity = MeasurementConverter.convert(float(ingredient["quantity"]), ingredient["unit"], to_unit).to_value;
+            # print(round(converted_quantity, 2))
             converted_ingredients.append({
                 "id": ingredient["id"],
-                "quantity": MeasurementConverter.convert(ingredient["quantity"], ingredient["unit"], to_unit).to_value,
+                "quantity": display_quantity(round(converted_quantity, 2), to_unit),
                 "unit": to_unit
             })
         else:
+            ingredient["quantity"] = display_quantity(float(ingredient["quantity"]), ingredient["unit"])
             converted_ingredients.append(ingredient)
     return JsonResponse(converted_ingredients, safe=False)
 

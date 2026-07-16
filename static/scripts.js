@@ -13,37 +13,39 @@ window.onload = (event) => {
 
     /** Keep Awake */
     let keepAwake = $("#keep-awake");
+    let keepAwakeField = $("#keep-awake-field");
     if ('wakeLock' in navigator && keepAwake.length) {
         let wakeLock = null;
         keepAwake.show();
 
         async function requestWakeLock() {
-          if (wakeLock !== null && !wakeLock.released) return;
+            if (wakeLock !== null && !wakeLock.released) return;
 
-          try {
-            wakeLock = await navigator.wakeLock.request('screen');
+            try {
+                wakeLock = await navigator.wakeLock.request('screen');
 
-            // Listen for the 'release' event
-            wakeLock.on('release', () => {
-                console.log('Wake Lock was released');
-            });
-            console.log('Wake Lock active');
-          } catch (err) {
-            console.error('Wake lock request failed:', err);
-          }
+                // Listen for the 'release' event
+                wakeLock.addEventListener('release', () => {
+                    console.log('Wake Lock was released');
+                });
+                console.log('Wake Lock active');
+            } catch (err) {
+                console.error('Wake lock request failed:', err);
+            }
         }
 
         // Automatically release the wake lock when the page is hidden
         document.addEventListener('visibilitychange', () => {
             if (wakeLock !== null && document.hidden) {
-              wakeLock.release()
-                .then(() => console.log('Wake lock on page visibility change.'));
-            } else if (!document.hidden) {
-              requestWakeLock();
+                wakeLock.release()
+                    .then(() => console.log('Wake lock released on page visibility change.'));
+            } else if (!document.hidden && keepAwakeField.is(':checked')) {
+                requestWakeLock();
+                console.log('Wake lock requested on page visibility change.');
             }
         });
 
-        $("#keep-awake-field").on('change', async event => {
+        keepAwakeField.on('change', async event => {
             if (event.target.checked) {
                 await requestWakeLock();
             } else if (wakeLock !== null) {
@@ -61,11 +63,11 @@ window.onload = (event) => {
             fetch(url, {method: 'GET'})
                 .then(response => {
                     // When the page is loaded convert it to text
-                    return response.text()
+                    return response.text();
                   })
                 .then(html => {
-                    const parser = new DOMParser()
-                    const parsedHtml = parser.parseFromString(html, "text/html")
+                    const parser = new DOMParser();
+                    const parsedHtml = parser.parseFromString(html, "text/html");
 
                     // Update field ids etc
                     const ingredient = parsedHtml.querySelector('.new-ingredient');
@@ -104,4 +106,36 @@ window.onload = (event) => {
 
         });
     }
+
+    /** Convert ingredients */
+    $('.unit-system').on('click', '', function(event) {
+        if ($(this).hasClass('active')) {
+            return;
+        }
+        $('.unit-system').removeClass('active');
+        $(this).addClass('active');
+        let data = {
+            "convert_to" : $(this).data('system'),
+            "ingredients": []
+        }
+        $.each($('.ingredient-checklist li'), (index, ingredient) => {
+            data["ingredients"].push({
+                "id": $(ingredient).data('id'),
+                "quantity": $(ingredient).data('quantity'),
+                "unit": $(ingredient).data('unit')
+            });
+        });
+        let url = window.location.origin + "/convert-quantities";
+        $.ajax({
+            url: url,
+            method: "POST",
+            data: JSON.stringify(data)
+        }).done((data) => {
+            $.each(data, (key, value) => {
+                let ingredient = $('#ingredient-'+ value["id"]);
+                ingredient.find('.quantity').html(value["quantity"]);
+                ingredient.find('.unit')?.html(value["unit"]);
+            });
+        });
+    });
 };
