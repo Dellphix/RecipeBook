@@ -2,29 +2,73 @@ name: Django CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main, develop ]
 
 jobs:
-  build:
-
+  test:
+    name: Test Suite
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     strategy:
-      max-parallel: 4
       matrix:
         python-version: [3.14]
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
+        cache: 'pip'
+
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r requirements/testing.txt
+
+    - name: Run migrations
+      env:
+        SECRET_KEY: 'hv&qe$orgzvq*7%gsz%7&!2wkyf=4_gt7_dhg#e+#0=a0bf!39'
+        DEBUG: 'True'
+        ALLOWED_HOSTS: '*'
+        DATABASE_ENGINE: 'django.db.backends.postgresql'
+        DATABASE_NAME: test_db
+        DATABASE_USER: postgres
+        DATABASE_PASSWORD: postgres
+        DATABASE_HOST: '127.0.0.1'
+        DATABASE_PORT: '5432'
+      run: |
+        python manage.py migrate --no-input
+
     - name: Run Tests
       run: |
         python manage.py test
