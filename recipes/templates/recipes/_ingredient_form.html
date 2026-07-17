@@ -1,0 +1,9 @@
+{% for hidden in form.hidden_fields %}
+    {{ hidden }}
+{% endfor %}
+{% for field in form.visible_fields %}
+    <td>
+        {{ field.errors.as_ul }}
+        {% include '_base_field.html' %}
+    </td>
+{% endfor %}

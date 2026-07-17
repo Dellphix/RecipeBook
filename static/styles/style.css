@@ -515,6 +515,8 @@ form:not(.tag-filter-form) {
     background: #bf8c20;
     mask-image: url("../images/tick_icon.png");
     mask-size: cover; }
+  form:not(.tag-filter-form) .field.type-checkbox {
+    column-count: 4; }
 
 /** Form styles */
 input[type="text"],
@@ -718,15 +720,69 @@ form label {
     margin: 0;
     margin-bottom: 5px; }
 
+.unit-systems {
+  font-size: 14px;
+  color: #3A5A40;
+  margin-bottom: 0px; }
+  .unit-systems span {
+    margin-right: 10px;
+    cursor: pointer; }
+    .unit-systems span.active {
+      font-weight: bold; }
+
+form.ingredient-checklist {
+  margin-top: 0; }
+  form.ingredient-checklist ul {
+    padding: 0; }
+  form.ingredient-checklist li {
+    list-style-type: none; }
+    form.ingredient-checklist li:has(input[type="checkbox"]:checked) label {
+      text-decoration: line-through;
+      color: #B68F61; }
+  form.ingredient-checklist label {
+    font-size: inherit;
+    width: inherit; }
+
+.recipe-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; }
+  .recipe-form > div {
+    width: 100%; }
+  .recipe-form .ingredients-section {
+    display: flex;
+    order: 1;
+    margin-bottom: 15px; }
+    .recipe-form .ingredients-section div.label {
+      width: 90px;
+      margin-right: 10px;
+      font-size: 12px; }
+    .recipe-form .ingredients-section table th {
+      font-weight: 400;
+      font-size: 14px; }
+    .recipe-form .ingredients-section table label {
+      display: none; }
+    .recipe-form .ingredients-section table .field-wrapper {
+      margin: 0; }
+    .recipe-form .ingredients-section table .field.type-checkbox {
+      margin-bottom: 0 !important;
+      margin-top: 2px; }
+  .recipe-form .field-wrapper:nth-last-child(2) {
+    order: 3; }
+  .recipe-form .field-wrapper:nth-last-child(3) {
+    order: 2; }
+  .recipe-form .right-arrow {
+    order: 4; }
+
 .edit-recipe,
 .delete-recipe,
-.add-recipe {
+.add-item {
   position: relative;
   padding-left: 25px;
   font-size: 14px; }
   .edit-recipe::before,
   .delete-recipe::before,
-  .add-recipe::before {
+  .add-item::before {
     content: '';
     display: block;
     position: absolute;
@@ -737,7 +793,7 @@ form label {
     margin-right: 15px; }
   .edit-recipe:hover,
   .delete-recipe:hover,
-  .add-recipe:hover {
+  .add-item:hover {
     opacity: 0.75; }
 
 .edit-recipe {
@@ -753,7 +809,7 @@ form label {
   mask-size: contain;
   background: #C92525; }
 
-.add-recipe::before {
+.add-item::before {
   mask: url("../images/plus_icon.png") no-repeat;
   mask-size: contain;
   background: #bf8c20;

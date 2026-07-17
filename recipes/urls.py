@@ -11,4 +11,7 @@ urlpatterns = [
     path("<uuid:uuid>/edit", views.UpdateView.as_view(), name="update"),
     path("<uuid:uuid>/delete", views.DeleteView.as_view(), name="delete"),
     path("create", views.CreateView.as_view(), name="create"),
+    path("ajax-ingredient", views.ajax_ingredient, name="ajax_ingredient"),
+    path("convert-quantity", views.convert_quantity, name="convert_quantity"),
+    path("convert-quantities", views.convert_quantities, name="convert_quantities"),
 ]

@@ -1,0 +1,9 @@
+<table>
+    <tbody>
+    {% for form in formset.forms %}
+        <tr class="new-ingredient">
+            {% include 'recipes/_ingredient_form.html' %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
