@@ -61,6 +61,8 @@ class DetailView(generic.DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         recipe = self.get_object(queryset=request.GET)
+        if self.request.user.id is not None and self.request.user.id != recipe.user.id:
+            raise Http404
         if not recipe.is_viewable_by(self.request.user):
             return redirect_to_login(f'/{recipe.uuid}/', '/accounts/login/')
         else:
@@ -81,8 +83,10 @@ class UpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_object(self, queryset=None):
         recipe = Recipe.objects.get(uuid=self.kwargs['uuid'])
-        if recipe.user.id != self.request.user.id:
+        if self.request.user.id is not None and self.request.user.id != recipe.user.id:
             raise Http404
+        if not recipe.is_viewable_by(self.request.user):
+            return redirect_to_login(f'/{recipe.uuid}/', '/accounts/login/')
         return recipe
 
 class DeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -93,8 +97,10 @@ class DeleteView(LoginRequiredMixin, generic.DeleteView):
 
     def get_object(self, queryset=None):
         recipe = Recipe.objects.get(uuid=self.kwargs['uuid'])
-        if recipe.user.id != self.request.user.id:
+        if self.request.user.id is not None and self.request.user.id != recipe.user.id:
             raise Http404
+        if not recipe.is_viewable_by(self.request.user):
+            return redirect_to_login(f'/{recipe.uuid}/', '/accounts/login/')
         return recipe
 
 class CreateView(LoginRequiredMixin, generic.CreateView):
