@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -187,3 +189,108 @@ class RecipeDeleteViewTests(TestCase):
     def test_public_cant_delete_recipe(self):
         response = self.client.get(reverse('recipes:delete', kwargs={'uuid': self.recipe.uuid}))
         self.assertEqual(response.status_code, 302) # Redirecto to login
+
+class ConvertQuantitiesTest(TestCase):
+    def test_metric_to_us_customary(self):
+        path = reverse("recipes:convert_quantities")
+        data = {
+            "convert_to": "us_customary",
+            "ingredients": [
+                {
+                    "id": 1,
+                    "quantity": "200.00",
+                    "unit": "g"
+                },
+                {
+                    "id": 2,
+                    "quantity": "1.00",
+                    "unit": "kg"
+                },
+                {
+                    "id": 3,
+                    "quantity": "2.00",
+                    "unit": "none"
+                },
+                {
+                    "id": 4,
+                    "quantity": "1.50",
+                    "unit": "cup"
+                }
+            ]
+        }
+        response = self.client.post(path, data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content, [
+            {
+                "id": 1,
+                "quantity": 7.05,
+                "unit": "oz"
+            },
+            {
+                "id": 2,
+                "quantity": 2.2,
+                "unit": "lb"
+            },
+            {
+                "id": 3,
+                "quantity": 2,
+                "unit": "none"
+            },
+            {
+                "id": 4,
+                "quantity": "1 1/2",
+                "unit": "cup"
+            }
+        ])
+
+    def test_us_customary_to_metric(self):
+        path = reverse("recipes:convert_quantities")
+        data = {
+            "convert_to": "metric",
+            "ingredients": [
+                {
+                    "id": 1,
+                    "quantity": "2.00",
+                    "unit": "oz"
+                },
+                {
+                    "id": 2,
+                    "quantity": "1.00",
+                    "unit": "lb"
+                },
+                {
+                    "id": 3,
+                    "quantity": "2.00",
+                    "unit": "none"
+                },
+                {
+                    "id": 3,
+                    "quantity": "1.5",
+                    "unit": "cup"
+                }
+            ]
+        }
+        response = self.client.post(path, data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content, [
+            {
+                "id": 1,
+                "quantity": 56.7,
+                "unit": "g"
+            },
+            {
+                "id": 2,
+                "quantity": 0.45,
+                "unit": "kg"
+            },
+            {
+                "id": 3,
+                "quantity": 2,
+                "unit": "none"
+            },
+            {
+                "id": 3,
+                "quantity": "1 1/2",
+                "unit": "cup"
+            }
+        ])
