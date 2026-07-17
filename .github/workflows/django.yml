@@ -70,5 +70,15 @@ jobs:
         python manage.py migrate --no-input
 
     - name: Run Tests
+      env:
+        SECRET_KEY: 'hv&qe$orgzvq*7%gsz%7&!2wkyf=4_gt7_dhg#e+#0=a0bf!39'
+        DEBUG: 'True'
+        ALLOWED_HOSTS: '*'
+        DATABASE_ENGINE: 'django.db.backends.postgresql'
+        DATABASE_NAME: test_db
+        DATABASE_USER: postgres
+        DATABASE_PASSWORD: postgres
+        DATABASE_HOST: '127.0.0.1'
+        DATABASE_PORT: '5432'
       run: |
         python manage.py test
