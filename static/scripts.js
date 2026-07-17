@@ -107,15 +107,11 @@ window.onload = (event) => {
         });
     }
 
+
     /** Convert ingredients */
-    $('.unit-system').on('click', '', function(event) {
-        if ($(this).hasClass('active')) {
-            return;
-        }
-        $('.unit-system').removeClass('active');
-        $(this).addClass('active');
+    function updateUnits(system) {
         let data = {
-            "convert_to" : $(this).data('system'),
+            "convert_to" : system,
             "ingredients": []
         }
         $.each($('.ingredient-checklist li'), (index, ingredient) => {
@@ -137,5 +133,14 @@ window.onload = (event) => {
                 ingredient.find('.unit')?.html(value["unit"]);
             });
         });
+    }
+    updateUnits('metric'); // Update on page load to default metric
+    $('.unit-system').on('click', '', function(event) {
+        if ($(this).hasClass('active')) {
+            return;
+        }
+        $('.unit-system').removeClass('active');
+        $(this).addClass('active');
+        updateUnits($(this).data('system'));
     });
 };
