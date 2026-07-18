@@ -68,9 +68,9 @@ class DetailView(generic.DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         recipe = self.get_object(queryset=request.GET)
-        if self.request.user.id is not None and self.request.user.id != recipe.user.id:
-            raise Http404
         if not recipe.is_viewable_by(self.request.user):
+            if self.request.user.id is not None and self.request.user.id != recipe.user.id:
+                raise Http404
             return redirect_to_login(f'/{recipe.uuid}/', '/accounts/login/')
         else:
             return super().dispatch(request, *args, **kwargs)

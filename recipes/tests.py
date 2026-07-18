@@ -123,6 +123,16 @@ class RecipeDetailViewTests(TestCase):
         response = self.client.get(reverse('recipes:detail', kwargs={'uuid': self.recipe.uuid}))
         self.assertEqual(response.status_code, 404)
 
+    def test_other_user_can_see_public_recipe(self):
+        self.recipe.is_public = True
+        self.recipe.save()
+        user_two = get_user_model().objects.create(username="testuserTwo")
+        user_two.set_password('password2026')
+        user_two.save()
+        self.client.login(username="testuserTwo", password="password2026")
+        response = self.client.get(reverse('recipes:detail', kwargs={'uuid': self.recipe.uuid}))
+        self.assertEqual(response.status_code, 200)
+
     def test_public_cant_see_recipe(self):
         response = self.client.get(reverse('recipes:detail', kwargs={'uuid': self.recipe.uuid}))
         self.assertEqual(response.status_code, 302) # redirect to login
