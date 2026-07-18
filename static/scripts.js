@@ -76,16 +76,27 @@ window.onload = (event) => {
                     let ingredientQuantityInput = ingredient.querySelector('#id_ingredient_set-0-quantity');
                     ingredientQuantityInput.id = 'id_' + ingredientBase + '-quantity';
                     ingredientQuantityInput.name = ingredientBase + '-quantity';
+                    let ingredientQuantityLabel = ingredient.querySelector('label[for="id_ingredient_set-0-quantity"]');
+                    ingredientQuantityLabel.setAttribute('for', 'id_' + ingredientBase + '-quantity');
+
                     let ingredientUnitInput = ingredient.querySelector('#id_ingredient_set-0-unit');
                     ingredientUnitInput.id = 'id_' + ingredientBase + '-unit';
                     ingredientUnitInput.name = ingredientBase + '-unit';
+                    let ingredientUnitLabel = ingredient.querySelector('label[for="id_ingredient_set-0-unit"]');
+                    ingredientUnitLabel.setAttribute('for', 'id_' + ingredientBase + '-unit');
+
                     let ingredientDescriptionInput = ingredient.querySelector('#id_ingredient_set-0-description');
                     ingredientDescriptionInput.id = 'id_' + ingredientBase + '-description';
                     ingredientDescriptionInput.name = ingredientBase + '-description';
+                    let ingredientDescriptionLabel = ingredient.querySelector('label[for="id_ingredient_set-0-description"]');
+                    ingredientDescriptionLabel.setAttribute('for', 'id_' + ingredientBase + '-description');
+
                     let ingredientDeleteInput = ingredient.querySelector('#id_ingredient_set-0-DELETE');
                     ingredientDeleteInput.id = 'id_' + ingredientBase + '-DELETE';
                     ingredientDeleteInput.name = ingredientBase + '-DELETE';
-                    
+                    let ingredientDeleteLabel = ingredient.querySelector('label[for="id_ingredient_set-0-DELETE"]');
+                    ingredientDeleteLabel.setAttribute('for', 'id_' + ingredientBase + '-DELETE');
+
                     // hidden fields
                     let ingredientIdHidden = ingredient.querySelector('#id_ingredient_set-0-id');
                     ingredientIdHidden.id = 'id_' + ingredientBase + '-id';

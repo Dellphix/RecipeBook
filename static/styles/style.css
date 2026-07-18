@@ -27,6 +27,9 @@ body {
     background-size: cover;
     opacity: 0.5; }
 
+* {
+  box-sizing: border-box; }
+
 div {
   position: relative;
   z-index: 1; }
@@ -70,7 +73,8 @@ a {
 .left-arrow,
 .account-page button {
   display: inline-block;
-  position: relative; }
+  position: relative;
+  font-family: inherit; }
   .right-arrow::after,
   .left-arrow::after,
   .account-page button::after {
@@ -422,9 +426,7 @@ nav #open-nav {
 .green-border:before {
   background: #3A5A40; }
 
-.alert-error {
-  margin-bottom: 10px; }
-
+/** Form styles */
 form:not(.tag-filter-form) {
   text-align: left;
   margin-top: 20px; }
@@ -432,6 +434,12 @@ form:not(.tag-filter-form) {
     display: flex;
     justify-content: center;
     margin-bottom: 15px; }
+    @media screen and (max-width: 600px) {
+      form:not(.tag-filter-form) .field-wrapper {
+        display: block; } }
+    @media screen and (max-width: 600px) {
+      form:not(.tag-filter-form) .field-wrapper:has(.type-checkbox.choices-0) {
+        display: flex; } }
   form:not(.tag-filter-form) .helptext {
     display: block;
     font-size: 12px;
@@ -451,6 +459,9 @@ form:not(.tag-filter-form) {
     width: 100%; }
   form:not(.tag-filter-form) label {
     margin-right: 10px; }
+    @media screen and (max-width: 600px) {
+      form:not(.tag-filter-form) label {
+        margin-bottom: 4px; } }
   form:not(.tag-filter-form) textarea {
     width: 100%; }
   form:not(.tag-filter-form) .uploaded-image {
@@ -517,8 +528,13 @@ form:not(.tag-filter-form) {
     mask-size: cover; }
   form:not(.tag-filter-form) .field.type-checkbox {
     column-count: 4; }
+    @media screen and (max-width: 800px) {
+      form:not(.tag-filter-form) .field.type-checkbox {
+        column-count: 3; } }
+    @media screen and (max-width: 600px) {
+      form:not(.tag-filter-form) .field.type-checkbox {
+        column-count: 2; } }
 
-/** Form styles */
 input[type="text"],
 input[type="password"],
 input[type="number"],
@@ -529,7 +545,25 @@ select {
   background: #f0dcc3;
   border: none;
   border-bottom: 1px solid #B68F61;
-  vertical-align: top; }
+  vertical-align: top;
+  font-family: inherit; }
+
+select {
+  border-radius: 0;
+  -webkit-appearance: none;
+  padding-right: 30px; }
+
+.field.type-select:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 11px;
+  right: 5px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 7px 0px 7px;
+  border-color: #B68F61 transparent transparent transparent; }
 
 input[type=submit] {
   background: transparent;
@@ -549,7 +583,8 @@ form label {
   text-align: left; }
 
 .alert-error {
-  color: #C92525; }
+  color: #C92525;
+  margin-bottom: 10px; }
 
 .errorlist {
   padding-left: 12px;
@@ -679,6 +714,7 @@ form label {
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
   margin: 0;
+  margin-top: 20px;
   padding-left: 0;
   padding-bottom: 30px; }
   @media screen and (max-width: 800px) {
@@ -716,6 +752,9 @@ form label {
   .recipe-title > div {
     display: flex;
     justify-content: space-between; }
+    @media screen and (max-width: 600px) {
+      .recipe-title > div {
+        display: block; } }
   .recipe-title h3 {
     margin: 0;
     margin-bottom: 5px; }
@@ -753,20 +792,54 @@ form.ingredient-checklist {
     display: flex;
     order: 1;
     margin-bottom: 15px; }
+    @media screen and (max-width: 600px) {
+      .recipe-form .ingredients-section {
+        display: block; } }
     .recipe-form .ingredients-section div.label {
       width: 90px;
       margin-right: 10px;
       font-size: 12px; }
-    .recipe-form .ingredients-section table th {
-      font-weight: 400;
-      font-size: 14px; }
-    .recipe-form .ingredients-section table label {
-      display: none; }
-    .recipe-form .ingredients-section table .field-wrapper {
-      margin: 0; }
-    .recipe-form .ingredients-section table .field.type-checkbox {
-      margin-bottom: 0 !important;
-      margin-top: 2px; }
+    @media screen and (max-width: 600px) {
+      .recipe-form .ingredients-section input,
+      .recipe-form .ingredients-section select {
+        width: 100%; } }
+    .recipe-form .ingredients-section table {
+      width: 100%; }
+      @media screen and (max-width: 600px) {
+        .recipe-form .ingredients-section table thead {
+          display: none; } }
+      .recipe-form .ingredients-section table th {
+        font-weight: 400;
+        font-size: 12px; }
+      @media screen and (max-width: 600px) {
+        .recipe-form .ingredients-section table tr,
+        .recipe-form .ingredients-section table td {
+          display: block; } }
+      @media screen and (max-width: 600px) {
+        .recipe-form .ingredients-section table tr {
+          background: #98af8b;
+          border-bottom: 1px solid #3A5A40;
+          color: #1F3A3D;
+          padding: 10px; } }
+      @media screen and (max-width: 600px) {
+        .recipe-form .ingredients-section table tr:nth-child(2n) {
+          background: #b3c4a9; } }
+      .recipe-form .ingredients-section table label {
+        display: none; }
+        @media screen and (max-width: 600px) {
+          .recipe-form .ingredients-section table label {
+            display: inline-block; } }
+      .recipe-form .ingredients-section table .field-wrapper {
+        margin: 0; }
+        @media screen and (max-width: 600px) {
+          .recipe-form .ingredients-section table .field-wrapper:last-child {
+            margin-top: 5px; } }
+        @media screen and (max-width: 600px) {
+          .recipe-form .ingredients-section table .field-wrapper:last-child label {
+            margin-top: 4px; } }
+      .recipe-form .ingredients-section table .field.type-checkbox {
+        margin-bottom: 0 !important;
+        margin-top: 2px; }
   .recipe-form .field-wrapper:nth-last-child(2) {
     order: 3; }
   .recipe-form .field-wrapper:nth-last-child(3) {

@@ -22,6 +22,10 @@ body {
     }
 }
 
+* {
+    box-sizing: border-box;
+}
+
 div {
     position: relative;
     z-index: 1;
@@ -75,6 +79,7 @@ a {
 .account-page button {
     display: inline-block;
     position: relative;
+    font-family: inherit;
 
     &::after {
         content: '';
@@ -501,9 +506,8 @@ nav #open-nav {
     background: $primary-colour;
 }
 
-.alert-error {
-    margin-bottom: 10px;
-}
+
+/** Form styles */
 
 form:not(.tag-filter-form) {
     text-align: left;
@@ -513,6 +517,15 @@ form:not(.tag-filter-form) {
         display: flex;
         justify-content: center;
         margin-bottom: 15px;
+
+        @media screen and (max-width: $breakpoint-mobile) {
+            display: block;
+        }
+        &:has(.type-checkbox.choices-0) {
+            @media screen and (max-width: $breakpoint-mobile) {
+                display: flex;
+            }
+        }
     }
 
     .helptext {
@@ -544,6 +557,11 @@ form:not(.tag-filter-form) {
 
     label {
         margin-right: 10px;
+
+
+        @media screen and (max-width: $breakpoint-mobile) {
+            margin-bottom: 4px;
+        }
     }
 
     textarea {
@@ -626,10 +644,16 @@ form:not(.tag-filter-form) {
 
     .field.type-checkbox {
         column-count: 4;
+
+        @media screen and (max-width: $breakpoint-tablet) {
+            column-count: 3;
+        }
+
+        @media screen and (max-width: $breakpoint-mobile) {
+            column-count: 2;
+        }
     }
 }
-
-/** Form styles */
 
 input[type="text"],
 input[type="password"],
@@ -642,13 +666,30 @@ select {
     border: none;
     border-bottom: 1px solid $secondary-colour;
     vertical-align: top;
+    font-family: inherit;
+}
+
+select {
+    border-radius: 0;
+    -webkit-appearance: none;
+    padding-right: 30px;
+}
+.field.type-select:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 11px;
+    right: 5px;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 5px 7px 0px 7px;
+    border-color: $secondary-colour transparent transparent transparent;
 }
 
 input[type=submit] {
     background: transparent;
     border: none;
     padding: 0;
-    //padding-right: 40px;
     font-size: inherit;
     color: $primary-colour;
     cursor: pointer;
@@ -666,6 +707,7 @@ form label {
 
 .alert-error {
     color: $error;
+    margin-bottom: 10px;
 }
 
 .errorlist {
@@ -836,6 +878,7 @@ form label {
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
     margin: 0;
+    margin-top: 20px;
     padding-left: 0;
     padding-bottom: 30px;
 
@@ -890,6 +933,10 @@ form label {
     > div {
         display: flex;
         justify-content: space-between;
+
+        @media screen and (max-width: $breakpoint-mobile){
+            display: block;
+        }
     }
 
     h3 {
@@ -948,25 +995,74 @@ form.ingredient-checklist {
         order: 1;
         margin-bottom: 15px;
 
+        @media screen and (max-width: $breakpoint-mobile){
+            display: block;
+        }
+
         div.label {
             width: 90px;
             margin-right: 10px;
             font-size: 12px;
         }
 
+        input,
+        select {
+            @media screen and (max-width: $breakpoint-mobile){
+                width: 100%;
+            }
+        }
+
         table {
+            width: 100%;
+
+            thead {
+                @media screen and (max-width: $breakpoint-mobile){
+                    display: none;
+                }
+            }
             th {
                 font-weight: 400;
-                font-size: 14px;
+                font-size: 12px;
+            }
+            tr,
+            td {
+                @media screen and (max-width: $breakpoint-mobile){
+                    display: block;
+                }
+            }
+            tr {
+                @media screen and (max-width: $breakpoint-mobile){
+                    background: lighten($primary-colour-light, 10%);
+                    border-bottom: 1px solid $primary-colour;
+                    color: $primary-colour-dark;
+                    padding: 10px;
+                }
+                &:nth-child(2n) {
+                    @media screen and (max-width: $breakpoint-mobile){
+                        background: lighten($primary-colour-light, 20%);
+                    }
+                }
             }
             label {
                 display:none;
+
+                @media screen and (max-width: $breakpoint-mobile){
+                    display: inline-block;
+                }
             }
             .field-wrapper {
                 margin: 0;
-            }
-            tr td:last-child {
 
+                &:last-child {
+                    @media screen and (max-width: $breakpoint-mobile){
+                        margin-top: 5px;
+                    }
+                    label {
+                        @media screen and (max-width: $breakpoint-mobile){
+                            margin-top: 4px;
+                        }
+                    }
+                }
             }
             .field.type-checkbox {
                 margin-bottom: 0 !important;
