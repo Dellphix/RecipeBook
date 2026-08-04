@@ -1,4 +1,5 @@
 {% extends "base_page.html" %}
+{% load static %}
 
 {% block content %}
     <h1>{% if is_public_page %}Community{% else %}My{% endif %} Recipes</h1>
@@ -31,6 +32,10 @@
                     {% if recipe.image %}
                         <span class="thumbnail">
                             <img src="{{ recipe.image.thumbnails.small.url }}" width="{{ recipe.image.thumbnails.small.width }}" height="{{ recipe.image.thumbnails.small.height }}" alt="{{ recipe.name }}"/>
+                        </span>
+                    {% else %}
+                        <span class="thumbnail placeholder">
+                            <img src="{% static 'recipes/images/image_placeholder.jpg' %}" alt="{{ recipe.name }}"/>
                         </span>
                     {% endif %}
                     <div class="description">{{  recipe.name }}</div>

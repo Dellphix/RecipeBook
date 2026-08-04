@@ -121,7 +121,7 @@ class CreateView(LoginRequiredMixin, generic.CreateView):
     form_class = RecipeForm
 
     def get_success_url(self, **kwargs):
-        return reverse("recipes:my_recipes")
+        return reverse("recipes:detail", kwargs={'uuid': self.object.uuid})
 
     def get_context_data(self, **kwargs):
         context = super(CreateView, self).get_context_data(**kwargs)

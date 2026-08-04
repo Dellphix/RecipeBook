@@ -426,10 +426,6 @@ nav #open-nav {
 .green-border:before {
   background: #3A5A40; }
 
-.content ul,
-.content ol {
-  padding-left: 20px; }
-
 /** Form styles */
 form:not(.tag-filter-form) {
   text-align: left;
@@ -741,6 +737,9 @@ form label {
         height: 200px;
         overflow: hidden;
         display: block; }
+        @media screen and (max-width: 600px) {
+          .recipes li a .thumbnail.placeholder {
+            display: none; } }
         .recipes li a .thumbnail img {
           height: 100%;
           width: 100%;
@@ -785,6 +784,9 @@ form.ingredient-checklist {
   form.ingredient-checklist label {
     font-size: inherit;
     width: inherit; }
+
+.recipe-content ul, .recipe-content ol {
+  padding-left: 20px; }
 
 .recipe-form {
   display: flex;

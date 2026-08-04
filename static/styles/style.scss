@@ -506,11 +506,6 @@ nav #open-nav {
     background: $primary-colour;
 }
 
-.content ul,
-.content ol {
-    padding-left: 20px;
-}
-
 
 /** Form styles */
 
@@ -913,6 +908,12 @@ form label {
                 overflow: hidden;
                 display: block;
 
+                &.placeholder {
+                    @media screen and (max-width: $breakpoint-mobile) {
+                        display: none;
+                    }
+                }
+
                 img {
                     height: 100%;
                     width: 100%;
@@ -983,6 +984,12 @@ form.ingredient-checklist {
     label {
         font-size: inherit;
         width: inherit;
+    }
+}
+
+.recipe-content {
+    ul, ol {
+        padding-left: 20px;
     }
 }
 
