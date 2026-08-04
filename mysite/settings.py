@@ -13,6 +13,8 @@ import os
 import environ
 import mimetypes
 from pathlib import Path
+from django_summernote.settings import ATTRIBUTES
+
 
 env = environ.Env()
 # reading .env file
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'debug_toolbar',
+    'django_summernote',
     'thumbnails',
     'recipes.apps.RecipesConfig',
     'users.apps.UsersConfig',
@@ -159,6 +162,23 @@ ACCOUNT_ADAPTER = "users.adapters.NoSignupAccountAdapter"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+SUMMERNOTE_CONFIG = {
+    # You can put custom Summernote settings
+    'summernote': {
+        # Change editor size
+        'width': '100%',
+        'toolbar': [
+            ['font', ['bold', 'underline', 'italic', 'superscript', 'subscript', 'strikethrough']],
+            ['fontname', ['fontname', 'fontsize']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['insert', ['link', 'picture']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+        ]
+    },
+    'attachment_require_authentication': False,
+}
+ATTRIBUTES["*"] += ["src", "href", "target"]
 
 INTERNAL_IPS = [
     '127.0.0.1',

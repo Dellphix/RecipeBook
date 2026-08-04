@@ -61,5 +61,5 @@
             </ul>
         </form>
     {% endif %}
-    <p>{{ recipe.method|linebreaks }}</p>
+    <p>{{ recipe.method|safe }}</p>
 {% endblock %}

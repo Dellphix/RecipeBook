@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django_summernote.fields import SummernoteTextField
 from thumbnails.fields import ImageField
 from django.utils.translation import gettext_lazy
 
@@ -26,7 +27,7 @@ class Recipe(models.Model):
     cook_time = models.IntegerField(default=0)
     serves = models.IntegerField(default=0)
     source = models.CharField(max_length=200, default='', blank=True)
-    method = models.TextField(blank=True)
+    method = SummernoteTextField(null=True)
     is_public = models.BooleanField(default=False)
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

@@ -506,6 +506,11 @@ nav #open-nav {
     background: $primary-colour;
 }
 
+.content ul,
+.content ol {
+    padding-left: 20px;
+}
+
 
 /** Form styles */
 

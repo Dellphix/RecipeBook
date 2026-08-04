@@ -101,11 +101,8 @@ class UpdateView(LoginRequiredMixin, generic.UpdateView):
         if self.request.POST:
             data['ingredients'] = IngredientFormSet(self.request.POST, instance=self.object)
             # data['ingredients'].full_clean()
-            print('post', self.request.POST)
-            print('formset', data['ingredients'].forms)
         else:
             data['ingredients'] = IngredientFormSet(instance=self.object)
-            print('not post', data['ingredients'].forms)
         return data
 
     def form_valid(self, form):
@@ -117,7 +114,6 @@ class UpdateView(LoginRequiredMixin, generic.UpdateView):
             formset.save()
             return response
         else:
-            print('invalid', formset.forms)
             return super().form_invalid(form)
 
 class CreateView(LoginRequiredMixin, generic.CreateView):

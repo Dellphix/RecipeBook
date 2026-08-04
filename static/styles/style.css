@@ -426,6 +426,10 @@ nav #open-nav {
 .green-border:before {
   background: #3A5A40; }
 
+.content ul,
+.content ol {
+  padding-left: 20px; }
+
 /** Form styles */
 form:not(.tag-filter-form) {
   text-align: left;

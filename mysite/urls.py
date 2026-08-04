@@ -24,7 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("recipes.urls")),
     path("", include("users.urls")),
-    path("accounts/", include("allauth.urls"))
+    path("accounts/", include("allauth.urls")),
+    path('summernote/', include('django_summernote.urls')),
 ] + debug_toolbar_urls()
 
 if settings.DEBUG:
