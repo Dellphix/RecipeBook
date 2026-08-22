@@ -8,8 +8,18 @@ from django.utils.translation import gettext_lazy
 from mysite import settings
 
 
+class TagCategory(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    def tags(self):
+        return self.tag_set.all()
+
 class Tag(models.Model):
     name = models.CharField(max_length=50)
+    category = models.ForeignKey(TagCategory, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

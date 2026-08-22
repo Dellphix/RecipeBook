@@ -743,9 +743,10 @@ form label {
     padding-bottom: 25px;
     margin-bottom: 5px;
     background: $primary-colour-light;
+    color: $primary-colour-dark;
 
     @media screen and (min-width: $breakpoint-tablet) {
-        display: flex;
+//         display: flex;
     }
 
     &::before {
@@ -769,10 +770,12 @@ form label {
       margin: 0;
       margin-right: 20px;
       margin-top: 10px;
-      color: $primary-colour-dark;
     }
 
     .tags {
+        .category {
+            margin-right: 20px;
+        }
         label {
             width: auto;
         }
@@ -803,8 +806,8 @@ form label {
     .label {
         display: block;
         margin-bottom: 5px;
-        color: $primary-colour-dark;
         font-weight: bold;
+        font-size: 13px;
     }
 
     input[type="text"] {
