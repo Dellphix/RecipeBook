@@ -15,6 +15,10 @@
                         </label>
                     {% endfor %}
                 </div>
+                <label for="search">
+                    <span class="label">Search Term</span>
+                    <input type="text" name="search" id="search" value="{{ search }}"/>
+                </label>
                 <div class="actions">
                     <a href="{{ request.path }}" class="left-arrow">Reset</a>
                     <button type="submit" class="right-arrow">Filter</button>

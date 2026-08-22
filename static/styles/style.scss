@@ -800,6 +800,18 @@ form label {
         }
     }
 
+    .label {
+        display: block;
+        margin-bottom: 5px;
+        color: $primary-colour-dark;
+        font-weight: bold;
+    }
+
+    input[type="text"] {
+        background: #aebe97;
+        border: 1px solid $primary-colour;
+    }
+
     .actions {
         margin-top: 15px;
         font-size: 14px;

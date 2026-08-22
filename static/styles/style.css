@@ -655,6 +655,14 @@ form label {
       cursor: pointer;
       background: #d3af8b;
       color: #301f0f; }
+  .tag-filter .label {
+    display: block;
+    margin-bottom: 5px;
+    color: #1F3A3D;
+    font-weight: bold; }
+  .tag-filter input[type="text"] {
+    background: #aebe97;
+    border: 1px solid #3A5A40; }
   .tag-filter .actions {
     margin-top: 15px;
     font-size: 14px; }

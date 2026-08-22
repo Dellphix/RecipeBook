@@ -20,12 +20,14 @@ class IndexView(generic.ListView):
     model = Recipe
 
     def get_context_data(self, **kwargs):
+        search = self.request.GET.get('search', '')
         selected_tags = self.request.GET.getlist('tag', '')
         selected_tags_params = []
         for tag in selected_tags:
             selected_tags_params.append(('tag', tag))
 
         context = super().get_context_data(**kwargs)
+        context['search'] = search
         context['tags'] = Tag.objects.all()
         context['selected_tags'] = selected_tags
         context['selected_tags_params'] = urlencode(selected_tags_params)
@@ -34,6 +36,7 @@ class IndexView(generic.ListView):
 
     def get_recipes(self, **kwargs):
         tags = self.request.GET.getlist('tag', '')
+        search = self.request.GET.get('search', '')
         recipes = Recipe.objects.filter(**kwargs)
 
         if tags:
@@ -42,6 +45,9 @@ class IndexView(generic.ListView):
             sub_query = (recipes.filter(tags__name__in=tags) # add filter to existing query
                          .distinct('id'))
             recipes = Recipe.objects.filter(id__in=sub_query)
+        if search:
+            print('search', search)
+            recipes = recipes.filter(name__icontains=search)
         return recipes.order_by('name')
 
     def get_hungry_link(self, **kwargs):
