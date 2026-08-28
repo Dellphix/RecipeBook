@@ -743,9 +743,10 @@ form label {
     padding-bottom: 25px;
     margin-bottom: 5px;
     background: $primary-colour-light;
+    color: $primary-colour-dark;
 
     @media screen and (min-width: $breakpoint-tablet) {
-        display: flex;
+//         display: flex;
     }
 
     &::before {
@@ -769,10 +770,12 @@ form label {
       margin: 0;
       margin-right: 20px;
       margin-top: 10px;
-      color: $primary-colour-dark;
     }
 
     .tags {
+        .category {
+            margin-right: 20px;
+        }
         label {
             width: auto;
         }
@@ -784,8 +787,7 @@ form label {
                 background: $secondary-colour;
                 color: $font-colour;
                 &:hover {
-                    background: $primary-colour;
-                    color: $primary-colour-light;
+                    background: $secondary-colour-light;
                 }
             }
         }
@@ -795,14 +797,41 @@ form label {
         color: $primary-colour-light;
         &:hover {
             cursor: pointer;
-            background: $secondary-colour-light;
-            color: $font-colour;
+            background: $primary-colour;
         }
+    }
+
+    .label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        font-size: 13px;
+    }
+
+    input[type="text"] {
+        background: #aebe97;
+        border: 1px solid $primary-colour;
     }
 
     .actions {
         margin-top: 15px;
         font-size: 14px;
+
+        .hungry-button {
+            display: block;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            margin-bottom: 10px;
+            background: $primary-colour-dark;
+            color: $primary-colour-light;
+            border-radius: 5px;
+            padding: 5px 10px;
+
+            &:hover {
+                background: $primary-colour;
+            }
+        }
 
         .left-arrow {
             color: $primary-colour-dark;

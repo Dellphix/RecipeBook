@@ -2,7 +2,7 @@ import json
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import redirect_to_login
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -11,37 +11,66 @@ from django.views.decorators.csrf import csrf_exempt
 from measurement_converter import MeasurementConverter
 
 from recipes.forms import RecipeForm, IngredientFormSet
-from recipes.models import Recipe, Tag, Ingredient, Unit
+from recipes.models import Recipe, Tag, TagCategory, Ingredient, Unit
 from recipes.templatetags.custom_filters import display_quantity
 
 
 class IndexView(generic.ListView):
-    paginate_by = 9
+    paginate_by = 12
     model = Recipe
 
+    def dispatch(self, request, *args, **kwargs):
+        hungry = self.request.GET.get('hungry', False)
+        random = self.get_random_recipe()
+        if hungry and random:
+            return HttpResponseRedirect(reverse("recipes:detail", kwargs={'uuid': random.uuid}))
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
-        selected_tags = self.request.GET.getlist('tag', '')
-        selected_tags_params = []
-        for tag in selected_tags:
-            selected_tags_params.append(('tag', tag))
+        search = self.request.GET.get('search', '')
+        selected_tags = self.get_selected_tags()
+        search_params = []
+        for cat_name, cat_tags in selected_tags.items():
+            for tag in cat_tags:
+                search_params.append((cat_name, tag))
+        search_params.append(('search', search))
 
         context = super().get_context_data(**kwargs)
-        context['tags'] = Tag.objects.all()
-        context['selected_tags'] = selected_tags
-        context['selected_tags_params'] = urlencode(selected_tags_params)
+        # Convert dict to list  without category names, then flatten list
+        tags = [row[1] for row in selected_tags.items()]
+        context['selected_tags'] = [val for row in tags for val in row]
+        context['tag_categories'] = TagCategory.objects.all()
+        context['selected_tags_params'] = urlencode(search_params)
+        context['search'] = search
         return context
 
+    def get_selected_tags(self):
+        tags = {}
+        for category in TagCategory.objects.all():
+            category_tags = self.request.GET.getlist(category.name, '')
+            if category_tags != '':
+                tags[category.name] = category_tags
+        return tags
+
     def get_recipes(self, **kwargs):
-        tags = self.request.GET.getlist('tag', '')
+        tags = self.get_selected_tags()
+        search = self.request.GET.get('search', '')
         recipes = Recipe.objects.filter(**kwargs)
 
         if tags:
             # Can't use distinct and then order by a different field,
             # so use a subquery to get around that
-            sub_query = (recipes.filter(tags__name__in=tags) # add filter to existing query
-                         .distinct('id'))
+            sub_query = recipes
+            for cat_name, cat_tags in tags.items():
+                sub_query = sub_query.filter(tags__name__in=cat_tags)
+            sub_query = sub_query.distinct('id')
             recipes = Recipe.objects.filter(id__in=sub_query)
+        if search:
+            recipes = recipes.filter(name__icontains=search)
         return recipes.order_by('name')
+
+    def get_random_recipe(self, **kwargs):
+        return self.get_recipes(**kwargs).order_by("?").first()
 
 class UserIndexView(LoginRequiredMixin, IndexView):
 

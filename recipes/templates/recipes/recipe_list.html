@@ -2,20 +2,35 @@
 {% load static %}
 
 {% block content %}
+ {% for category in tag_categories %}
+                        {{ name }}
+{% endfor %}
     <h1>{% if is_public_page %}Community{% else %}My{% endif %} Recipes</h1>
-    {% if tags %}
+    {% if tag_categories %}
         <div class="tag-filter content chipped-box">
             <h4>Filter By:</h4>
             <form action="{{ request.path }}" method="get" class="tag-filter-form">
                 <div class="tags">
-                    {% for tag in tags %}
-                        <label>
-                            <input type="checkbox" name="tag" value="{{ tag.name }}" {% if tag.name in selected_tags %}checked="checked"{% endif %} />
-                            <span class="tag {% if tag.name in selected_tags %}selected{% endif %}">{{ tag.name }}</span>
-                        </label>
+                    {% for category in tag_categories %}
+                        {% if category.tags %}
+                            <div class="category">
+                                <span class="label">{{ category.name }}</span>
+                                {% for tag in category.tags %}
+                                    <label>
+                                        <input type="checkbox" name="{{ category.name }}" value="{{ tag.name }}" {% if tag.name in selected_tags %}checked="checked"{% endif %} />
+                                        <span class="tag {% if tag.name in selected_tags %}selected{% endif %}">{{ tag.name }}</span>
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
+                <label for="search">
+                    <span class="label">Search Term</span>
+                    <input type="text" name="search" id="search" value="{{ search }}"/>
+                </label>
                 <div class="actions">
+                <button type="submit" class="hungry-button" value="hungry">I'm feeling hungry!</button>
                     <a href="{{ request.path }}" class="left-arrow">Reset</a>
                     <button type="submit" class="right-arrow">Filter</button>
                 </div>

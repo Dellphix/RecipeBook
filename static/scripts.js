@@ -11,6 +11,18 @@ window.onload = (event) => {
         $('.navigation').removeClass('open');
     });
 
+    /** Filter */
+    $('.hungry-button').on('click', function(event) {
+        event.preventDefault();
+        let form = $(this).parents('form');
+        let input = $('<input>')
+            .attr('type', 'hidden')
+            .attr('name', 'hungry')
+            .attr('value', 'true');
+        form.append(input);
+        form.submit();
+    });
+
     /** Keep Awake */
     let keepAwake = $("#keep-awake");
     let keepAwakeField = $("#keep-awake-field");
