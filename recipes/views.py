@@ -2,7 +2,7 @@ import json
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import redirect_to_login
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -18,6 +18,13 @@ from recipes.templatetags.custom_filters import display_quantity
 class IndexView(generic.ListView):
     paginate_by = 12
     model = Recipe
+
+    def dispatch(self, request, *args, **kwargs):
+        hungry = self.request.GET.get('hungry', False)
+        random = self.get_random_recipe()
+        if hungry and random:
+            return HttpResponseRedirect(reverse("recipes:detail", kwargs={'uuid': random.uuid}))
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         search = self.request.GET.get('search', '')
@@ -35,7 +42,6 @@ class IndexView(generic.ListView):
         context['tag_categories'] = TagCategory.objects.all()
         context['selected_tags_params'] = urlencode(search_params)
         context['search'] = search
-        context['hungry_link'] = self.get_hungry_link()
         return context
 
     def get_selected_tags(self):
@@ -44,7 +50,6 @@ class IndexView(generic.ListView):
             category_tags = self.request.GET.getlist(category.name, '')
             if category_tags != '':
                 tags[category.name] = category_tags
-        print(tags)
         return tags
 
     def get_recipes(self, **kwargs):
@@ -64,12 +69,8 @@ class IndexView(generic.ListView):
             recipes = recipes.filter(name__icontains=search)
         return recipes.order_by('name')
 
-    def get_hungry_link(self, **kwargs):
-        recipe = self.get_recipes(**kwargs).order_by("?").first()
-        if recipe:
-            return reverse("recipes:detail", kwargs={'uuid': recipe.uuid})
-        else:
-            return ''
+    def get_random_recipe(self, **kwargs):
+        return self.get_recipes(**kwargs).order_by("?").first()
 
 class UserIndexView(LoginRequiredMixin, IndexView):
 
@@ -81,9 +82,6 @@ class UserIndexView(LoginRequiredMixin, IndexView):
     def get_queryset(self):
         return self.get_recipes(user_id=self.request.user.id)
 
-    def get_hungry_link(self):
-        return super().get_hungry_link(user_id=self.request.user.id)
-
 class PublicIndexView(IndexView):
 
     def get_context_data(self, **kwargs):
@@ -93,9 +91,6 @@ class PublicIndexView(IndexView):
 
     def get_queryset(self):
         return self.get_recipes(is_public=True)
-
-    def get_hungry_link(self):
-        return super().get_hungry_link(is_public=True)
 
 class DetailView(LoginRequiredMixin, generic.DetailView):
     model = Recipe

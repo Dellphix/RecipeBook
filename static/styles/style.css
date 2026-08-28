@@ -645,15 +645,13 @@ form label {
       background: #B68F61;
       color: #301f0f; }
       .tag-filter .tags input:checked + .tag:hover {
-        background: #3A5A40;
-        color: #7D9A6D; }
+        background: #d3af8b; }
   .tag-filter .tag {
     background: #1F3A3D;
     color: #7D9A6D; }
     .tag-filter .tag:hover {
       cursor: pointer;
-      background: #d3af8b;
-      color: #301f0f; }
+      background: #3A5A40; }
   .tag-filter .label {
     display: block;
     margin-bottom: 5px;
@@ -665,6 +663,18 @@ form label {
   .tag-filter .actions {
     margin-top: 15px;
     font-size: 14px; }
+    .tag-filter .actions .hungry-button {
+      display: block;
+      border: none;
+      font-family: inherit;
+      cursor: pointer;
+      margin-bottom: 10px;
+      background: #1F3A3D;
+      color: #7D9A6D;
+      border-radius: 5px;
+      padding: 5px 10px; }
+      .tag-filter .actions .hungry-button:hover {
+        background: #3A5A40; }
     .tag-filter .actions .left-arrow {
       color: #1F3A3D; }
     .tag-filter .actions .right-arrow {

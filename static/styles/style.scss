@@ -787,8 +787,7 @@ form label {
                 background: $secondary-colour;
                 color: $font-colour;
                 &:hover {
-                    background: $primary-colour;
-                    color: $primary-colour-light;
+                    background: $secondary-colour-light;
                 }
             }
         }
@@ -798,8 +797,7 @@ form label {
         color: $primary-colour-light;
         &:hover {
             cursor: pointer;
-            background: $secondary-colour-light;
-            color: $font-colour;
+            background: $primary-colour;
         }
     }
 
@@ -818,6 +816,22 @@ form label {
     .actions {
         margin-top: 15px;
         font-size: 14px;
+
+        .hungry-button {
+            display: block;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            margin-bottom: 10px;
+            background: $primary-colour-dark;
+            color: $primary-colour-light;
+            border-radius: 5px;
+            padding: 5px 10px;
+
+            &:hover {
+                background: $primary-colour;
+            }
+        }
 
         .left-arrow {
             color: $primary-colour-dark;

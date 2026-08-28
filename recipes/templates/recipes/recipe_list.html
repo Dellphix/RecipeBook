@@ -30,13 +30,13 @@
                     <input type="text" name="search" id="search" value="{{ search }}"/>
                 </label>
                 <div class="actions">
+                <button type="submit" class="hungry-button" value="hungry">I'm feeling hungry!</button>
                     <a href="{{ request.path }}" class="left-arrow">Reset</a>
                     <button type="submit" class="right-arrow">Filter</button>
                 </div>
             </form>
         </div>
     {% endif %}
-    {% if hungry_link %}<a href="{{ hungry_link }}" class="hungry-link">I'm feeling hungry!</a>{% endif %}
     {% if request.user.is_authenticated and not is_public_page %}
         <p><a href="{% url 'recipes:create' %}" class="add-item">Add Recipe</a></p>
     {% endif %}
