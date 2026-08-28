@@ -92,7 +92,7 @@ class PublicIndexView(IndexView):
     def get_queryset(self):
         return self.get_recipes(is_public=True)
 
-class DetailView(LoginRequiredMixin, generic.DetailView):
+class DetailView(generic.DetailView):
     model = Recipe
 
     def dispatch(self, request, *args, **kwargs):

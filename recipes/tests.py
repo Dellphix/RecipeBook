@@ -12,7 +12,7 @@ class RecipeModelTests(TestCase):
         user = get_user_model().objects.create(username="testuser")
         user.set_password('password2026')
         user.save()
-        recipe = Recipe(is_public=False, user_id=user.id)
+        recipe = Recipe(is_public=False, method="test", user_id=user.id)
         recipe.save()
         self.assertIs(recipe.is_viewable_by(user), True)
         user_two = get_user_model().objects.create(username='two')
@@ -29,12 +29,12 @@ class RecipePublicIndexViewTests(TestCase):
 
     def test_logged_out_sees_public(self):
         # setup
-        recipe = Recipe(name="Test Recipe", is_public=False, user_id=self.user.id)
+        recipe = Recipe(name="Test Recipe", method="test", is_public=False, user_id=self.user.id)
         recipe.save()
         user_two = get_user_model().objects.create(username="testuserTwo")
         user_two.set_password('password2026')
         user_two.save()
-        recipe_two = Recipe(name="User Two Recipe", is_public=True, user_id=user_two.id)
+        recipe_two = Recipe(name="User Two Recipe", method="test", is_public=True, user_id=user_two.id)
         recipe_two.save()
 
         response = self.client.get(reverse("recipes:index"))
@@ -51,12 +51,12 @@ class RecipePublicIndexViewTests(TestCase):
         self.assertQuerySetEqual(response.context["recipe_list"], [])
 
         # setup
-        recipe = Recipe(name="Test Recipe", is_public=False, user_id=self.user.id)
+        recipe = Recipe(name="Test Recipe", method="test", is_public=False, user_id=self.user.id)
         recipe.save()
         user_two = get_user_model().objects.create(username="testuserTwo")
         user_two.set_password('password2026')
         user_two.save()
-        recipe_two = Recipe(name="User Two Recipe", is_public=True, user_id=user_two.id)
+        recipe_two = Recipe(name="User Two Recipe", method="test", is_public=True, user_id=user_two.id)
         recipe_two.save()
 
         response = self.client.get(reverse("recipes:index"))
@@ -93,7 +93,7 @@ class RecipeIndexViewTests(TestCase):
 
     def test_see_user_recipes(self):
         self.client.login(username="testuser", password="password2026")
-        recipe = Recipe(name="Test Recipe", is_public=False, user_id=self.user.id)
+        recipe = Recipe(name="Test Recipe", method="test", is_public=False, user_id=self.user.id)
         recipe.save()
         response = self.client.get(reverse("recipes:my_recipes"))
         self.assertEqual(response.status_code, 200)
@@ -105,7 +105,7 @@ class RecipeDetailViewTests(TestCase):
         self.user = get_user_model().objects.create(username="testuser")
         self.user.set_password('password2026')
         self.user.save()
-        self.recipe = Recipe(name="Test Recipe", is_public=False, user_id=self.user.id)
+        self.recipe = Recipe(name="Test Recipe", method="test", is_public=False, user_id=self.user.id)
         self.recipe.save()
 
     def test_user_sees_recipe(self):
@@ -151,7 +151,7 @@ class RecipeUpdateViewTests(TestCase):
         self.user = get_user_model().objects.create(username="testuser")
         self.user.set_password('password2026')
         self.user.save()
-        self.recipe = Recipe(name="Test Recipe", is_public=False, user_id=self.user.id)
+        self.recipe = Recipe(name="Test Recipe", method="test", is_public=False, user_id=self.user.id)
         self.recipe.save()
 
     def test_user_can_edit_recipe(self):
@@ -178,7 +178,7 @@ class RecipeDeleteViewTests(TestCase):
         self.user = get_user_model().objects.create(username="testuser")
         self.user.set_password('password2026')
         self.user.save()
-        self.recipe = Recipe(name="Test Recipe", is_public=False, user_id=self.user.id)
+        self.recipe = Recipe(name="Test Recipe", method="test", is_public=False, user_id=self.user.id)
         self.recipe.save()
 
     def test_user_can_delete_recipe(self):
